@@ -16,7 +16,7 @@ const SearchQp = () => {
     // Fetch images on component mount
     const fetchImages = async () => {
       try {
-        const response = await axios.get(`http://localhost:5000/searchqp?text=${searchText}`);
+        const response = await axios.get(`https://vitpyqback.vercel.app/searchqp?text=${searchText}`);
         setImageData(response.data);
       } catch (error) {
         console.error('Error fetching images:', error);

@@ -61,7 +61,7 @@ const TextExtractionApp = () => {
     }));
 
     try {
-      const response = await axios.post('http://localhost:5000/saveqp', imagesData, {
+      const response = await axios.post('https://vitpyqback.vercel.app/saveqp', imagesData, {
         headers: {
           'Content-Type': 'application/json',
         },

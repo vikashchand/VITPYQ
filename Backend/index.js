@@ -11,7 +11,7 @@ const fs = require('fs');
 const path = require('path');
 
 const corsOptions = {
-  origin: 'http://localhost:3000',
+  origin: 'https://vitpyq.vercel.app',
   credentials: true,
   optionSuccessStatus: 200,
 };
