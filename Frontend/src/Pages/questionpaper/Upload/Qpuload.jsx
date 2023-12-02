@@ -10,7 +10,7 @@ const TextExtractionApp = () => {
   const handleImageChange = async (e) => {
     const selectedImages = Array.from(e.target.files);
     setImages(selectedImages);
-  
+
     const extractedText = await Promise.all(
       selectedImages.map((image) => {
         return new Promise((resolve) => {
@@ -29,48 +29,37 @@ const TextExtractionApp = () => {
         });
       })
     );
-  
+
     setTextResults(extractedText);
   };
+  const saveChanges = async () => {
+    const imagesData = await Promise.all(images.map(async (image, index) => {
+      const imageDataUrl = await new Promise((resolve) => {
+        const reader = new FileReader();
+        reader.onloadend = () => {
+          resolve(reader.result);
+        };
+        reader.readAsDataURL(image);
+      });
   
-
-// ...
-
-const saveChanges = async (index) => {
-  const formData = new FormData();
-  formData.append('text', textResults[index]);
-
-  // Convert image to binary data
-  const imageFile = images[index];
-  const imageBinary = await new Promise((resolve) => {
-    const reader = new FileReader();
-    reader.onloadend = () => {
-      const binary = reader.result.split(',')[1];
-      resolve(binary);
-    };
-    reader.readAsDataURL(imageFile);
-  });
-  try {
-    const response = await axios.post('http://localhost:5000/saveqp', { image: imageBinary, text: textResults[index] }, {
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
-    console.log('Server Response:', response.data);
-  } catch (error) {
-    console.error('Error saving changes:', error);
-  }
+      return {
+        image: imageDataUrl.split(',')[1], // Extract base64 portion of the data URL
+        text: textResults[index],
+      };
+    }));
   
-};
-
-// ...
-
-
-
-
-
-
-
+    try {
+      const response = await axios.post('http://localhost:5000/saveqp', imagesData, {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+      console.log('Server Response:', response.data);
+    } catch (error) {
+      console.error('Error saving changes:', error);
+    }
+  };
+  
   return (
     <div className="text-extraction-app">
       <input className='uploadbtn' type="file" accept="image/*" multiple onChange={handleImageChange} />
@@ -83,10 +72,11 @@ const saveChanges = async (index) => {
               value={textResults[index] || ''}
               onChange={(e) => setTextResults((prev) => [...prev.slice(0, index), e.target.value, ...prev.slice(index + 1)])}
             />
-            <button onClick={() => saveChanges(index)}>Save Changes</button>
           </div>
         </div>
       ))}
+
+      <button onClick={saveChanges}>Save Changes</button>
     </div>
   );
 };

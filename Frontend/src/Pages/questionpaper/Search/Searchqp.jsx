@@ -26,16 +26,16 @@ const SearchQp = () => {
     fetchImages();
   }, [searchText]);
 
-  const handleDownload = (imageUrl) => {
-    // Create a link element and trigger the download
-    const link = document.createElement('a');
-    link.href = imageUrl;
-    link.download = 'downloaded_image.jpg';
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
+  const handleDownload = (imageUrls) => {
+    imageUrls.forEach((imageUrl, index) => {
+      const link = document.createElement('a');
+      link.href = imageUrl;
+      link.download = `downloaded_image_${index}.jpg`;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    });
   };
-
   const openModal = (imageUrl) => {
     setSelectedImage(imageUrl);
     setIsModalOpen(true);
@@ -46,25 +46,23 @@ const SearchQp = () => {
     setIsModalOpen(false);
   };
 
-
   function truncateText(text, maxLength) {
     if (text.length <= maxLength) {
       return text;
     } else {
       // Find the index of the last space within the first `maxLength` characters
       const lastSpaceIndex = text.lastIndexOf(' ', maxLength);
-  
+
       // Truncate the text and add ellipsis
       const truncatedText = lastSpaceIndex !== -1 ? text.substring(0, lastSpaceIndex) + '...' : text.substring(0, maxLength) + '...';
-  
+
       return truncatedText;
     }
   }
-  
+
   return (
     <div className="searchqp-container">
-
-    <h1> Search Question paper based on Subject Name,Code or Faculty</h1>
+      <h1> Search Question paper based on Subject Name, Code, or Faculty</h1>
       <div className="search-bar">
         <FaSearch />
         <input
@@ -75,15 +73,23 @@ const SearchQp = () => {
         />
       </div>
 
-      <h3>Click on image to view it</h3>
+      <h3>Click on the image to view it</h3>
 
       <div className="card-container">
         {imageData.map((result, index) => (
           <div key={index} className="card">
-            <img src={result.imageUrl} alt={`Image ${index}`} onClick={() => openModal(result.imageUrl)} />
+            {result.imageUrls.map((imageUrl, imgIndex) => (
+              <img
+                key={imgIndex}
+                src={imageUrl}
+                alt={`Image ${index}`}
+                onClick={() => openModal(imageUrl)}
+              />
+            ))}
             <div className="card-actions">
-              <FaDownload onClick={() => handleDownload(result.imageUrl)} />
-            </div>
+            <FaDownload onClick={() => handleDownload(result.imageUrls)} />
+
+              </div>
             <p>{truncateText(result.text, 500)}</p>
           </div>
         ))}
