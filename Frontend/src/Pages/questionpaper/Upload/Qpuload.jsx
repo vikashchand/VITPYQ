@@ -13,6 +13,7 @@ const TextExtractionApp = () => {
     const selectedImages = Array.from(e.target.files);
     setImages(selectedImages);
 
+    // Extract text in order and maintain order
     const extractedText = await Promise.all(
       selectedImages.map((image) => {
         return new Promise((resolve) => {
@@ -46,13 +47,22 @@ const TextExtractionApp = () => {
     }
 
     const imagesData = await Promise.all(images.map(async (image, index) => {
-      const imageDataUrl = await new Promise((resolve) => {
-        const reader = new FileReader();
-        reader.onloadend = () => {
-          resolve(reader.result);
-        };
-        reader.readAsDataURL(image);
-      });
+      // Convert image to portrait orientation
+      const canvas = document.createElement('canvas');
+      const ctx = canvas.getContext('2d');
+
+      if (image.width > image.height) {
+        canvas.width = image.height;
+        canvas.height = image.width;
+        ctx.rotate(Math.PI / 2);
+        ctx.drawImage(image, 0, -canvas.width);
+      } else {
+        canvas.width = image.width;
+        canvas.height = image.height;
+        ctx.drawImage(image, 0, 0);
+      }
+
+      const imageDataUrl = canvas.toDataURL('image/jpeg');
 
       return {
         image: imageDataUrl.split(',')[1], // Extract base64 portion of the data URL
