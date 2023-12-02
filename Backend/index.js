@@ -20,7 +20,7 @@ app.use(cors(corsOptions));
 app.use(bodyParser.json({ limit: '50mb' }));
 app.use(bodyParser.urlencoded({ extended: true }));
 
-app.use('/', user);
+
 
 const imageSchema = new mongoose.Schema({
   images: [{
