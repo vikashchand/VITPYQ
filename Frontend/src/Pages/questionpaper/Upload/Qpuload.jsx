@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import Tesseract from 'tesseract.js';
 import axios from 'axios';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import './Qpupload.css';
 
 const TextExtractionApp = () => {
@@ -32,7 +34,17 @@ const TextExtractionApp = () => {
 
     setTextResults(extractedText);
   };
+
   const saveChanges = async () => {
+    if (images.length === 0) {
+      // Display a toast message if no image is chosen
+      toast.error('Please choose at least one image to save changes', {
+        position: toast.POSITION.TOP_RIGHT,
+        autoClose: 2000,
+      });
+      return;
+    }
+
     const imagesData = await Promise.all(images.map(async (image, index) => {
       const imageDataUrl = await new Promise((resolve) => {
         const reader = new FileReader();
@@ -41,13 +53,13 @@ const TextExtractionApp = () => {
         };
         reader.readAsDataURL(image);
       });
-  
+
       return {
         image: imageDataUrl.split(',')[1], // Extract base64 portion of the data URL
         text: textResults[index],
       };
     }));
-  
+
     try {
       const response = await axios.post('http://localhost:5000/saveqp', imagesData, {
         headers: {
@@ -55,13 +67,30 @@ const TextExtractionApp = () => {
         },
       });
       console.log('Server Response:', response.data);
+
+      // Display success toast
+      toast.success('Changes saved successfully', {
+        position: toast.POSITION.TOP_RIGHT,
+        autoClose: 2000, // Auto close the toast after 2 seconds
+      });
+
+      // Reset the form
+      setImages([]);
+      setTextResults([]);
     } catch (error) {
       console.error('Error saving changes:', error);
+
+      // Display error toast
+      toast.error('Error saving changes', {
+        position: toast.POSITION.TOP_RIGHT,
+        autoClose: 2000,
+      });
     }
   };
-  
+
   return (
     <div className="text-extraction-app">
+      <p>Select the images, wait for text extraction, edit the text content, and save the changes to upload.</p>
       <input className='uploadbtn' type="file" accept="image/*" multiple onChange={handleImageChange} />
 
       {images.map((image, index) => (
@@ -77,6 +106,9 @@ const TextExtractionApp = () => {
       ))}
 
       <button onClick={saveChanges}>Save Changes</button>
+
+      {/* Toast container */}
+      <ToastContainer />
     </div>
   );
 };

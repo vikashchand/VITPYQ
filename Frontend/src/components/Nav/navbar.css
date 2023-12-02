@@ -42,30 +42,48 @@
 /* ----------- Grid part ends ----------------- */
 
 .logo h2 {
-  font-size: 15px;
   
+  
+  margin: 8px;
+  padding: 8px 20px;
+  text-align: center;
   text-transform: uppercase;
- 
-  background-color: white;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+  transition: 0.5s;
+  background-size: 200% auto;
+  color: white;            
+  box-shadow: 0 0 20px #eee;
+  border-radius: 10px;
+  display: block;
 }
 
-.logo h2 span {
-  font-size: 30px;
-}
+
 
 .menu-link ul li {
-  font-size: 18px;
-  background-color: rgb(184, 104, 104);
-  margin: 5px;
-  border-radius: 2px;
-  padding: 3px;
+
+  background-image: linear-gradient(to right, #e5d6d6 0%, #a6a6a6  51%, #f1c9c9  100%);
+  margin: 8px;
+  padding: 8px 20px;
+  text-align: center;
+  text-transform: uppercase;
+  transition: 0.5s;
+  background-size: 200% auto;
+  color: white;            
+  box-shadow: 0 0 20px #eee;
+  border-radius: 10px;
+  display: block;
 }
+
+
+
+
+
+
+  
+
 
 .menu-link ul li a {
   text-transform: capitalize;
-  color: rgba(255, 255, 255, 0.8);
+  color: rgba(7, 1, 1, 0.8);
   transition: 0.5s;
 }
 .menu-link ul li:hover > a {

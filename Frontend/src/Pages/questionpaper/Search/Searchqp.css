@@ -26,6 +26,11 @@
     gap: 20px;
     
   }
+
+  h1,h3{
+    font-size: medium;
+    font-family: 'Times New Roman', Times, serif;
+  }
   
   .card {
     position: relative;
@@ -35,11 +40,13 @@
     overflow: hidden;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     transition: transform 0.3s ease-in-out;
+    padding: 10px;
   
     img {
       width: 100%;
       height: auto;
       border-bottom: 1px solid #ddd;
+     
     }
   
     .card-actions {
@@ -112,3 +119,20 @@
     font-size: 20px;
   }
   
+
+  p{
+    text-align: left;
+    padding: 10px 10px;
+    font-weight: 100;
+    font-style: italic;
+    font-family:'Times New Roman', Times, serif
+  }
+
+
+  @media (max-width: 768px) {
+
+    h1,h2{
+      font-size: medium;
+    }
+
+  }

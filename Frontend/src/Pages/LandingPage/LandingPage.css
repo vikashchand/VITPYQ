@@ -51,9 +51,17 @@
   font-size: 1.2em;
 }
 
+.landing-page p{
+  text-align: center;
+}
+
 .feature-card p {
   font-size: 0.9em;
+  text-align: start;
+
 }
+
+
 
 .contact-container {
   display: flex;
@@ -88,7 +96,11 @@
 }
 
 
-
+.lin{
+ font-style: italic;
+ font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+ color: #fff;
+}
 
 
 
@@ -169,7 +181,7 @@ width: 100%;
 }
 
 .feature-card p {
-  font-size: 0.5em;
+  font-size: 15px;
 }
 
 .landing-page h1{
@@ -207,6 +219,21 @@ width: 100%;
   flex: 1;
   text-align: right;
 }
+
+button  {
+  background-image: linear-gradient(to right, #000000 0%, #53346D  51%, #000000  100%);
+  margin: 10px;
+  padding: 10px 40px;
+  text-align: center;
+  text-transform:none;
+
+  background-size: 200% auto;
+  color: white;            
+  box-shadow: 0 0 20px #decfcf;
+  border-radius: 10px;
+  display: block;
+}
+
 
 
 }
