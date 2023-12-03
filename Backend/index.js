@@ -107,7 +107,7 @@ const imageSchema = new mongoose.Schema({
     },
     text: {
       type: String,
-      required: true,
+      
     },
   }],
 });

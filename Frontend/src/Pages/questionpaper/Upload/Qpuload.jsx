@@ -29,19 +29,49 @@ const TextExtractionApp = () => {
 
   const droppableId = `droppable-${new Date().getTime()}`;
 
+  // const handleImageChange = async () => {
+  //   setLoading(true);
+  
+  //   if (images.length === 0) {
+  //     setLoading(false);
+  //     return;
+  //   }
+  
+  //   const extractedText = await Tesseract.recognize(images[0], 'eng')
+  //     .then(({ data: { text } }) => text.trim())
+  //     .catch(() => 'Error extracting text');
+  
+  //   setTextResults([extractedText]);
+  //   setLoading(false);
+  // };
+
+
   const handleImageChange = async () => {
     setLoading(true);
-
-    const extractedText = await Promise.all(
-      images.map((image) =>
-        Tesseract.recognize(image, 'eng').then(({ data: { text } }) => text.trim()).catch(() => 'Error extracting text')
-      )
-    );
-
-    setTextResults(extractedText);
+  
+    if (images.length === 0) {
+      setLoading(false);
+      return;
+    }
+  
+    const extractedText = await Tesseract.recognize(images[0], 'eng')
+      .then(({ data: { text } }) => text.trim())
+      .catch(() => 'Error extracting text');
+  
+    // Extract the first 300 words from the text
+    const first300Words = extractedText.split(/\s+/).slice(0, 100).join(' ');
+  
+    setTextResults([first300Words]);
     setLoading(false);
   };
+  
 
+
+
+
+
+
+  
   const saveChanges = async () => {
     if (images.length === 0) {
       // Display a toast message if no image is chosen
@@ -124,10 +154,14 @@ const TextExtractionApp = () => {
       <h3>Steps</h3>
      
     
-      <li>1.For Multiple images select Images, rearrange pages by dragging them.</li>
+      <li>1.For Multiple images select images, rearrange images by dragging them.</li>
+    
      <li>2.After rearranging images, click 'Extract Text'.</li>
-     <li>3.Review and edit the first text box if needed.</li>
-     <li>4.Click 'Save' to preserve changes to images.</li>
+     <li>3.Keep focus on first image only coz that will be used for extracting text</li>
+     <li>Only first 100 words will be extracted from first image to maintain efficiency and storage</li>
+   
+     <li>4.Review and edit the first text box if needed.</li>
+     <li>5.Click 'Save' to preserve changes to images.</li>
      <li></li>
       
       
@@ -140,7 +174,7 @@ const TextExtractionApp = () => {
 
       <div {...getRootProps()} className="dropzone inp">
         <input {...getInputProps()} />
-        <p>Drag 'n' drop some files here, or click to select files</p>
+        <p>Drag some images here, or click to select Images</p>
       </div>
 
       {loading && <BeatLoader css={override} size={15} color={'black'} loading={loading} />}
@@ -196,7 +230,7 @@ const TextExtractionApp = () => {
           {buttonsVisible && ( // Conditionally render the buttons based on visibility state
             <>
               <button onClick={handleImageChange} disabled={loading || images.length === 0}>
-                Extract Text
+                Extract Text of first image
               </button>
   
               <button onClick={saveChanges} disabled={loading || images.length === 0}>

@@ -90,7 +90,7 @@ const LandingPage = () => {
             <div className="feature-details">
               <h3>Extensive Search </h3>
              
-             <p>If a good snap has been uploaded one can even serach question paper based on question asked</p>
+             <p>If a good snap has been uploaded one can even search question paper based on question asked</p>
               </div>
               
           </li>
