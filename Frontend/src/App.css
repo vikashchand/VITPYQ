@@ -2,6 +2,8 @@
 .App {
   text-align: center;
   font-family: 'Poppins', sans-serif;
+  
+  background-size: contain;
 }
 
 .App-logo {

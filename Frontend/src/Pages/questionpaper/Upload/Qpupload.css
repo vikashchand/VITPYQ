@@ -3,6 +3,7 @@
   margin: 0 auto;
   padding: 20px;
   font-family: Arial, sans-serif;
+  
 }
 
 .image-container {
@@ -23,32 +24,37 @@ img {
 }
 
 textarea {
-  width: 100%;
+  width: 80%;
   min-height: 300px;
   padding: 10px;
   margin-top: 10px;
 }
 
 
-input{
+.inp{
 
 
- background-color: #eee;
+  background-color: rgb(226, 237, 245);
   margin: 10px;
   margin-left: 10%;
-  padding: 15px 45px;
+  padding: 10px 30px;
   text-align: center;
+  width: 60%;
+ 
   text-transform: uppercase;
   transition: 0.5s;
-  background-size: 200% auto;
+  background-size: 100% auto;
   color: rgb(7, 0, 0);            
-  box-shadow: 0 0 20px #eee;
+  box-shadow: 0 0 20px #1f1111;
   border-radius: 10px;
   display: block;
   align-self: center;
   align-items: center;
   justify-content: center;
+  border: 1px solid black;
 }
+
+
 
 
 .uploadbtn{
@@ -64,6 +70,65 @@ input{
   color: white;            
   box-shadow: 0 0 20px #eee;
   border-radius: 10px;
+ 
   display: block;
    
+}
+
+.button-container{
+  display: flex;
+}
+
+
+.instructions {
+  font-size: 16px;
+font-family: 'Times New Roman', Times, serif;
+font-style: italic;
+  /* Add other styling as needed */
+}
+
+.instructions ul {
+  list-style-type: none;
+  padding: 0;
+  text-align: start;
+}
+
+.instructions li {
+  margin-bottom: 10px;
+  /* Add other styling as needed */
+}
+
+
+
+.reorder{
+
+border: 1px solid  black;
+margin: 5px 10px;
+border-radius: 10px;
+
+}
+@media (max-width: 768px) {
+
+.inp{
+  
+ background-color: #eee;
+ margin: 0px;
+ margin-left: 0%;
+ padding: 0% 0%;
+ text-align: center;
+ width: 100%;
+font-size: small;
+ text-transform: uppercase;
+ transition: 0.5s;
+ background-size: 100% auto;
+ color: rgb(7, 0, 0);            
+ box-shadow: 0 0 20px #eee;
+ border-radius: 10px;
+ display: block;
+ align-self: center;
+ align-items: center;
+ justify-content: center;
+ border: 3px solid black;
+}
+  
 }

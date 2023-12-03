@@ -1,39 +1,45 @@
 import React, { useState } from 'react';
+import { useDropzone } from 'react-dropzone';
+import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
+import { css } from '@emotion/react';
+import { BeatLoader } from 'react-spinners';
 import Tesseract from 'tesseract.js';
 import axios from 'axios';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import './Qpupload.css';
+import baseUrl from '../../../config';
+
+const override = css`
+  display: block;
+  margin: 0 auto;
+`;
 
 const TextExtractionApp = () => {
   const [images, setImages] = useState([]);
   const [textResults, setTextResults] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [buttonsVisible, setButtonsVisible] = useState(false); // New state for button visibility
 
-  const handleImageChange = async (e) => {
-    const selectedImages = Array.from(e.target.files);
-    setImages(selectedImages);
+  const onDrop = (acceptedFiles) => {
+    setImages(acceptedFiles);
+    setButtonsVisible(true); // Show buttons when images are uploaded
+  };
 
-    // Extract text in order and maintain order
+
+  const droppableId = `droppable-${new Date().getTime()}`;
+
+  const handleImageChange = async () => {
+    setLoading(true);
+
     const extractedText = await Promise.all(
-      selectedImages.map((image) => {
-        return new Promise((resolve) => {
-          const reader = new FileReader();
-          reader.onloadend = () => {
-            Tesseract.recognize(reader.result, 'eng')
-              .then(({ data: { text } }) => {
-                resolve(text.trim());
-              })
-              .catch((error) => {
-                console.error('Error during text extraction:', error);
-                resolve('Error extracting text');
-              });
-          };
-          reader.readAsDataURL(image);
-        });
-      })
+      images.map((image) =>
+        Tesseract.recognize(image, 'eng').then(({ data: { text } }) => text.trim()).catch(() => 'Error extracting text')
+      )
     );
 
     setTextResults(extractedText);
+    setLoading(false);
   };
 
   const saveChanges = async () => {
@@ -47,22 +53,13 @@ const TextExtractionApp = () => {
     }
 
     const imagesData = await Promise.all(images.map(async (image, index) => {
-      // Convert image to portrait orientation
-      const canvas = document.createElement('canvas');
-      const ctx = canvas.getContext('2d');
-
-      if (image.width > image.height) {
-        canvas.width = image.height;
-        canvas.height = image.width;
-        ctx.rotate(Math.PI / 2);
-        ctx.drawImage(image, 0, -canvas.width);
-      } else {
-        canvas.width = image.width;
-        canvas.height = image.height;
-        ctx.drawImage(image, 0, 0);
-      }
-
-      const imageDataUrl = canvas.toDataURL('image/jpeg');
+      const imageDataUrl = await new Promise((resolve) => {
+        const reader = new FileReader();
+        reader.onloadend = () => {
+          resolve(reader.result);
+        };
+        reader.readAsDataURL(image);
+      });
 
       return {
         image: imageDataUrl.split(',')[1], // Extract base64 portion of the data URL
@@ -71,7 +68,7 @@ const TextExtractionApp = () => {
     }));
 
     try {
-      const response = await axios.post('https://vitpyqback.vercel.app/saveqp', imagesData, {
+      const response = await axios.post(`${baseUrl}/saveqp`, imagesData, {
         headers: {
           'Content-Type': 'application/json',
         },
@@ -98,24 +95,115 @@ const TextExtractionApp = () => {
     }
   };
 
+  const onDragEnd = (result) => {
+    if (!result.destination) return;
+  
+    const reorderedImages = Array.from(images);
+    const [reorderedItem] = reorderedImages.splice(result.source.index, 1);
+    reorderedImages.splice(result.destination.index, 0, reorderedItem);
+  
+    const reorderedTextResults = Array.from(textResults);
+    const [reorderedText] = reorderedTextResults.splice(result.source.index, 1);
+    reorderedTextResults.splice(result.destination.index, 0, reorderedText);
+  
+    setImages(reorderedImages);
+    setTextResults(reorderedTextResults);
+  };
+  
+  const { getRootProps, getInputProps } = useDropzone({
+    accept: 'image/*',
+    onDrop,
+  });
+
   return (
     <div className="text-extraction-app">
-      <p>Select the images, wait for text extraction, edit the text content, and save the changes to upload.</p>
-      <input className='uploadbtn' type="file" accept="image/*" multiple onChange={handleImageChange} />
+      <h1>"Masterful Document Handling: Rearrange, Extract, Edit, Save – Simply."</h1>
+      <div className='instructions'>
+      
+      <ul>
+      <h3>Steps</h3>
+      <li>1.Upon selection, rearrange pages by dragging them.</li>
+     <li>2.After rearranging images, click 'Extract Text'.</li>
+     <li>3.Review and edit the first text box if needed.</li>
+     <li>4.Click 'Save' to preserve changes to images.</li>
+      
+      
+      </ul>
+      
+      
+      </div>
 
-      {images.map((image, index) => (
-        <div key={index} className="image-container">
-          <img src={URL.createObjectURL(image)} alt={`Image ${index}`} />
-          <div className="text-container">
-            <textarea
-              value={textResults[index] || ''}
-              onChange={(e) => setTextResults((prev) => [...prev.slice(0, index), e.target.value, ...prev.slice(index + 1)])}
-            />
-          </div>
+
+
+      <div {...getRootProps()} className="dropzone inp">
+        <input {...getInputProps()} />
+        <p>Drag 'n' drop some files here, or click to select files</p>
+      </div>
+
+      {loading && <BeatLoader css={override} size={15} color={'#36D7B7'} loading={loading} />}
+
+      <DragDropContext onDragEnd={onDragEnd}>
+    
+
+    
+      <Droppable droppableId={droppableId}>
+        {(provided) => (
+          
+          <div {...provided.droppableProps} ref={provided.innerRef} className="image-list ">
+          
+         
+          {images.map((image, index) => (
+            
+              <Draggable key={index} draggableId={`image-${index}`} index={index}>
+           
+                {(provided) => (
+
+                  
+                
+                    <div className='reorder' {...provided.draggableProps} {...provided.dragHandleProps} ref={provided.innerRef}>
+                    
+                    <div className="image-container">
+                      <p>{index+1}</p>
+                        <img src={URL.createObjectURL(image)} alt={`Image ${index}`} />
+                        {textResults[index] && (
+                          <div className="text-container">
+                            <textarea
+                              value={textResults[index]}
+                              onChange={(e) =>
+                                setTextResults((prev) => [...prev.slice(0, index), e.target.value, ...prev.slice(index + 1)])
+                              }
+                              placeholder="Enter text..."
+                            />
+                          </div>
+                        )}
+                      </div>
+                  
+</div>
+                    
+                  )}
+                  </Draggable>
+                  ))}
+                  {provided.placeholder}
+                </div>
+              )}
+            </Droppable>
+          </DragDropContext>
+    
+          <div className="button-container">
+          {buttonsVisible && ( // Conditionally render the buttons based on visibility state
+            <>
+              <button onClick={handleImageChange} disabled={loading || images.length === 0}>
+                Extract Text
+              </button>
+  
+              <button onClick={saveChanges} disabled={loading || images.length === 0}>
+                Save Changes
+              </button>
+            </>
+          )}
         </div>
-      ))}
-
-      <button onClick={saveChanges}>Save Changes</button>
+        
+      
 
       {/* Toast container */}
       <ToastContainer />

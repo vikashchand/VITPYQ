@@ -3,7 +3,6 @@
 .landing-page {
   text-align: center;
   padding: 20px;
-  background-image: url('../../assets/background.png');
   
 }
 
@@ -29,7 +28,7 @@
 }
 
 .feature-card {
-  background-color: rgb(215, 224, 231);
+  background-color: rgb(226, 237, 245);
   box-shadow: 5px 4px 8px rgba(5, 2, 2, 0.2);
   border-radius: 5px;
   margin: 10px;
@@ -125,6 +124,8 @@ button:hover {
   color: #fff;
   text-decoration: none;
 }
+
+
 /* Media Query for Responsiveness */
 @media (max-width: 768px) {
  
@@ -234,6 +235,11 @@ button  {
   display: block;
 }
 
+.dev{
+  font-size: small;
+  font-family: 'Times New Roman', Times, serif;
+  
+}
 
 
 }

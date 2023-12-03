@@ -11,6 +11,7 @@
   grid-template-columns: 10rem 1fr 2fr 1fr 10rem;
   box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px,
     rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
+   
 }
 
 .logo {
@@ -22,19 +23,18 @@
 }
 
 .menu-link {
-  grid-column: 3/4;
+  grid-column: 5/7;
+ 
 }
 
 .menu-link ul {
   height: 30px;
   display: flex;
-  justify-content: space-around;
-  align-items: center;
  
-}
+  align-items: center;
 
-.social-media {
-  grid-column: 4/5;
+ 
+  
 }
 
 
@@ -60,9 +60,12 @@
 
 .menu-link ul li {
 
-  background-image: linear-gradient(to right, #e5d6d6 0%, #a6a6a6  51%, #f1c9c9  100%);
+  
+  
+  background-color: rgb(226, 237, 245);
+  
   margin: 8px;
-  padding: 8px 20px;
+  padding: 5px 10px;
   text-align: center;
   text-transform: uppercase;
   transition: 0.5s;
@@ -158,35 +161,47 @@
   .logo,
   .social-media ul {
     height: 7rem;
+    
   }
 
   .mobile-menu-link {
-    grid-column: 2/4;
+    grid-column: 1/4;
     position: relative;
     z-index: 99;
+    background-color: #e8f2ff;
   }
 
   .mobile-menu-link {
-    background-color: rgb(7, 5, 5);
+    background-color: rgb(232, 209, 209);
+    background-color: transparent;
     height: 20rem;
     display: grid;
     grid-column: 2/5;
     align-items: center;
-    padding-left: 3rem;
+    padding-left: 0rem;
     transition: all 2s linear;
     transform-origin: top;
     box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px,
       rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
+
+      
   }
 
   .mobile-menu-link ul {
     height: 20rem;
     display: flex;
+    background-color: #e8f2ff;
     justify-content: space-around;
+    
     flex-direction: column;
     align-items: start;
   }
 
+  .mobile-menu-link ul li{
+    width: 80%;
+   
+    background-color: rgb(236, 224, 208);
+  }
   .mobile-menu-link ul li:first-child {
     transition-delay: 0.2s;
   }
@@ -197,6 +212,7 @@
     justify-items: end;
     align-items: center;
     transition: all 2s linear;
+    
   }
 
   .social-media .social-media-desktop {
@@ -209,6 +225,7 @@
     display: flex;
     justify-self: end;
     align-items: center;
+    
   }
 
   .social-media .hamburger-menu {
@@ -216,6 +233,9 @@
     font-size: 2.5rem;
   }
 }
+
+
+
 
 @media (max-width: 798px) {
   .main-nav {
@@ -250,6 +270,11 @@
     font-size: 2.5rem;
   }
 }
+
+
+
+
+
 
 @media (max-width: 520px) {
   .main-nav {

@@ -5,26 +5,44 @@ import { FaSearch, FaDownload, FaTimes } from 'react-icons/fa';
 import axios from 'axios';
 import Modal from 'react-modal'; // Import the modal library
 import './Searchqp.css'; // Import the CSS file
-
+import { MdRefresh } from 'react-icons/md';
+import baseUrl from '../../../config';
 const SearchQp = () => {
   const [imageData, setImageData] = useState([]);
   const [searchText, setSearchText] = useState('');
   const [selectedImage, setSelectedImage] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
-    // Fetch images on component mount
+    const cancelTokenSource = axios.CancelToken.source();
+
     const fetchImages = async () => {
       try {
-        const response = await axios.get(`https://vitpyqback.vercel.app/searchqp?text=${searchText}`);
+        setIsLoading(true); // Set loading to true while fetching data
+
+        const response = await axios.get(`${baseUrl}/searchqp?text=${searchText}`, {
+          cancelToken: cancelTokenSource.token,
+        });
         setImageData(response.data);
       } catch (error) {
-        console.error('Error fetching images:', error);
+        if (axios.isCancel(error)) {
+          // Request was canceled, ignore
+        } else {
+          console.error('Error fetching images:', error);
+        }
+      } finally {
+        setIsLoading(false); // Set loading to false after fetching data
       }
     };
 
     fetchImages();
+
+    return () => {
+      cancelTokenSource.cancel('Request canceled by cleanup');
+    };
   }, [searchText]);
+  
 
   const handleDownload = (imageUrls) => {
     imageUrls.forEach((imageUrl, index) => {
@@ -65,7 +83,7 @@ const SearchQp = () => {
       <h1> Search Question paper based on Subject Name, Code, or Faculty</h1>
       <div className="search-bar">
         <FaSearch />
-        <input
+        <input className='inpt'
           type="text"
           placeholder="Search "
           value={searchText}
@@ -74,6 +92,7 @@ const SearchQp = () => {
       </div>
 
       <h3>Click on the image to view it</h3>
+      {isLoading && <div className="loader"><MdRefresh className="refresh-icon" /></div>}
 
       <div className="card-container">
         {imageData.map((result, index) => (
