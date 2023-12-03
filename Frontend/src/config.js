@@ -1,2 +1,2 @@
-const baseUrl = 'https://vitpyq.vercel.app';
+const baseUrl = 'https://vitpyqback.vercel.app';
 export default baseUrl;
