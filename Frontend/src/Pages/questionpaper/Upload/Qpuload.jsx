@@ -118,7 +118,7 @@ const TextExtractionApp = () => {
       console.error('Error saving changes:', error);
 
       // Display error toast
-      toast.error('Error saving changes', {
+      toast.error(error,{
         position: toast.POSITION.TOP_RIGHT,
         autoClose: 2000,
       });
