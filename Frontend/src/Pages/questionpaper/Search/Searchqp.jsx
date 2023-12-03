@@ -3,28 +3,37 @@
 import React, { useEffect, useState } from 'react';
 import { FaSearch, FaDownload, FaTimes } from 'react-icons/fa';
 import axios from 'axios';
-import Modal from 'react-modal'; // Import the modal library
-import './Searchqp.css'; // Import the CSS file
-import { MdRefresh } from 'react-icons/md';
+import Modal from 'react-modal';
+
 import baseUrl from '../../../config';
+import './Searchqp.css';
+
 const SearchQp = () => {
   const [imageData, setImageData] = useState([]);
   const [searchText, setSearchText] = useState('');
   const [selectedImage, setSelectedImage] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [noResults, setNoResults] = useState(false);
 
   useEffect(() => {
     const cancelTokenSource = axios.CancelToken.source();
 
     const fetchImages = async () => {
       try {
-        setIsLoading(true); // Set loading to true while fetching data
+        setIsLoading(true);
 
         const response = await axios.get(`${baseUrl}/searchqp?text=${searchText}`, {
           cancelToken: cancelTokenSource.token,
         });
-        setImageData(response.data);
+
+        // Check if there are search results
+        if (response.data.length === 0) {
+          setNoResults(true);
+        } else {
+          setNoResults(false);
+          setImageData(response.data);
+        }
       } catch (error) {
         if (axios.isCancel(error)) {
           // Request was canceled, ignore
@@ -32,17 +41,20 @@ const SearchQp = () => {
           console.error('Error fetching images:', error);
         }
       } finally {
-        setIsLoading(false); // Set loading to false after fetching data
+        setIsLoading(false);
       }
     };
 
-    fetchImages();
+    // Debounce the API call to only trigger after a short delay in user input
+    const debounceTimeout = setTimeout(() => {
+      fetchImages();
+    }, 500); // Adjust the delay (in milliseconds) as needed
 
     return () => {
+      clearTimeout(debounceTimeout); // Clear the timeout on cleanup
       cancelTokenSource.cancel('Request canceled by cleanup');
     };
   }, [searchText]);
-  
 
   const handleDownload = (imageUrls) => {
     imageUrls.forEach((imageUrl, index) => {
@@ -54,6 +66,7 @@ const SearchQp = () => {
       document.body.removeChild(link);
     });
   };
+
   const openModal = (imageUrl) => {
     setSelectedImage(imageUrl);
     setIsModalOpen(true);
@@ -68,22 +81,20 @@ const SearchQp = () => {
     if (text.length <= maxLength) {
       return text;
     } else {
-      // Find the index of the last space within the first `maxLength` characters
       const lastSpaceIndex = text.lastIndexOf(' ', maxLength);
-
-      // Truncate the text and add ellipsis
-      const truncatedText = lastSpaceIndex !== -1 ? text.substring(0, lastSpaceIndex) + '...' : text.substring(0, maxLength) + '...';
-
+      const truncatedText =
+        lastSpaceIndex !== -1 ? text.substring(0, lastSpaceIndex) + '...' : text.substring(0, maxLength) + '...';
       return truncatedText;
     }
   }
 
   return (
     <div className="searchqp-container">
-      <h1> Search Question paper based on Subject Name, Code, or Faculty</h1>
+      <h1>Search Question paper based on Subject Name, Code, or Faculty</h1>
       <div className="search-bar">
         <FaSearch />
-        <input className='inpt'
+        <input
+          className="inpt"
           type="text"
           placeholder="Search "
           value={searchText}
@@ -91,12 +102,17 @@ const SearchQp = () => {
         />
       </div>
 
-      <h3>Click on the image to view it</h3>
-      {isLoading && <div className="loader"><MdRefresh className="refresh-icon" /></div>}
+      {noResults && <p>No results found for "{searchText}"</p>}
+
+      {isLoading && <div className="loader">Loading wait for few secs</div>}
+
+      
 
       <div className="card-container">
+    
         {imageData.map((result, index) => (
           <div key={index} className="card">
+          <h3>Click on the image to view it</h3>
             {result.imageUrls.map((imageUrl, imgIndex) => (
               <img
                 key={imgIndex}
@@ -106,15 +122,13 @@ const SearchQp = () => {
               />
             ))}
             <div className="card-actions">
-            <FaDownload onClick={() => handleDownload(result.imageUrls)} />
-
-              </div>
-            <p>{truncateText(result.text, 500)}</p>
+              <FaDownload onClick={() => handleDownload(result.imageUrls)} />
+            </div>
+            <p>{truncateText(result.text, 300)}</p>
           </div>
         ))}
       </div>
 
-      {/* Modal for image preview */}
       <Modal
         isOpen={isModalOpen}
         onRequestClose={closeModal}

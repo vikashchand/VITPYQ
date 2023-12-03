@@ -138,6 +138,7 @@ button:hover {
 .feature-container {
 display: flex;
 width: 100%;
+margin: 3% 2%;
 
 
 }
@@ -145,7 +146,7 @@ width: 100%;
 .feature-description {
   flex: 1;
   text-align: left;
-  margin-right: 10px;
+  margin-right: 2px;
 }
 
 .feature-cards {
@@ -153,8 +154,9 @@ width: 100%;
   padding: 0;
   display: flex;
   flex-direction: row;
-  justify-content:center;
+  justify-content:start;
   width: 100%;
+  gap: 3%;
 }
 
 .feature-card {
@@ -182,7 +184,7 @@ width: 100%;
 }
 
 .feature-card p {
-  font-size: 15px;
+  font-size: 10px;
 }
 
 .landing-page h1{

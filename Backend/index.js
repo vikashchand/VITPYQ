@@ -28,6 +28,10 @@ app.use(bodyParser.json({ limit: '50mb' }));
 app.use(bodyParser.urlencoded({ extended: true }));
 
 
+
+
+
+
 const VisitorSchema = new mongoose.Schema({
   ip: {
     type: String,
@@ -47,7 +51,8 @@ const VisitorModel = mongoose.model('Visitor', VisitorSchema);
 
 app.get('/totalvisitor', async (req, res) => {
   try {
-    const visitorIP = req.ip; // Get the visitor's IP address
+    // Get the visitor's IP address, handling IPv6 loopback address issue
+    const visitorIP = req.socket.remoteAddress === '::1' ? '127.0.0.1' : req.socket.remoteAddress;
 
     // Find the visitor in the database
     const visitorEntry = await VisitorModel.findOne({ ip: visitorIP });
@@ -60,12 +65,12 @@ app.get('/totalvisitor', async (req, res) => {
       const currentTime = new Date();
       const lastVisitTime = visitorEntry.lastVisit;
 
-      // Check if it's been less than a certain time (e.g., 24 hours) since the last visit
+      // Check if it's been more than 1 minute since the last visit
       const timeDifference = currentTime - lastVisitTime;
-      const hoursDifference = timeDifference / (1000 * 60 * 60);
+      const minutesDifference = timeDifference / (1000 * 60);
 
-      if (hoursDifference >= 24) {
-        // If it's been more than 24 hours, update the totalVisitors count and lastVisit timestamp
+      if (minutesDifference >= 1) {
+        // If it's been more than 1 minute, update the totalVisitors count and lastVisit timestamp
         await VisitorModel.updateOne({ ip: visitorIP }, { $inc: { totalVisitors: 1 }, lastVisit: currentTime });
       }
     }
@@ -81,11 +86,6 @@ app.get('/totalvisitor', async (req, res) => {
     res.status(500).send('Internal Server Error');
   }
 });
-
-
-
-
-
 
 
 

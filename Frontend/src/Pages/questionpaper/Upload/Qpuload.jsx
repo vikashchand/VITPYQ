@@ -122,10 +122,13 @@ const TextExtractionApp = () => {
       
       <ul>
       <h3>Steps</h3>
-      <li>1.Upon selection, rearrange pages by dragging them.</li>
+     
+    
+      <li>1.For Multiple images select Images, rearrange pages by dragging them.</li>
      <li>2.After rearranging images, click 'Extract Text'.</li>
      <li>3.Review and edit the first text box if needed.</li>
      <li>4.Click 'Save' to preserve changes to images.</li>
+     <li></li>
       
       
       </ul>
@@ -140,7 +143,7 @@ const TextExtractionApp = () => {
         <p>Drag 'n' drop some files here, or click to select files</p>
       </div>
 
-      {loading && <BeatLoader css={override} size={15} color={'#36D7B7'} loading={loading} />}
+      {loading && <BeatLoader css={override} size={15} color={'black'} loading={loading} />}
 
       <DragDropContext onDragEnd={onDragEnd}>
     

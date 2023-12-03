@@ -172,12 +172,13 @@
   }
 
   .mobile-menu-link {
-    background-color: rgb(232, 209, 209);
-    background-color: transparent;
-    height: 20rem;
+    background-color: rgb(144, 138, 138);
+
+    
+    height: 15rem;
     display: grid;
-    grid-column: 2/5;
-    align-items: center;
+    grid-column: 4/5;
+    align-items:flex-start;
     padding-left: 0rem;
     transition: all 2s linear;
     transform-origin: top;
@@ -188,19 +189,34 @@
   }
 
   .mobile-menu-link ul {
-    height: 20rem;
+    height: 80%;
     display: flex;
-    background-color: #e8f2ff;
-    justify-content: space-around;
-    
+  
+   
+   
     flex-direction: column;
     align-items: start;
   }
 
   .mobile-menu-link ul li{
-    width: 80%;
+    width: 60%;
    
-    background-color: rgb(236, 224, 208);
+    
+
+    background-color: rgb(226, 237, 245);
+  
+    margin: 4px;
+    padding: 4px 15px;
+    text-align: center;
+    text-transform: uppercase;
+    transition: 0.5s;
+
+    color: white;            
+    box-shadow: none;
+    border-radius: 4px;
+    display: block;
+
+    
   }
   .mobile-menu-link ul li:first-child {
     transition-delay: 0.2s;
