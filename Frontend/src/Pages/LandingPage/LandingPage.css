@@ -4,6 +4,18 @@
   text-align: center;
   padding: 20px;
   
+  
+
+}
+
+
+.landing-page h1{
+  font-size: 2em;
+}
+
+
+.landing-page p{
+  font-size: 1.5em;
 }
 
 .feature-container {
@@ -34,6 +46,7 @@
   margin: 10px;
   padding: 10px;
   width: calc(33.33% - 50px);
+  
 }
 
 .feature-icon {
@@ -55,8 +68,8 @@
 }
 
 .feature-card p {
-  font-size: 0.9em;
-  text-align: start;
+  font-size: 1em;
+  text-align: justify;
 
 }
 
@@ -166,6 +179,8 @@ margin: 3% 2%;
   margin: 2px;
   padding: 5px;
   width: 44%;
+  text-align: justify;
+ 
 }
 
 
@@ -181,10 +196,12 @@ margin: 3% 2%;
 .feature-card h3 {
   margin: 0;
   font-size: .8em;
+  text-align: justify;
 }
 
 .feature-card p {
   font-size: 10px;
+  text-align: justify;
 }
 
 .landing-page h1{
@@ -200,7 +217,7 @@ margin: 3% 2%;
 
 .contact-description {
   flex: 1;
-  text-align: left;
+  text-align: justify;
   margin-right: 20px;
 }
 

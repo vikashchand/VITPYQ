@@ -49,6 +49,7 @@ const LandingPage = () => {
 
   return (
     <div className="landing-page">
+    
       <h1>Welcome to the VIT Previous Year Question and Faculty Review Portal</h1>
       <p>Exclusively For Mtech in Software Enginnering students </p>
 
@@ -63,7 +64,7 @@ const LandingPage = () => {
               <div className="feature-details">
                 <h3> Upload</h3>
                 
-                <p>This automatically extracts the text from image hence ,user wont need to type subject name ,code faculty name just You need to be a good at taking snaps</p>
+                <p>This automatically extracts the text from image hence ,user wont need to type subject name ,code faculty name, just You need to be a good at taking snaps</p>
               
                 <button >   <Link className='lin' to="/qpupload">Upload </Link> </button>
               
@@ -83,17 +84,7 @@ const LandingPage = () => {
                 </div>
             </li>
 
-            <li className="feature-card">
-            <div className="feature-icon">
-              <FaSearchengin />
-            </div>
-            <div className="feature-details">
-              <h3>Extensive Search </h3>
-             
-             <p>If a good snap has been uploaded one can even search question paper based on question asked</p>
-              </div>
-              
-          </li>
+           
            
           <li className="feature-card">
           <div className="feature-icon">
@@ -108,30 +99,9 @@ const LandingPage = () => {
             </div>
         </li>
 
-        <li className="feature-card">
-        <div className="feature-icon">
-          <FaRegNewspaper />
-        </div>
-        <div className="feature-details">
-          <h3>Total  Uploads </h3>
-          
-          
-          <p>No of question papers: {totalEntries !== null ? totalEntries : 'Loading...'}</p>
-          
-          </div>
-      </li>
+        
 
-      <li className="feature-card">
-      <div className="feature-icon">
-        <FaUser />
-      </div>
-      <div className="feature-details">
-        <h3>Total Users </h3>
-        
-       <p> Total Visitors: {totalVisitors !== null ? totalVisitors : 'Loading...'} </p>
-        </div>
-    </li>
-        
+      
           
 
     
@@ -156,7 +126,14 @@ const LandingPage = () => {
        
       </div>
       <div className='dev'> Made by the Student of 4th Year (2020-2025) Of Integrated M.Tech in Software Engineering with Love 💖 (Anonymous)</div>
-    </div>
+     
+      <div >
+      <h3>Total  Uploads <FaRegNewspaper/> {totalEntries !== null ? totalEntries : 'Loading...'}</h3>
+        <h3>Total Users <FaUser/> {totalVisitors !== null ? totalVisitors : 'Loading...'}  </h3>
+    
+  </div>
+    
+      </div>
   );
 }
 

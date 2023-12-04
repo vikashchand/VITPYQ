@@ -9,7 +9,7 @@ import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import './Qpupload.css';
 import baseUrl from '../../../config';
-
+import stringSimilarity from 'string-similarity';
 const override = css`
   display: block;
   margin: 0 auto;
@@ -29,21 +29,9 @@ const TextExtractionApp = () => {
 
   const droppableId = `droppable-${new Date().getTime()}`;
 
-  // const handleImageChange = async () => {
-  //   setLoading(true);
-  
-  //   if (images.length === 0) {
-  //     setLoading(false);
-  //     return;
-  //   }
-  
-  //   const extractedText = await Tesseract.recognize(images[0], 'eng')
-  //     .then(({ data: { text } }) => text.trim())
-  //     .catch(() => 'Error extracting text');
-  
-  //   setTextResults([extractedText]);
-  //   setLoading(false);
-  // };
+
+
+
 
 
   const handleImageChange = async () => {
@@ -54,15 +42,68 @@ const TextExtractionApp = () => {
       return;
     }
   
-    const extractedText = await Tesseract.recognize(images[0], 'eng')
-      .then(({ data: { text } }) => text.trim())
-      .catch(() => 'Error extracting text');
+    try {
+      const { data: { text } } = await Tesseract.recognize(images[0], 'eng');
   
-    // Extract the first 300 words from the text
-    const first300Words = extractedText.split(/\s+/).slice(0, 100).join(' ');
+      // Check if the first three characters match specific prefixes
+      const prefixes = ['swe', 'eee', 'mat', 'bit', 'cse','fre','ger','jap'];
+      const potentialPrefixes = [];
+      let allMatches = [];
   
-    setTextResults([first300Words]);
-    setLoading(false);
+      for (const prefix of prefixes) {
+        if (text.toLowerCase().includes(prefix.toLowerCase())) {
+          potentialPrefixes.push(prefix);
+        }
+      }
+  
+      console.log("Potential Prefixes:", potentialPrefixes);
+  
+      if (potentialPrefixes.length > 0) {
+        // Process each potential prefix
+        potentialPrefixes.forEach(potentialPrefix => {
+          // Extract words starting with the potential prefix, excluding 'answer'
+          const wordsWithPrefix = text
+            .split(/\s+/)
+            .filter(word =>
+              word.toLowerCase().startsWith(potentialPrefix.toLowerCase()) && word.toLowerCase() !== 'answer'
+            );
+  
+          console.log(`Words with ${potentialPrefix} Prefix:`, wordsWithPrefix);
+  
+          // Join the words back into a single string
+          const filteredText = wordsWithPrefix.join(' ');
+  
+          // Extract the first 7 characters as the potential course code
+          const regex = /\b[A-Za-z]{3}[A-Za-z\d]{4}\b/;
+          const match = filteredText.match(regex);
+  
+          console.log(`Regex Match for ${potentialPrefix}:`, match);
+  
+          if (match) {
+            // Accumulate all matches
+            allMatches = allMatches.concat(match);
+          }
+        });
+  
+        if (allMatches.length > 0) {
+          // Set the results with all the matches
+          setTextResults(allMatches);
+        } else {
+          // No matching pattern found
+          setTextResults([null]);
+          toast.error("upload better image");
+        }
+      } else {
+        // No matching prefix found
+        setTextResults([null]);
+        toast.error("upload better image");
+      }
+    } catch (error) {
+      console.error('Error extracting text:', error);
+      setTextResults(['Error extracting text']);
+    } finally {
+      setLoading(false);
+    }
   };
   
 
@@ -71,7 +112,16 @@ const TextExtractionApp = () => {
 
 
 
+
+
+
+
+
+
+
   
+
+
   const saveChanges = async () => {
     if (images.length === 0) {
       // Display a toast message if no image is chosen
@@ -81,7 +131,17 @@ const TextExtractionApp = () => {
       });
       return;
     }
-
+  
+    // Check if text is provided for the first image
+    if (!textResults[0]) {
+      // Display a toast message asking the user to extract text
+      toast.info('Please press the "Extract Text" button for the first image', {
+        position: toast.POSITION.TOP_RIGHT,
+        autoClose: 2000,
+      });
+      return;
+    }
+  
     const imagesData = await Promise.all(images.map(async (image, index) => {
       const imageDataUrl = await new Promise((resolve) => {
         const reader = new FileReader();
@@ -90,13 +150,13 @@ const TextExtractionApp = () => {
         };
         reader.readAsDataURL(image);
       });
-
+  
       return {
         image: imageDataUrl.split(',')[1], // Extract base64 portion of the data URL
         text: textResults[index],
       };
     }));
-
+  
     try {
       const response = await axios.post(`${baseUrl}/saveqp`, imagesData, {
         headers: {
@@ -104,26 +164,40 @@ const TextExtractionApp = () => {
         },
       });
       console.log('Server Response:', response.data);
-
+  
       // Display success toast
       toast.success('Changes saved successfully', {
         position: toast.POSITION.TOP_RIGHT,
         autoClose: 2000, // Auto close the toast after 2 seconds
       });
-
+  
       // Reset the form
       setImages([]);
       setTextResults([]);
     } catch (error) {
       console.error('Error saving changes:', error);
-
+  
       // Display error toast
-      toast.error(error,{
+      toast.error(error, {
         position: toast.POSITION.TOP_RIGHT,
         autoClose: 2000,
       });
     }
   };
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
 
   const onDragEnd = (result) => {
     if (!result.destination) return;
@@ -204,13 +278,16 @@ const TextExtractionApp = () => {
                         <img src={URL.createObjectURL(image)} alt={`Image ${index}`} />
                         {textResults[index] && (
                           <div className="text-container">
-                            <textarea
+                          <label htmlFor="subjectCode">Subject Code:</label>
+
+                            <input
                               value={textResults[index]}
                               onChange={(e) =>
                                 setTextResults((prev) => [...prev.slice(0, index), e.target.value, ...prev.slice(index + 1)])
                               }
                               placeholder="Enter text..."
                             />
+                              
                           </div>
                         )}
                       </div>
@@ -230,7 +307,7 @@ const TextExtractionApp = () => {
           {buttonsVisible && ( // Conditionally render the buttons based on visibility state
             <>
               <button onClick={handleImageChange} disabled={loading || images.length === 0}>
-                Extract Text of first image
+                Extract Question Paper Details
               </button>
   
               <button onClick={saveChanges} disabled={loading || images.length === 0}>
