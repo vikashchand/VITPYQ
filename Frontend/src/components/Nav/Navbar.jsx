@@ -15,7 +15,7 @@ const Navbar = () => {
         {/* 1st logo part  */}
         <div className="logo">
           <h2>
-           MISArchives
+           MIS_Archives
           </h2>
         </div>
 

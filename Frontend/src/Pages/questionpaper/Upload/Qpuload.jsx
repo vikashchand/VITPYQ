@@ -3,6 +3,7 @@ import { useDropzone } from 'react-dropzone';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import { css } from '@emotion/react';
 import { BeatLoader } from 'react-spinners';
+import imageCompression from 'browser-image-compression'; 
 import Tesseract from 'tesseract.js';
 import axios from 'axios';
 import { toast, ToastContainer } from 'react-toastify';
@@ -45,8 +46,10 @@ const TextExtractionApp = () => {
     try {
       const { data: { text } } = await Tesseract.recognize(images[0], 'eng');
   
+
+      console.log(text);
       // Check if the first three characters match specific prefixes
-      const prefixes = ['swe', 'eee', 'mat', 'bit', 'cse','fre','ger','jap'];
+      const prefixes = ['swe', 'eee', 'mat', 'bit', 'cse','fre','ger','jap','esp'];
       const potentialPrefixes = [];
       let allMatches = [];
   
@@ -90,14 +93,41 @@ const TextExtractionApp = () => {
           setTextResults(allMatches);
         } else {
           // No matching pattern found
-          setTextResults([null]);
-          toast.error("upload better image");
+          setTextResults("error");
+          toast.success("can't find code. edit manually");
         }
       } else {
         // No matching prefix found
-        setTextResults([null]);
-        toast.error("upload better image");
+        setTextResults("can't find code. edit manually");
+        toast.error("can't find code. edit manually");
       }
+ 
+
+
+  const facultyLineRegex = /.*\bFaculty\b[^:\n]*:\s*(.*)/i;
+  const facultyMatch = text.match(facultyLineRegex);
+  const facultyLine = facultyMatch ? facultyMatch[1].replace(/\b(?:Faculty|Name|Names|Facultys)\b/gi, '').trim() : '';
+
+
+  const courseLineRegex = /.*\bCourse\b[^:\n]*:\s*(.*)/i;
+  const courseMatch = text.match(courseLineRegex);
+  const courseLine = courseMatch ? courseMatch[1].replace(/\b(?:Course|Subject|Code|Title|Courses|Name)\b/gi, '').trim() : '';
+
+
+
+
+      // Update state to include extracted values for the first image
+      setTextResults([allMatches,facultyLine, courseLine, ]);
+
+
+      console.log("facultyname",facultyLine,"courseName",courseLine);
+
+
+
+
+
+
+
     } catch (error) {
       console.error('Error extracting text:', error);
       setTextResults(['Error extracting text']);
@@ -122,6 +152,9 @@ const TextExtractionApp = () => {
   
 
 
+
+  
+
   const saveChanges = async () => {
     if (images.length === 0) {
       // Display a toast message if no image is chosen
@@ -142,20 +175,74 @@ const TextExtractionApp = () => {
       return;
     }
   
-    const imagesData = await Promise.all(images.map(async (image, index) => {
-      const imageDataUrl = await new Promise((resolve) => {
-        const reader = new FileReader();
-        reader.onloadend = () => {
-          resolve(reader.result);
-        };
-        reader.readAsDataURL(image);
-      });
+    // Ensure that textResults[0] is an array
+    const courseCodeArray = Array.isArray(textResults[0]) ? textResults[0] : [textResults[0]];
   
+    // const imagesData = await Promise.all(images.map(async (image, index) => {
+    //   const imageDataUrl = await new Promise((resolve) => {
+    //     const reader = new FileReader();
+    //     reader.onloadend = () => {
+    //       resolve(reader.result);
+    //     };
+    //     reader.readAsDataURL(image);
+    //   });
+  
+
+
+    const compressImage = async (image) => {
+      const options = {
+        maxSizeMB: 0.5, // Set the maximum size in megabytes
+        maxWidthOrHeight: 800, // Set the maximum width or height
+      };
+    
+      try {
+        return await imageCompression(image, options);
+      } catch (error) {
+        console.error('Error compressing image:', error);
+        return image; // Return the original image if compression fails
+      }
+    };
+
+
+
+
+
+
+
+
+      const imagesData = await Promise.all(images.map(async (image, index) => {
+        // Compress the image before converting to base64
+        const compressedImage = await compressImage(image);
+    
+        const imageDataUrl = await new Promise((resolve) => {
+          const reader = new FileReader();
+          reader.onloadend = () => {
+            resolve(reader.result);
+          };
+          reader.readAsDataURL(compressedImage);
+        });
+
+
+
+
+
+
+
+
       return {
         image: imageDataUrl.split(',')[1], // Extract base64 portion of the data URL
-        text: textResults[index],
+        courseCode: courseCodeArray.join(', '), // Join array elements into a string
+        facultyName: textResults[1],
+        courseName: textResults[2],
       };
     }));
+
+    
+
+
+
+
+
   
     try {
       const response = await axios.post(`${baseUrl}/saveqp`, imagesData, {
@@ -185,8 +272,6 @@ const TextExtractionApp = () => {
     }
   };
   
-
-
 
 
 
@@ -246,57 +331,98 @@ const TextExtractionApp = () => {
 
 
 
-      <div {...getRootProps()} className="dropzone inp">
+      <div {...getRootProps()} className="dropzone inpdrop">
         <input {...getInputProps()} />
-        <p>Drag some images here, or click to select Images</p>
+        <p>Drag ➡️ rearrange ➡️ extract ➡️ save </p>
       </div>
 
       {loading && <BeatLoader css={override} size={15} color={'black'} loading={loading} />}
 
-      <DragDropContext onDragEnd={onDragEnd}>
+      <DragDropContext onDragEnd={onDragEnd} >
     
 
     
-      <Droppable droppableId={droppableId}>
+      <Droppable droppableId={droppableId} >
         {(provided) => (
           
           <div {...provided.droppableProps} ref={provided.innerRef} className="image-list ">
           
          
-          {images.map((image, index) => (
+{images.map((image, index) => (
+  <Draggable key={index} draggableId={`image-${index}`} index={index}>
+    {(provided) => (
+      <div className='reorder' {...provided.draggableProps} {...provided.dragHandleProps} ref={provided.innerRef}>
+        <div className="image-container">
+          <p>{index+1}</p>
+          <img src={URL.createObjectURL(image)} alt={`Image ${index}`} />
+          {index === 0 && (
+            <div className="text-container">
+
             
-              <Draggable key={index} draggableId={`image-${index}`} index={index}>
-           
-                {(provided) => (
 
-                  
-                
-                    <div className='reorder' {...provided.draggableProps} {...provided.dragHandleProps} ref={provided.innerRef}>
-                    
-                    <div className="image-container">
-                      <p>{index+1}</p>
-                        <img src={URL.createObjectURL(image)} alt={`Image ${index}`} />
-                        {textResults[index] && (
-                          <div className="text-container">
-                          <label htmlFor="subjectCode">Subject Code:</label>
+          
+            <div className="text-contain">
+            <label htmlFor="subjectCode">Subject Code:</label>
+            <input
+              className='in'
+              value={textResults[index]}
+              onChange={(e) =>
+                setTextResults((prev) => {
+                  const updatedResults = [...prev];
+                  updatedResults[index] = e.target.value;
+                  return updatedResults;
+                })
+              }
+              placeholder="Enter text..."
+            />
+          </div>
+          
+          <div className="text-contain">
+            <label htmlFor="facultyName">Faculty Name:</label>
+            <input
+              className='in'
+              value={textResults[index + 1]}
+              onChange={(e) =>
+                setTextResults((prev) => {
+                  const updatedResults = [...prev];
+                  updatedResults[index + 1] = e.target.value;
+                  return updatedResults;
+                })
+              }
+              placeholder="Enter faculty name..."
+              id="facultyName"
+            />
+          </div>
+          
+          <div className="text-contain">
+            <label htmlFor="courseName">Course Name:</label>
+            <input
+              className='in'
+              value={textResults[index + 2]}
+              onChange={(e) =>
+                setTextResults((prev) => {
+                  const updatedResults = [...prev];
+                  updatedResults[index + 2] = e.target.value;
+                  return updatedResults;
+                })
+              }
+              placeholder="Enter course name..."
+              id="courseName"
+            />
+          </div>
+          
 
-                            <input
-                              value={textResults[index]}
-                              onChange={(e) =>
-                                setTextResults((prev) => [...prev.slice(0, index), e.target.value, ...prev.slice(index + 1)])
-                              }
-                              placeholder="Enter text..."
-                            />
-                              
-                          </div>
-                        )}
-                      </div>
-                  
-</div>
-                    
-                  )}
-                  </Draggable>
-                  ))}
+              
+
+             
+            </div>
+          )}
+          
+        </div>
+      </div>
+    )}
+  </Draggable>
+))}
                   {provided.placeholder}
                 </div>
               )}
@@ -307,7 +433,7 @@ const TextExtractionApp = () => {
           {buttonsVisible && ( // Conditionally render the buttons based on visibility state
             <>
               <button onClick={handleImageChange} disabled={loading || images.length === 0}>
-                Extract Question Paper Details
+                Extract 
               </button>
   
               <button onClick={saveChanges} disabled={loading || images.length === 0}>
@@ -326,3 +452,47 @@ const TextExtractionApp = () => {
 };
 
 export default TextExtractionApp;
+
+
+
+
+
+
+
+// <div className="text-contain">
+
+// <label htmlFor="subjectCode">Subject Code:</label>
+
+
+// <input
+// className='in'
+// value={textResults[index]}
+// onChange={(e) =>
+// setTextResults((prev) => [...prev.slice(0, index), e.target.value, ...prev.slice(index + 1)])
+// }
+// placeholder="Enter text..."
+// />
+// </div>
+
+
+// <div className="text-contain">
+// <label htmlFor="facultyName">Faculty Name:</label>
+// <input
+// className='in'
+// value={textResults[index + 1]}  // Adjust the index for faculty name
+// onChange={(e) => setTextResults([...textResults.slice(0, index + 1), e.target.value, ...textResults.slice(index + 2)])}
+// placeholder="Enter faculty name..."
+// id="facultyName"
+// />
+// </div>
+
+// <div className="text-contain">
+// <label htmlFor="courseName">Course Name:</label>
+// <input
+// className='in'
+// value={textResults[index + 2]}  // Adjust the index for course name
+// onChange={(e) => setTextResults([...textResults.slice(0, index + 2), e.target.value, ...textResults.slice(index + 3)])}
+// placeholder="Enter course name..."
+// id="courseName"
+// />
+// </div>

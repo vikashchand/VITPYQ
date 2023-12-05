@@ -105,9 +105,16 @@ const imageSchema = new mongoose.Schema({
       type: Buffer, // Store image as binary data
       required: true,
     },
-    text: {
+    
+    courseCode: {
       type: String,
-      
+      required:true,
+    },
+    facultyName: {
+      type: String,
+    },
+    courseName: {
+      type: String,
     },
   }],
 });
@@ -116,11 +123,23 @@ imageSchema.index({ 'images.text': 'text' });
 const ImageModel = mongoose.model('Image', imageSchema);
 
 // Express route to handle image and text saving
+
+
+
+
+
+
+
+
+
 app.post('/saveqp', express.json({ limit: '50mb' }), async (req, res) => {
   try {
     const imagesData = req.body.map(item => ({
       image: Buffer.from(item.image, 'base64'), // Convert base64 image to Buffer
-      text: item.text,
+     
+      courseCode: item.courseCode,
+      facultyName: item.facultyName,
+      courseName: item.courseName,
     }));
 
     // Create a new Image document
@@ -137,6 +156,20 @@ app.post('/saveqp', express.json({ limit: '50mb' }), async (req, res) => {
     res.status(500).json({ error: 'Internal Server Error' });
   }
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 // Express route to search and retrieve all images and text
 // ...
