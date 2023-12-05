@@ -10,6 +10,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    flex-direction: column;
     margin-bottom: 20px;
     margin-top: 20px;
   
@@ -35,6 +36,27 @@
     font-size: medium;
     font-family: 'Times New Roman', Times, serif;
   }
+
+
+
+.coursecodes{
+
+
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+
+}
+
+
+
+
+
+.modelbt{
+  display: flex;
+}
+
+
   
   .card {
     position: relative;
@@ -104,7 +126,7 @@
     left: 0px;
     right: 0px;
     bottom: 0;
-    background-color: rgba(24, 6, 6, 0.5);
+    background-color: rgba(81, 24, 24, 0.5);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -112,18 +134,41 @@
   
   .modal-content {
     position: relative;
-    width: 300%;
+    margin: 10%;
+    margin-left: 30%;
+    
+   
+    width: 200%;
     
   }
   
-  .close-icon {
-    position: absolute;
-    top: 500px;
-    right: 10px;
-    cursor: pointer;
-    color: #e9e4e4;
-    font-size: 20px;
-  }
+
+  /* Add this to your existing CSS file or create a new one */
+.suggestions-list {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  position: relative;
+  background-color: #fff;
+
+  max-height: 150px;
+  overflow-y: auto;
+  width: 20%;
+  z-index: 1;
+}
+
+.suggestions-list li {
+  padding: 1px;
+  cursor: pointer;
+  border: 1px solid #522929;
+  border-radius: 5px;
+}
+
+.suggestions-list li:hover {
+  background-color: #f2f2f2;
+}
+
+ 
   
 
   p{
@@ -190,6 +235,20 @@ font-weight: bold;
     font-size: 16px;
   }
 }
+
+
+.coursecodes{
+
+
+  display: flex;
+  flex-direction: row;
+  flex-wrap:wrap;
+ 
+
+}
+
+
+
 
 .card-container {
   display: flex;
@@ -280,17 +339,13 @@ h1,h3{
 .modal-content {
   position: relative;
   width: 300%;
+
+  margin: 5%;
+    margin-left: 0%;
   
 }
 
-.close-icon {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  cursor: pointer;
-  color: #333;
-  font-size: 20px;
-}
+
 
 
 p{

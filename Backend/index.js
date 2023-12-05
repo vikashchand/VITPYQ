@@ -202,46 +202,94 @@ app.get('/totalqp', async (req, res) => {
 
 
 
+// app.get('/searchqp', async (req, res) => {
+//   const searchText = req.query.text;
+
+//   try {
+//     let query = {};
+//     if (searchText) {
+//       // If search text is provided, create a case-insensitive regex for matching
+//       query = { 'images.courseCode': { $regex: new RegExp(searchText, 'i') } };
+//     }
+
+//     const result = await ImageModel.find(query);
+
+//     // Only send necessary data to the frontend, e.g., image URLs
+//     const imageData = result.map(item => ({
+//       imageUrls: item.images.map(img => `data:image/jpeg;base64,${img.image.toString('base64')}`),
+//     }));
+
+//     res.status(200).json(imageData);
+//   } catch (error) {
+//     console.error('Error fetching data:', error);
+//     res.status(500).send('Internal Server Error');
+//   }
+// });
+
+
+
+
+
+
+
 
 app.get('/searchqp', async (req, res) => {
-  const searchText = req.query.text;
-
   try {
+    const searchText = req.query.text;
+
     let query = {};
     if (searchText) {
       // If search text is provided, create a case-insensitive regex for matching
-      query = { 'images.text': { $regex: new RegExp(searchText, 'i') } };
+      query = { 'images.courseCode': { $regex: new RegExp(searchText, 'i') } };
     }
 
     const result = await ImageModel.find(query);
 
-    // Only send necessary data to the frontend, e.g., image URLs and truncated text
+    // Only send unique course codes to the frontend
+    const uniqueCourseCodes = [...new Set(result.map(item => item.images.map(img => img.courseCode)).flat())];
+
     const imageData = result.map(item => ({
       imageUrls: item.images.map(img => `data:image/jpeg;base64,${img.image.toString('base64')}`),
-      text: truncateText(item.images.map(img => img.text).join(' '), 300), // Truncate to first 300 words
     }));
 
-    res.status(200).json(imageData);
+    // Send both unique course codes and image data in the same response
+    res.status(200).json({ uniqueCourseCodes, imageData });
   } catch (error) {
     console.error('Error fetching data:', error);
     res.status(500).send('Internal Server Error');
   }
 });
 
-// Function to truncate text to the first N words
-function truncateText(text, maxWords) {
-  const words = text.split(' ');
-  const truncatedText = words.slice(0, maxWords).join(' ');
-  return truncatedText;
-}
+// app.get('/searchqp', async (req, res) => {
+//   try {
+//     const searchText = req.query.text;
 
+//     const query = {
+//       $or: [
+//         { 'images.courseCode': { $regex: new RegExp(searchText, 'i') } },
+//         { 'images.facultyName': { $regex: new RegExp(searchText, 'i') } },
+//         { 'images.courseName': { $regex: new RegExp(searchText, 'i') } },
+        
+//       ],
+//     };
 
+//     const result = await ImageModel.find(query);
 
+//     const uniqueCourseCodes = [...new Set(result.map(item => item.images.map(img => img.courseCode)).flat())];
 
+//     const imageData = result.map(item => ({
+//       imageUrls: item.images.map(img => `data:image/jpeg;base64,${img.image.toString('base64')}`),
+//       courseCode: item.images.map(img => img.courseCode),
+//       facultyName: item.images.map(img => img.facultyName),
+//       courseName: item.images.map(img => img.courseName),
+//     }));
 
-
-
-
+//     res.status(200).json({ uniqueCourseCodes, imageData });
+//   } catch (error) {
+//     console.error('Error fetching data:', error);
+//     res.status(500).send('Internal Server Error');
+//   }
+// });
 
 
 

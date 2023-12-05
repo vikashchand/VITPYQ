@@ -191,7 +191,7 @@ const TextExtractionApp = () => {
 
     const compressImage = async (image) => {
       const options = {
-        maxSizeMB: 0.5, // Set the maximum size in megabytes
+        maxSizeMB: 2, // Set the maximum size in megabytes
         maxWidthOrHeight: 800, // Set the maximum width or height
       };
     
