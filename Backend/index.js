@@ -159,6 +159,64 @@ app.post('/saveqp', express.json({ limit: '50mb' }), async (req, res) => {
 
 
 
+// Add the following endpoint for suggestions
+app.get('/globalapi/suggestions', async (req, res) => {
+  try {
+    const { mode, text } = req.query;
+    let query = {};
+
+    if (text) {
+      const regex = new RegExp(text, 'i');
+      if (mode === 'facultyName') {
+        query = { 'images.facultyName': { $regex: regex } };
+      } else if (mode === 'courseName') {
+        query = { 'images.courseName': { $regex: regex } };
+      } else {
+        query = { 'images.courseCode': { $regex: regex } };
+      }
+    }
+
+    const result = await ImageModel.find(query);
+    const suggestions = [...new Set(result.map(item => item.images.map(img => img[mode])).flat())];
+
+    res.status(200).json({ suggestions });
+  } catch (error) {
+    console.error('Error fetching suggestions:', error);
+    res.status(500).send('Internal Server Error');
+  }
+});
+
+// Update the existing '/searchqp' endpoint to handle different search modes
+app.get('/globalapi', async (req, res) => {
+  try {
+    const { mode, text } = req.query;
+
+    let query = {};
+    if (text) {
+      const regex = new RegExp(text, 'i');
+      if (mode === 'facultyName') {
+        query = { 'images.facultyName': { $regex: regex } };
+      } else if (mode === 'courseName') {
+        query = { 'images.courseName': { $regex: regex } };
+      } else {
+        query = { 'images.courseCode': { $regex: regex } };
+      }
+    }
+
+    const result = await ImageModel.find(query);
+    const uniqueCourseCodes = [...new Set(result.map(item => item.images.map(img => img.courseCode)).flat())];
+    const imageData = result.map(item => ({
+      imageUrls: item.images.map(img => `data:image/jpeg;base64,${img.image.toString('base64')}`),
+    }));
+
+    res.status(200).json({ uniqueCourseCodes, imageData });
+  } catch (error) {
+    console.error('Error fetching data:', error);
+    res.status(500).send('Internal Server Error');
+  }
+});
+
+
 
 
 
@@ -233,6 +291,8 @@ app.get('/totalqp', async (req, res) => {
 
 
 
+
+
 app.get('/searchqp', async (req, res) => {
   try {
     const searchText = req.query.text;
@@ -250,6 +310,8 @@ app.get('/searchqp', async (req, res) => {
 
     const imageData = result.map(item => ({
       imageUrls: item.images.map(img => `data:image/jpeg;base64,${img.image.toString('base64')}`),
+      facultyName: item.images.facultyName,
+   
     }));
 
     // Send both unique course codes and image data in the same response
@@ -260,36 +322,71 @@ app.get('/searchqp', async (req, res) => {
   }
 });
 
-// app.get('/searchqp', async (req, res) => {
-//   try {
-//     const searchText = req.query.text;
 
-//     const query = {
-//       $or: [
-//         { 'images.courseCode': { $regex: new RegExp(searchText, 'i') } },
-//         { 'images.facultyName': { $regex: new RegExp(searchText, 'i') } },
-//         { 'images.courseName': { $regex: new RegExp(searchText, 'i') } },
-        
-//       ],
-//     };
+app.get('/data', async (req, res) => {
+ 
 
-//     const result = await ImageModel.find(query);
+  try {
 
-//     const uniqueCourseCodes = [...new Set(result.map(item => item.images.map(img => img.courseCode)).flat())];
 
-//     const imageData = result.map(item => ({
-//       imageUrls: item.images.map(img => `data:image/jpeg;base64,${img.image.toString('base64')}`),
-//       courseCode: item.images.map(img => img.courseCode),
-//       facultyName: item.images.map(img => img.facultyName),
-//       courseName: item.images.map(img => img.courseName),
-//     }));
+    const facultyName = req.query.facultyName;
 
-//     res.status(200).json({ uniqueCourseCodes, imageData });
-//   } catch (error) {
-//     console.error('Error fetching data:', error);
-//     res.status(500).send('Internal Server Error');
-//   }
-// });
+    let query = {};
+    if (facultyName) {
+      // If search text is provided, create a case-insensitive regex for matching
+      query = { 'images.facultyName': { $regex: new RegExp(facultyName, 'i') } };
+    }
+
+    const result = await ImageModel.find(query);
+    const imageData = result.map(item => ({
+      
+      imageUrls: item.images.map(img => `data:image/jpeg;base64,${img.image.toString('base64')}`),
+    }));
+    res.json(imageData);
+  } catch (error) {
+    console.error('Error fetching data:', error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
+
+
+app.get('/uniqueCourseCodes', async (req, res) => {
+  try {
+    const result = await ImageModel.find();
+    const uniqueCourseCodes = [...new Set(result.map(item => item.images.map(img => img.courseCode)).flat())];
+    res.status(200).json({ uniqueCourseCodes });
+  } catch (error) {
+    console.error('Error fetching unique course codes:', error);
+    res.status(500).send('Internal Server Error');
+  }
+});
+
+
+
+
+
+// Add this route before your existing route
+
+app.get('/suggestions', async (req, res) => {
+  const query = req.query.query;
+
+  try {
+    const suggestions = await ImageModel.distinct('images.facultyName', {
+      'images.facultyName': { $regex: new RegExp(query, 'i') },
+    });
+    res.json(suggestions);
+  } catch (error) {
+    console.error('Error fetching suggestions:', error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
+
+
+
+
+
+
+
 
 
 

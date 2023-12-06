@@ -9,6 +9,7 @@ import Qpupload from './Pages/questionpaper/Upload/Qpuload';
 import LandingPage from './Pages/LandingPage/LandingPage';
 import Navbar from './components/Nav/Navbar';
 import Searchqp from './Pages/questionpaper/Search/Searchqp';
+import GlobalSearch from './Pages/questionpaper/GlobalSearch/GlobalSearch';
 
 
 
@@ -25,7 +26,7 @@ function App() {
 
       <Route path="/qpupload" element={ <Qpupload/> } />
       <Route path="/searchqp" element={ <Searchqp />} />
-      
+      <Route path="/searching" element={ <GlobalSearch/> } />
       <Route path="*" element={<NotFound />} /> {/* Add a catch-all route */}
     </Routes>
     

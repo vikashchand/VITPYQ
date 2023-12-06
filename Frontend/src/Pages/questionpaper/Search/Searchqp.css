@@ -1,5 +1,69 @@
 /* Searchqp.css */
 
+
+.lds-facebook {
+  display: inline-block;
+  position: relative;
+  width: 80px;
+  height: 80px;
+}
+.lds-facebook div {
+  display: inline-block;
+  position: absolute;
+  left: 8px;
+  width: 16px;
+  background: #1f0d0d;
+  animation: lds-facebook 1.2s cubic-bezier(0, 0.5, 0.5, 1) infinite;
+}
+.lds-facebook div:nth-child(1) {
+  left: 8px;
+  animation-delay: -0.24s;
+}
+.lds-facebook div:nth-child(2) {
+  left: 32px;
+  animation-delay: -0.12s;
+}
+.lds-facebook div:nth-child(3) {
+  left: 56px;
+  animation-delay: 0;
+}
+@keyframes lds-facebook {
+  0% {
+    top: 8px;
+    height: 64px;
+  }
+  50%, 100% {
+    top: 24px;
+    height: 32px;
+  }
+}
+
+
+.back-button{
+  height: 50px;
+  background-color: #ddd;
+  background: #283949;
+  padding: 1% 1%;
+
+transition: .3s ease-in;
+}
+
+.back-button:hover{
+
+  background: wheat;
+}
+
+
+
+
+
+
+
+
+
+
+
+
 .searchqp-container {
     padding: 20px 20px;
     
@@ -10,23 +74,58 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    flex-direction: column;
+    flex-direction: row;
     margin-bottom: 20px;
     margin-top: 20px;
     list-style-type: none;
     list-style:none;
+
+    
   
-    svg {
-      margin-right: 10px;
-    }
-  
-    input {
-      width: 100%;
-      padding: 8px;
-      font-size: 16px;
-    }
+    
   }
   
+
+  input {
+    width: 20%;
+    padding: 8px;
+    font-size: 16px;
+    background-color: #ffffff;
+    background-color: rgb(255, 255, 255);
+    margin: 10px;
+    padding: 10px 40px;
+    text-align: center;
+    text-transform:none;
+  list-style: none;
+  list-style-type: none;
+    background-size: 200% auto;
+    color: rgb(21, 6, 6);            
+    box-shadow: 0 0 20px #decfcf;
+    border-radius: 3px;
+    display: block;
+  font-weight: bold;
+
+
+
+  }
+
+.opti{
+  margin: 10px;
+    padding: 10px 40px;
+    text-align: center;
+}
+
+
+.opti option{
+  margin: 10px;
+  padding: 10px 40px;
+  text-align: center;
+
+}
+
+
+
+
   .card-container {
     display: flex;
     flex-wrap: wrap;
@@ -147,38 +246,61 @@
 
   /* Add this to your existing CSS file or create a new one */
 .suggestions-list {
-  list-style-type: none;
-  padding: 0;
-  margin: 0;
-  position: relative;
-  background-color: #ba9e9e;
-  list-style-type: none; /* This removes the list symbol */
+  width: 20%;
   padding: 8px;
-  max-height: 100px;
-  overflow-y: auto;
-  width: 80%;
-  z-index: 1;
-  font-size: smaller;
-  align-self: center;
-  margin-left: 10%;
+  font-size: 16px;
+ 
+
+  padding: 0px 40px;
+  text-align: center;
+  text-transform:none;
+list-style: none;
+list-style-type: none;
+  background-size: 200% auto;
+  color: rgb(21, 6, 6);            
+
+  border-radius: 10px;
+  display: block;
+font-weight: normal;
+margin-left: 45%;
+margin-top: 0%;
+
 
 }
 
 
-.react-autosuggest__suggestions-list {
-  list-style-type: none;
-  padding: 0;
-  margin: 0;
-  font-size: smaller;
-}
 
-.suggestions-list li {
+.suggestions-listli {
   padding: 1px;
   cursor: pointer;
   border: 2px solid #504141;
   border-radius: 5px;
   list-style-type: none;
   font-size: smaller;
+  width: 100%;
+  padding: 3px;
+  font-size: 10px;
+  background-color: #210f0f;
+  background-color: rgb(226, 237, 245);
+
+ 
+  text-align: center;
+  text-transform:none;
+list-style: none;
+list-style-type: none;
+  background-size: 200% auto;
+  color: rgb(21, 6, 6);  
+        
+
+  display: block;
+font-weight: normal
+
+
+
+
+
+
+
 }
 
 .suggestions-list li:hover {
@@ -391,6 +513,59 @@ border-radius: 10px;
 display: block;
 
 }
+
+
+
+
+
+
+input {
+  width: 100%;
+  padding: 2%;
+  font-size: 10px;
+  background-color: #ffffff;
+  background-color: rgb(255, 255, 255);
+  margin: 10px;
+  padding: 10px 40px;
+  text-align: center;
+  text-transform:none;
+list-style: none;
+list-style-type: none;
+  background-size: 200% auto;
+  color: rgb(21, 6, 6);            
+  box-shadow: 0 0 20px #decfcf;
+  border-radius: 3px;
+  display: block;
+font-weight: bold;
+
+
+
+}
+
+.opti{
+margin: 0px;
+  padding: 6px 10px;
+  text-align: center;
+  width: 0%;
+}
+
+
+.opti option{
+margin: 10px;
+padding: 10px 40px;
+text-align: center;
+
+}
+
+
+.back-button{
+  height: 50px;
+  background-color: #ddd;
+  background: #283949;
+  padding: 2% 10%;
+}
+
+
 
 
 }

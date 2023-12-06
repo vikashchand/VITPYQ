@@ -199,17 +199,24 @@ const TextExtractionApp = () => {
     const compressImage = async (image) => {
       const options = {
         maxSizeMB: 4, // Set the maximum size in megabytes
-        maxWidthOrHeight: 800, // Set the maximum width or height
+        maxWidthOrHeight: 1200, // Set the maximum width or height
       };
     
-      try {
-        return await imageCompression(image, options);
-      } catch (error) {
-        console.error('Error compressing image:', error);
-        return image; // Return the original image if compression fails
+      // Check the size of the image
+      if (image.size > options.maxSizeMB * 1024 * 1024) {
+        try {
+          // Compress the image if its size is greater than 4 MB
+          return await imageCompression(image, options);
+        } catch (error) {
+          console.error('Error compressing image:', error);
+          return image; // Return the original image if compression fails
+        }
+      } else {
+        // If the image size is within the limit, use the original image
+        return image;
       }
     };
-
+    
 
 
 

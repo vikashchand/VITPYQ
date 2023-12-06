@@ -134,12 +134,15 @@ button  {
   background-color: #8ab8e6; /* Change this to the desired background color */
   color: #fff; /* Change this to the desired text color */
   transition: background-color 3s ease-in; 
+
+  transition: .3s ease-in;
   
 }
 button:hover {
   background-position: right center; /* change the direction of the change here */
   color: #fff;
   text-decoration: none;
+  background: wheat;
 }
 
 button:active{
