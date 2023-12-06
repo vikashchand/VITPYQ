@@ -44,7 +44,26 @@ const TextExtractionApp = () => {
     }
   
     try {
-      const { data: { text } } = await Tesseract.recognize(images[0], 'eng');
+
+
+      const image = images[0];
+    const img = new Image();
+    img.src = URL.createObjectURL(image);
+
+    img.onload = async () => {
+      const canvas = document.createElement('canvas');
+      const ctx = canvas.getContext('2d');
+
+      // Crop the top half of the image
+      canvas.width = img.width;
+      canvas.height = img.height / 2;
+      ctx.drawImage(img, 0, 0, img.width, img.height / 2, 0, 0, img.width, img.height / 2);
+
+      const croppedImage = canvas.toDataURL('image/png');
+
+      const { data: { text } } = await Tesseract.recognize(croppedImage, 'eng');
+
+      //const { data: { text } } = await Tesseract.recognize(images[0], 'eng');
   
 
       console.log(text);
@@ -125,19 +144,15 @@ const TextExtractionApp = () => {
 
 
 
-
-
-
-    } catch (error) {
-      console.error('Error extracting text:', error);
-      setTextResults(['Error extracting text']);
-    } finally {
       setLoading(false);
-    }
-  };
-  
 
-
+    };
+  } catch (error) {
+    console.error('Error extracting text:', error);
+    setTextResults(['Error extracting text']);
+    setLoading(false);
+  }
+};
 
 
 
@@ -178,20 +193,12 @@ const TextExtractionApp = () => {
     // Ensure that textResults[0] is an array
     const courseCodeArray = Array.isArray(textResults[0]) ? textResults[0] : [textResults[0]];
   
-    // const imagesData = await Promise.all(images.map(async (image, index) => {
-    //   const imageDataUrl = await new Promise((resolve) => {
-    //     const reader = new FileReader();
-    //     reader.onloadend = () => {
-    //       resolve(reader.result);
-    //     };
-    //     reader.readAsDataURL(image);
-    //   });
-  
+ 
 
 
     const compressImage = async (image) => {
       const options = {
-        maxSizeMB: 2, // Set the maximum size in megabytes
+        maxSizeMB: 4, // Set the maximum size in megabytes
         maxWidthOrHeight: 800, // Set the maximum width or height
       };
     
@@ -454,45 +461,3 @@ const TextExtractionApp = () => {
 export default TextExtractionApp;
 
 
-
-
-
-
-
-// <div className="text-contain">
-
-// <label htmlFor="subjectCode">Subject Code:</label>
-
-
-// <input
-// className='in'
-// value={textResults[index]}
-// onChange={(e) =>
-// setTextResults((prev) => [...prev.slice(0, index), e.target.value, ...prev.slice(index + 1)])
-// }
-// placeholder="Enter text..."
-// />
-// </div>
-
-
-// <div className="text-contain">
-// <label htmlFor="facultyName">Faculty Name:</label>
-// <input
-// className='in'
-// value={textResults[index + 1]}  // Adjust the index for faculty name
-// onChange={(e) => setTextResults([...textResults.slice(0, index + 1), e.target.value, ...textResults.slice(index + 2)])}
-// placeholder="Enter faculty name..."
-// id="facultyName"
-// />
-// </div>
-
-// <div className="text-contain">
-// <label htmlFor="courseName">Course Name:</label>
-// <input
-// className='in'
-// value={textResults[index + 2]}  // Adjust the index for course name
-// onChange={(e) => setTextResults([...textResults.slice(0, index + 2), e.target.value, ...textResults.slice(index + 3)])}
-// placeholder="Enter course name..."
-// id="courseName"
-// />
-// </div>

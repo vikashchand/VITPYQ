@@ -9,6 +9,15 @@ import { NavLink } from "react-router-dom";
 
 const Navbar = () => {
   const [showMediaIcons, setShowMediaIcons] = useState(false);
+
+  const handleNavLinkClick = () => {
+    // Close the navbar when a link is clicked
+    setShowMediaIcons(false);
+  };
+
+
+
+
   return (
     <>
       <nav className="main-nav">
@@ -26,16 +35,16 @@ const Navbar = () => {
           }>
           <ul>
             <li>
-              <NavLink to="/">Home</NavLink>
+              <NavLink to="/" onClick={handleNavLinkClick}>Home</NavLink>
             </li>
             <li>
-              <NavLink to="/searchqp">Search</NavLink>
+              <NavLink to="/searchqp" onClick={handleNavLinkClick}>Search</NavLink>
             </li>
             <li>
-              <NavLink to="/qpupload">Upload</NavLink>
+              <NavLink to="/qpupload" onClick={handleNavLinkClick}>Upload</NavLink>
             </li>
             <li>
-              <NavLink to="/contact">Faculty Review</NavLink>
+              <NavLink to="/contact" onClick={handleNavLinkClick}>Faculty Review</NavLink>
             </li>
           </ul>
         </div>
