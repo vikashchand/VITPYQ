@@ -10,6 +10,8 @@ const LandingPage = () => {
 
   const [totalVisitors, setTotalVisitors] = useState(null);
 
+  
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -50,7 +52,7 @@ const LandingPage = () => {
   return (
     <div className="landing-page">
     
-      <h1>Welcome to the VIT Previous Year Question and Faculty Review Portal</h1>
+      <h1>Welcome to the MIS Previous Year Question and Faculty Review Portal</h1>
       <p>Exclusively For Mtech in Software Enginnering students </p>
 
       <div className="feature-container">
@@ -94,7 +96,7 @@ const LandingPage = () => {
             <h3>Faculty Review</h3>
             <p>Currently in development mode ,will deployed to production by christmas 🧑‍🎄</p>
             <p>Faculty serach module will only be active during ffcs </p>
-            <button >   <Link className='lin' to="/faculty">Review </Link> </button>
+            <button >   <Link className='lin' to="/facultydata">Review </Link> </button>
               
             </div>
         </li>

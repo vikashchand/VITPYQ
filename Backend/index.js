@@ -384,10 +384,65 @@ app.get('/suggestions', async (req, res) => {
 
 
 
+const reviewSchema = new mongoose.Schema({
+  name: String,
+  reviews: [
+    {
+      review: String,
+     
+    },
+  ],
+  like: { type: Number, default: 0 },
+  dislike: { type: Number, default: 0 },
+});
+
+const Review = mongoose.model('Review', reviewSchema);
+
+app.post('/reviews', async (req, res) => {
+  const { name, reviews } = req.body;
+
+  try {
+    const existingReview = await Review.findOne({ name });
+
+    if (existingReview) {
+      existingReview.reviews.push(...reviews);
+      await existingReview.save();
+      res.status(200).json({ status: 'success', message: 'Review updated successfully' });
+    } else {
+      const newReview = new Review({ name, reviews });
+      await newReview.save();
+      res.status(201).json({ status: 'success', message: 'Review created successfully' });
+    }
+  } catch (error) {
+    console.error('Error saving review:', error);
+    res.status(500).json({ status: 'error', message: 'Internal Server Error' });
+  }
+});
 
 
 
 
+app.get('/faculties', async (req, res) => {
+  const { search } = req.query;
+  try {
+    const faculties = await Review.find({ name: { $regex: new RegExp(search, 'i') } });
+    res.json(faculties);
+  } catch (error) {
+    console.error('Error fetching faculties:', error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
+
+app.get('/faculties/:id', async (req, res) => {
+  const { id } = req.params;
+  try {
+    const faculty = await Review.findById(id);
+    res.json(faculty);
+  } catch (error) {
+    console.error('Error fetching faculty details:', error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
 
 
 const PORT = process.env.PORT;

@@ -44,7 +44,7 @@ const Navbar = () => {
               <NavLink to="/qpupload" onClick={handleNavLinkClick}>Upload</NavLink>
             </li>
             <li>
-              <NavLink to="/contact" onClick={handleNavLinkClick}>Faculty Review</NavLink>
+              <NavLink to="/facultydata" onClick={handleNavLinkClick}>Faculty Review</NavLink>
             </li>
           </ul>
         </div>

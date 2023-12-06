@@ -10,6 +10,8 @@ import LandingPage from './Pages/LandingPage/LandingPage';
 import Navbar from './components/Nav/Navbar';
 import Searchqp from './Pages/questionpaper/Search/Searchqp';
 import GlobalSearch from './Pages/questionpaper/GlobalSearch/GlobalSearch';
+import FacultyList from './Pages/Faculty/Faculty';
+import FacultyData from './Pages/Faculty/FacultyData';
 
 
 
@@ -26,7 +28,8 @@ function App() {
 
       <Route path="/qpupload" element={ <Qpupload/> } />
       <Route path="/searchqp" element={ <Searchqp />} />
-      <Route path="/searching" element={ <GlobalSearch/> } />
+      <Route path="/faculty" element={ <FacultyList/> } />
+      <Route path="/facultydata" element={<FacultyData/> } />
       <Route path="*" element={<NotFound />} /> {/* Add a catch-all route */}
     </Routes>
     
