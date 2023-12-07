@@ -1,7 +1,8 @@
 
-# Welcome to MISEXAMPORTAL
+# Welcome to 20MIS Portal
 
-MISEXAM is a dynamic and user-friendly web portal designed to streamline the process of accessing and sharing past years' question papers. With a focus on ease of use, we've incorporated innovative features to simplify the upload process for students and enhance their overall experience. This platform is built using the MERN (MongoDB, Express.js, React.js, Node.js) stack, ensuring a robust and scalable solution.
+20MIS is a dynamic and user-friendly web portal designed to streamline the process of accessing and sharing past years' question papers. With a focus on ease of use, we've incorporated innovative features to simplify the upload process for students and enhance their overall experience. This platform is built using the MERN (MongoDB, Express.js, React.js, Node.js) stack, ensuring a robust and scalable solution.
+
 
 ## Features
 
