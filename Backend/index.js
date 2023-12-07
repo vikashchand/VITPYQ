@@ -11,7 +11,7 @@ const fs = require('fs');
 const path = require('path');
 
 const corsOptions = {
-  origin: 'https://vitpyq.vercel.app',
+  origin: 'https://misexam.vercel.app',
   credentials: true,
   optionSuccessStatus: 200,
 };

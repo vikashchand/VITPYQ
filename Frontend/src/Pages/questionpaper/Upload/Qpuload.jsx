@@ -27,21 +27,6 @@ const TextExtractionApp = () => {
     setButtonsVisible(true); // Show buttons when images are uploaded
   };
 
-  const captureFromCamera = async () => {
-    try {
-      const stream = await navigator.mediaDevices.getUserMedia({
-        video: { facingMode: 'environment' },
-      });
-  
-      const imageCapture = new ImageCapture(stream.getVideoTracks()[0]);
-      const blob = await imageCapture.takePhoto();
-      const capturedImage = new File([blob], 'captured-image.png', { type: 'image/png' });
-  
-      setImages((prevImages) => [...prevImages, capturedImage]);
-    } catch (error) {
-      console.error('Error capturing image from the back camera:', error);
-    }
-  };
   
 
 
@@ -298,6 +283,7 @@ const TextExtractionApp = () => {
       // Reset the form
       setImages([]);
       setTextResults([]);
+      setButtonsVisible(false);
     } catch (error) {
       console.error('Error saving changes:', error);
   
@@ -388,14 +374,6 @@ const TextExtractionApp = () => {
        
       </div>
 
-<div className='cambt'>
-
-<p >or capture image directly </p>
-<button  onClick={captureFromCamera} disabled={loading || images.length === 0}>
-        Capture 
-      </button>
-
-</div>
 
         
       
