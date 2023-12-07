@@ -11,6 +11,11 @@ const FacultySearch = () => {
   const [selectedFaculty, setSelectedFaculty] = useState(null);
 
   
+  const [likeCount, setLikeCount] = useState(0);
+  const [dislikeCount, setDislikeCount] = useState(0);
+  const [hasVoted, setHasVoted] = useState(false);
+
+  
 
   useEffect(() => {
     const fetchSuggestions = async () => {
@@ -20,6 +25,7 @@ const FacultySearch = () => {
           setSuggestions(response.data);
         } else {
           setSuggestions([]);
+          
         }
       } catch (error) {
         console.error('Error fetching suggestions:', error);
@@ -34,6 +40,9 @@ const FacultySearch = () => {
       const response = await axios.get(`${baseUrl}/faculties/${facultyId}`);
       const facultyData = response.data;
       setSelectedFaculty(facultyData);
+      setLikeCount(facultyData.like);
+    setDislikeCount(facultyData.dislike);
+    setHasVoted(false); 
       setSearchTerm(''); // Clear the search term when a faculty is selected
     } catch (error) {
       console.error('Error fetching faculty data:', error);
@@ -41,13 +50,58 @@ const FacultySearch = () => {
   };
   const clearSelectedFaculty = () => {
     setSelectedFaculty(null);
+   
   };
+
+  useEffect(() => {
+    if (selectedFaculty && !hasVoted) {
+      setLikeCount(selectedFaculty.like);
+      setDislikeCount(selectedFaculty.dislike);
+    }
+  }, [selectedFaculty, hasVoted]);
+
+
+
+  const handleLike = async () => {
+    if (!hasVoted) {
+      try {
+        // Update the like count on the server
+        await axios.put(`${baseUrl}/faculties/${selectedFaculty._id}/like`);
+        // Update the like count locally
+        setLikeCount(likeCount + 1);
+        // Set local storage to remember the vote
+        localStorage.setItem(`vote-${selectedFaculty._id}`, 'like');
+        setHasVoted(true);
+      } catch (error) {
+        console.error('Error liking faculty:', error);
+      }
+    }
+  };
+
+  const handleDislike = async () => {
+    if (!hasVoted) {
+      try {
+        // Update the dislike count on the server
+        await axios.put(`${baseUrl}/faculties/${selectedFaculty._id}/dislike`);
+        // Update the dislike count locally
+        setDislikeCount(dislikeCount + 1);
+        // Set local storage to remember the vote
+        localStorage.setItem(`vote-${selectedFaculty._id}`, 'dislike');
+        setHasVoted(true);
+      } catch (error) {
+        console.error('Error disliking faculty:', error);
+      }
+    }
+  };
+
+
+
 
   return (
     <div className="faculty-search-container">
 
       <h2>Search by Name</h2>
-      <h2>Give Rating for the feedback provided on teachers</h2>
+      <h3>Give Rating for the feedback provided on teachers</h3>
       <input className='facultyname'
         type="text"
         value={searchTerm}
@@ -65,23 +119,35 @@ const FacultySearch = () => {
       )}
 
       {selectedFaculty && (
-        
         <div className="selected-faculty-details">
-       
           <h2>{selectedFaculty.name}</h2>
           <div>
             <h3>Reviews:</h3>
-            <ol >
+            <ol>
               {selectedFaculty.reviews.map((review, index) => (
-                <li  key={index}>{review.review}</li>
+                <li key={index}>{review.review}</li>
               ))}
             </ol>
           </div>
+         
+
+          <div className="like-dislike-container">
+          <div className="like" onClick={handleLike}>
+            <FaThumbsUp /> {likeCount}
+          </div>
+          <div></div><div></div><div></div><div></div>
+          <div className="dislike" onClick={handleDislike}>
+            <FaThumbsDown /> {dislikeCount}
+          </div>
+        </div>
+
+
           <button className="clear-button" onClick={clearSelectedFaculty}>
-          close
-        </button>
+            Close
+          </button>
         </div>
       )}
+      
     </div>
   );
 };

@@ -11,7 +11,7 @@ const fs = require('fs');
 const path = require('path');
 
 const corsOptions = {
-  origin: 'https://misexam.vercel.app',
+  origin: 'https://20mis.vercel.app',
   credentials: true,
   optionSuccessStatus: 200,
 };
@@ -443,6 +443,43 @@ app.get('/faculties/:id', async (req, res) => {
     res.status(500).json({ error: 'Internal Server Error' });
   }
 });
+
+
+
+
+app.put('/faculties/:id/like', async (req, res) => {
+  const { id } = req.params;
+  try {
+    const faculty = await Review.findById(id);
+    faculty.like += 1;
+    await faculty.save();
+    res.json({ message: 'Liked successfully', likeCount: faculty.like });
+  } catch (error) {
+    console.error('Error liking faculty:', error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
+
+// Endpoint to handle disliking a faculty
+app.put('/faculties/:id/dislike', async (req, res) => {
+  const { id } = req.params;
+  try {
+    const faculty = await Review.findById(id);
+    faculty.dislike += 1;
+    await faculty.save();
+    res.json({ message: 'Disliked successfully', dislikeCount: faculty.dislike });
+  } catch (error) {
+    console.error('Error disliking faculty:', error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
+
+
+
+
+
+
+
 
 
 const PORT = process.env.PORT;

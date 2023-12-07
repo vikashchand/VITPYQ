@@ -160,7 +160,10 @@ margin-right: 10%;
   display: flex;
   align-items: center;
   justify-content: center;
+
 }
+
+
 
 
 .instructions {
@@ -321,10 +324,11 @@ font-size: small;
 
 }
 
-.cambt{
-  visibility:visible;
-  display: flex;
-  flex-direction: row;
+.button-container button{
+
+  margin: 3px;
+  padding: 10px 15px;
 }
+
   
 }

@@ -199,7 +199,7 @@ const shouldDisplayCourseCodeButtons = searchText === '';
       onChange={handleSearchTextChange}
     />
     </div>
-    <div className="suggestions-list">
+    <div className="suggestions-lists">
    
   {searchText !== '' && suggestions.slice(0, 3).map((suggestion, index) => (
   
@@ -290,7 +290,7 @@ const shouldDisplayCourseCodeButtons = searchText === '';
                  
                   <button onClick={handleNextImage}>Next</button>
                   
-    <button className="close-icon" onClick={closeModal} > close </button>
+    <button  onClick={closeModal} > close </button>
                 
 </div>
               )}

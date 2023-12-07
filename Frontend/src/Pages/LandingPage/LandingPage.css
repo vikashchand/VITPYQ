@@ -121,8 +121,8 @@
 
 button  {
   background-image: linear-gradient(to right, #000000 0%, #53346D  51%, #000000  100%);
-  margin: 10px;
-  padding: 15px 45px;
+  margin: 3px;
+  padding: 10px 15px;
   text-align: center;
   text-transform: uppercase;
   
@@ -133,22 +133,21 @@ button  {
 
   background-color: #8ab8e6; /* Change this to the desired background color */
   color: #fff; /* Change this to the desired text color */
-  transition: background-color 3s ease-in; 
+  transition: background-color .4s ease-in; 
 
-  transition: .3s ease-in;
-  
+
 }
-button:hover {
+button:active {
   background-position: right center; /* change the direction of the change here */
   color: #fff;
   text-decoration: none;
-  background: wheat;
+  background:#3f1761;
 }
 
-button:active{
-  background: rgb(128, 156, 229);
-}
 
+button:hover{
+  cursor: pointer;
+}
 
 /* Media Query for Responsiveness */
 @media (max-width: 768px) {
@@ -253,8 +252,8 @@ margin: 3% 2%;
 
 button  {
   background-image: linear-gradient(to right, #000000 0%, #53346D  51%, #000000  100%);
-  margin: 10px;
-  padding: 10px 40px;
+  margin: 3px;
+  padding: 10px 15px;
   text-align: center;
   text-transform:none;
 

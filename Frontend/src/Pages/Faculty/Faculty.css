@@ -31,7 +31,15 @@ body {
    margin-bottom: 10px;
  }
  
-
+.like-dislike-container{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 5px;
+ 
+  justify-content: center;
+ 
+}
  textarea {
    width: 70%;
    padding: 10px;
@@ -70,18 +78,18 @@ body {
 
  
  .formbt,.clear-button {
-   background-color: #007bff;
+   
    color: #fff;
    padding: 10px 15px;
    border: none;
    border-radius: 5px;
    cursor: pointer;
+   
+  padding: 10px 15px;
  margin-left: 45%;
  }
  
- button:hover {
-   background-color: #0056b3;
- }
+ 
  
  .review-container {
    background-color: #5d1818;
@@ -235,8 +243,10 @@ body {
  }
  
  .formbt,.clear-button  {
-   background-color: #007bff;
+  
    color: #fff;
+  
+ 
    padding: 10px 15px;
    border: none;
    border-radius: 5px;

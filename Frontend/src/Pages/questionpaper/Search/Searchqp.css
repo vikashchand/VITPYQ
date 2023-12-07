@@ -43,7 +43,8 @@
   height: 50px;
   background-color: #ddd;
   background: #283949;
-  padding: 1% 1%;
+  margin: 3px;
+  padding: 10px 15px;
 
 transition: .3s ease-in;
 }
@@ -150,6 +151,24 @@ transition: .3s ease-in;
 
 }
 
+.coursecodess button{
+
+  margin: 3px;
+  padding: 10px 15px;
+  text-align: center;
+  text-transform: uppercase;
+  
+  color: white;            
+  box-shadow: 0 0 20px #eee;
+  border-radius: 10px;
+  display: block;
+
+  background-color: #8ab8e6; /* Change this to the desired background color */
+  color: #fff; /* Change this to the desired text color */
+  transition: background-color .4s ease-in; 
+
+}
+
 
 
 
@@ -246,7 +265,7 @@ transition: .3s ease-in;
   
 
   /* Add this to your existing CSS file or create a new one */
-.suggestions-list {
+.suggestions-lists {
   width: 20%;
   padding: 8px;
   font-size: 16px;
@@ -258,7 +277,8 @@ transition: .3s ease-in;
 list-style: none;
 list-style-type: none;
   background-size: 200% auto;
-  color: rgb(21, 6, 6);            
+  color: rgb(21, 6, 6);    
+  background-color: #f0f0f0;        
 
   border-radius: 10px;
   display: block;
@@ -282,7 +302,7 @@ margin-top: 0%;
   padding: 3px;
   font-size: 10px;
   background-color: #210f0f;
-  background-color: rgb(226, 237, 245);
+  background-color: rgb(255, 255, 255);
 
  
   text-align: center;
@@ -563,14 +583,15 @@ text-align: center;
   height: 50px;
   background-color: #ddd;
   background: #283949;
-  padding: 2% 10%;
+  margin: 3px;
+  padding: 10px 15px;
 }
 
 
 
   /* Add this to your existing CSS file or create a new one */
-  .suggestions-list {
-    width: 80%;
+  .suggestions-lists {
+    width: 60%;
     padding: 8px;
     font-size: 16px;
    
@@ -586,8 +607,8 @@ text-align: center;
     border-radius: 10px;
     display: block;
   font-weight: normal;
-  margin-left: 0%;
-  margin-top: 0%;
+  margin-left: 15%;
+  margin-top: 3%;
   
   
   }

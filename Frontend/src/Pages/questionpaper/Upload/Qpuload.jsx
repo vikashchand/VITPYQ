@@ -171,10 +171,16 @@ const TextExtractionApp = () => {
 
 
 
-
   
 
 
+const takeback= async () =>{
+
+  setImages([]);
+      setTextResults([]);
+      setButtonsVisible(false);
+  
+}
 
   
 
@@ -412,7 +418,7 @@ const TextExtractionApp = () => {
               onChange={(e) =>
                 setTextResults((prev) => {
                   const updatedResults = [...prev];
-                  updatedResults[index] = e.target.value;
+                  updatedResults[index] = e.target.value.slice(0,7);
                   return updatedResults;
                 })
               }
@@ -480,7 +486,10 @@ const TextExtractionApp = () => {
               </button>
   
               <button onClick={saveChanges} disabled={loading || images.length === 0}>
-                Save Changes
+                Save
+              </button>
+              <button onClick={takeback} disabled={loading || images.length === 0}>
+                Back
               </button>
             </>
           )}
