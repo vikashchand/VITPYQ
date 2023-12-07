@@ -212,7 +212,7 @@ const takeback= async () =>{
 
     const compressImage = async (image) => {
       const options = {
-        maxSizeMB: 4, // Set the maximum size in megabytes
+        maxSizeMB: 25, // Set the maximum size in megabytes
         maxWidthOrHeight: 1200, // Set the maximum width or height
       };
     
