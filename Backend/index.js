@@ -67,9 +67,9 @@ app.get('/totalvisitor', async (req, res) => {
 
       // Check if it's been more than 1 minute since the last visit
       const timeDifference = currentTime - lastVisitTime;
-      const minutesDifference = timeDifference / (1000 * 60);
+      const minutesDifference = timeDifference / (4000 * 60);
 
-      if (minutesDifference >= 1) {
+      if (minutesDifference >= 5) {
         // If it's been more than 1 minute, update the totalVisitors count and lastVisit timestamp
         await VisitorModel.updateOne({ ip: visitorIP }, { $inc: { totalVisitors: 1 }, lastVisit: currentTime });
       }

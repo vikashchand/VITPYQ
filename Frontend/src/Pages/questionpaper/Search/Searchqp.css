@@ -140,12 +140,13 @@ transition: .3s ease-in;
 
 
 
-.coursecodes{
-
+.coursecodess{
+  
 
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
+ 
 
 }
 
@@ -377,7 +378,7 @@ font-weight: bold;
 }
 
 
-.coursecodes{
+.coursecodess{
 
 
   display: flex;

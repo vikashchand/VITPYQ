@@ -66,7 +66,7 @@ const LandingPage = () => {
               <div className="feature-details">
                 <h3> Upload</h3>
                 
-                <p>This automatically extracts the text from image hence ,user wont need to type subject name ,code faculty name, just You need to be a good at taking snaps</p>
+                <p>automatically extracts the text from image hence ,user wont need to type subject name ,code faculty name, just You need to be a good at taking snaps</p>
               
                 <button >   <Link className='lin' to="/qpupload">Upload </Link> </button>
               
@@ -94,8 +94,8 @@ const LandingPage = () => {
           </div>
           <div className="feature-details">
             <h3>Faculty Review</h3>
-            <p>Currently in development mode ,will deployed to production by christmas 🧑‍🎄</p>
-            <p>Faculty serach module will only be active during ffcs </p>
+    
+            <p>Faculty serach module will only be active during ffcs Phases </p>
             <button >   <Link className='lin' to="/facultydata">Review </Link> </button>
               
             </div>
@@ -106,20 +106,6 @@ const LandingPage = () => {
       
           
 
-    
-    <li className="feature-card">
-    <div className="feature-icon">
-      <FaWpforms />
-    </div>
-    <div className="feature-details">
-      <h3>Contact Me </h3>
-      <p> Fill the given Below form To give Your valuable Feedback ,queries or Collaborate on this project</p>
-     
-      <a href='https://forms.gle/DtanNBDASu7xEkcK7'> Form</a>
-    
-     </div>
-      
-  </li>
             
            
           </ul>
@@ -133,6 +119,14 @@ const LandingPage = () => {
       <h3>Total  Uploads <FaRegNewspaper/> {totalEntries !== null ? totalEntries : 'Loading...'}</h3>
         <h3>Total Users <FaUser/> {totalVisitors !== null ? totalVisitors : 'Loading...'}  </h3>
     
+
+
+        <div className="features">
+      <h3>Contact Me </h3>
+     
+      <a href='https://forms.gle/DtanNBDASu7xEkcK7'> Form</a>
+    
+     </div>
   </div>
     
       </div>

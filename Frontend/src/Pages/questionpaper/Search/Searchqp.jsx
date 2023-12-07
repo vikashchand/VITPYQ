@@ -217,7 +217,7 @@ const shouldDisplayCourseCodeButtons = searchText === '';
     {isLoading && <div className="lds-facebook"> Loading<div></div><div></div><div></div></div>}
 
     {shouldDisplayCourseCodeButtons && (
-      <div className='coursecodes'>
+      <div className='coursecodess'>
         {courseCodes.map((code, index) => (
           <button
             key={index}

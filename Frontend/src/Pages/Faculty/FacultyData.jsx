@@ -48,7 +48,7 @@ const FacultySearch = () => {
 
       <h2>Search by Name</h2>
       <h2>Give Rating for the feedback provided on teachers</h2>
-      <input
+      <input className='facultyname'
         type="text"
         value={searchTerm}
         onChange={(e) => setSearchTerm(e.target.value)}

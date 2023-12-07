@@ -1,64 +1,63 @@
 /* src/styles.css */
 
 body {
-   font-family: 'Times New Roman', Times, serif;
-    margin: 0;
-    padding: 0;
-    background-color: #ffffff;
-    list-style: none;
-  }
+  font-family: 'Times New Roman', Times, serif;
   
-  .container {
+   background-color: #ffffff;
+   list-style: none;
+ }
  
-    margin: 0 auto;
-    padding: 20px;
-  }
-  
-  form {
-  
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(224, 198, 198, 0.1);
-    align-items: center;
-    justify-content: center;
-    height: 100vh;
-    font-family: 'Times New Roman', Times, serif;
-    
-  }
-  
-  label {
-    display: flex;
-    flex-direction: column;
-    margin-bottom: 10px;
-  }
-  
- 
-  textarea {
-    width: 70%;
-    padding: 10px;
-    margin-bottom: 15px;
-    box-sizing: border-box;
-    margin-left: 15%;
-    height: 40vh;
-    
-  }
+ .container {
 
-  input{
-    width: 30%;
-    padding: 10px;
-    margin-bottom: 15px;
-    margin-left: 0%;
-    box-sizing: border-box;
-    text-transform:uppercase;
-  }
+   margin: 0 auto;
+   padding: 20px;
+ }
+ 
+ form {
+ 
+   padding: 20px;
+   border-radius: 8px;
+   box-shadow: 0 0 10px rgba(224, 198, 198, 0.1);
+   align-items: center;
+   justify-content: center;
+   height: 100vh;
+   font-family: 'Times New Roman', Times, serif;
+   
+ }
+ 
+ label {
+   display: flex;
+   flex-direction: column;
+   margin-bottom: 10px;
+ }
+ 
+
+ textarea {
+   width: 70%;
+   padding: 10px;
+   margin-bottom: 15px;
+   box-sizing: border-box;
+   margin-left: 15%;
+   height: 40vh;
+   
+ }
+
+ input{
+   width: 30%;
+   padding: 10px;
+   margin-bottom: 15px;
+   margin-left: 0%;
+   box-sizing: border-box;
+   text-transform:uppercase;
+ }
 
 .facultyname{
-    width: 30%;
-    padding: 10px;
-    margin-bottom: 15px;
-    margin-left: 35%;
-    box-sizing: border-box;
-    text-transform:uppercase;
+   width: 30%;
+   padding: 10px;
+   margin-bottom: 15px;
+   margin-left: 35%;
+   box-sizing: border-box;
+   text-transform:uppercase;
 }
 
 
@@ -69,109 +68,206 @@ body {
 
 
 
-  
-  button {
-    background-color: #007bff;
-    color: #fff;
-    padding: 10px 15px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-  margin-left: 45%;
-  }
-  
-  button:hover {
-    background-color: #0056b3;
-  }
-  
-  .review-container {
-    background-color: #5d1818;
-    padding: 20px;
-    margin-top: 20px;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    font-family: 'Times New Roman', Times, serif;
-  }
-  
-  .review {
-    margin-bottom: 20px;
-    padding: 15px;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-  }
-  
-  .review p {
-    margin: 0;
-  }
-  
-  .review button {
-    margin-top: 10px;
-  }
-  
-  .review button:first-child {
-    margin-right: 10px;
-  }
-  
-  .likes-dislikes {
-    font-weight: bold;
-  }
-  
-  .likes {
-    color: #28a745;
-  }
-  
-  .dislikes {
-    color: #dc3545;
-  }
+ 
+ .formbt,.clear-button {
+   background-color: #007bff;
+   color: #fff;
+   padding: 10px 15px;
+   border: none;
+   border-radius: 5px;
+   cursor: pointer;
+ margin-left: 45%;
+ }
+ 
+ button:hover {
+   background-color: #0056b3;
+ }
+ 
+ .review-container {
+   background-color: #5d1818;
+   padding: 20px;
+   margin-top: 20px;
+   border-radius: 8px;
+   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+   font-family: 'Times New Roman', Times, serif;
+ }
+ 
+ .review {
+   margin-bottom: 20px;
+   padding: 15px;
+   border: 1px solid #ddd;
+   border-radius: 8px;
+ }
+ 
+ .review p {
+   margin: 0;
+ }
+ 
+ .review button {
+   margin-top: 10px;
+ }
+ 
+ .review button:first-child {
+   margin-right: 10px;
+ }
+ 
+ .likes-dislikes {
+   font-weight: bold;
+ }
+ 
+ .likes {
+   color: #28a745;
+ }
+ 
+ .dislikes {
+   color: #dc3545;
+ }
 
 
-  .faculty-search-container {
-    max-width: 100vh;
-    margin: 0 auto;
-    font-family: 'Times New Roman', Times, serif;
-    
-  }
-  
-  .suggestions-list {
-    list-style: none;
-    padding: 0;
-    margin: 10px 0;
-  }
-  
-  .suggestions-list li {
-    cursor: pointer;
-    padding: 8px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    margin-bottom: 5px;
-  }
-  
-  .suggestions-list li:hover {
-    background-color: #f0f0f0;
-  }
-  
-  .selected-faculty-details {
-    margin-top: 80px;
-  }
-  
-  /* Hide the suggestions when faculty is selected */
-  .hidden {
-    display: none;
-  }
-  
+ .faculty-search-container {
+   max-width: 100vh;
+   margin: 0 auto;
+   font-family: 'Times New Roman', Times, serif;
+   
+ }
+ 
+ .suggestions-list {
+   list-style: none;
+   padding: 0;
+   margin: 10px 0;
+ }
+ 
+ .suggestions-list li {
+   cursor: pointer;
+   padding: 8px;
+   border: 1px solid #ccc;
+   border-radius: 4px;
+   margin-bottom: 5px;
+ }
+ 
+ .suggestions-list li:hover {
+   background-color: #f0f0f0;
+ }
+ 
+ .selected-faculty-details {
+   margin-top: 80px;
+ }
+ 
+ /* Hide the suggestions when faculty is selected */
+ .hidden {
+   display: none;
+ }
+ 
 
-  
+ 
 
-  .likes-dislikes {
-    display: flex;
-    gap: 10px;
-  }
+ .likes-dislikes {
+   display: flex;
+   gap: 10px;
+ }
 
 
 
-  .faculty-search-container {
-   height: 80vh;
-   margin-top: 2%;
+ .faculty-search-container {
+  height: 80vh;
+  margin-top: 2%;
+   padding: 20px;
+   border: 1px solid #ccc;
+   border-radius: 8px;
+   list-style: none;
+   margin-bottom: 1%;
+ }
+ 
+ 
+ 
+ .suggestions-list {
+   list-style: none;
+   padding: 0;
+   margin: 0;
+   cursor: pointer;
+   list-style-type: none;
+
+ }
+ 
+ .suggestions-list li {
+   padding: 10px;
+   border: 1px solid #ccc;
+   margin-bottom: 5px;
+   border-radius: 4px;
+   list-style-type: none;
+   list-style: none;
+ }
+ 
+ .selected-faculty-details {
+   margin-top: 20px;
+   border: 1px solid #ccc;
+   padding: 15px;
+   border-radius: 8px;
+   list-style-type: none;
+   list-style: none;
+ }
+ 
+ /* Add any additional styling as needed */
+ 
+
+
+ 
+ @media (max-width: 768px) {
+   
+   
+ textarea {
+   width: 70%;
+   padding: 10px;
+   margin-bottom: 15px;
+   box-sizing: border-box;
+   margin-left: 15%;
+   height: 15vh;
+   
+ }
+
+ input{
+   width: 80%;
+   padding: 10px;
+   margin-bottom: 15px;
+   margin-left: 10%;
+   box-sizing: border-box;
+   text-transform:capitalize;
+ }
+ 
+ .formbt,.clear-button  {
+   background-color: #007bff;
+   color: #fff;
+   padding: 10px 15px;
+   border: none;
+   border-radius: 5px;
+   cursor: pointer;
+ margin-left: 40%;
+ }
+
+
+
+ .suggestions-list {
+   list-style: none;
+   padding: 0;
+   margin: 0;
+   cursor: pointer;
+   margin: 10%;
+   list-style-type: none;
+ }
+ 
+ .suggestions-list li {
+   padding: 10px;
+   border: 1px solid #ccc;
+   margin-bottom: 5px;
+   border-radius: 4px;
+   list-style-type: none;
+ }
+
+
+ .faculty-search-container {
+   height: 70vh;
+   margin-top: 15%;
+   width: 80%;
     padding: 20px;
     border: 1px solid #ccc;
     border-radius: 8px;
@@ -179,116 +275,19 @@ body {
     margin-bottom: 1%;
   }
   
-  
-  
-  .suggestions-list {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    cursor: pointer;
-    list-style-type: none;
 
-  }
-  
-  .suggestions-list li {
-    padding: 10px;
-    border: 1px solid #ccc;
-    margin-bottom: 5px;
-    border-radius: 4px;
-    list-style-type: none;
-    list-style: none;
-  }
-  
-  .selected-faculty-details {
-    margin-top: 20px;
-    border: 1px solid #ccc;
-    padding: 15px;
-    border-radius: 8px;
-    list-style-type: none;
-    list-style: none;
-  }
-  
-  /* Add any additional styling as needed */
-  
-
-
-  
-  @media (max-width: 768px) {
-    
-    
-  textarea {
-    width: 70%;
-    padding: 10px;
-    margin-bottom: 15px;
-    box-sizing: border-box;
-    margin-left: 15%;
-    height: 15vh;
-    
-  }
-
-  input{
-    width: 80%;
-    padding: 10px;
-    margin-bottom: 15px;
-    margin-left: 10%;
-    box-sizing: border-box;
-    text-transform:capitalize;
-  }
-  
-  button {
-    background-color: #007bff;
-    color: #fff;
-    padding: 10px 15px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-  margin-left: 40%;
-  }
-
-
-
-  .suggestions-list {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    cursor: pointer;
-    margin: 10%;
-    list-style-type: none;
-  }
-  
-  .suggestions-list li {
-    padding: 10px;
-    border: 1px solid #ccc;
-    margin-bottom: 5px;
-    border-radius: 4px;
-    list-style-type: none;
-  }
-
-
-  .faculty-search-container {
-    height: 70vh;
-    margin-top: 15%;
-    width: 80%;
-     padding: 20px;
-     border: 1px solid #ccc;
-     border-radius: 8px;
-     list-style: none;
-     margin-bottom: 1%;
-   }
-   
-
-   .facultyname{
-    width: 80%;
-    padding: 10px;
-    margin-bottom: 15px;
-    margin-left: 10%;
-    box-sizing: border-box;
-    text-transform:uppercase;
+  .facultyname{
+   width: 80%;
+   padding: 10px;
+   margin-bottom: 15px;
+   margin-left: 10%;
+   box-sizing: border-box;
+   text-transform:uppercase;
 }
-  
+ 
 
 .formbt{
 margin-left: 30%;
-   
+  
 }
-  }
+ }

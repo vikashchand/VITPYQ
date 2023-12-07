@@ -8,6 +8,15 @@
   
 }
 
+
+
+
+
+
+.cambt{
+  visibility: hidden;
+}
+
 .image-container {
   margin-top: 20px;
   display: flex;
@@ -21,6 +30,15 @@
  
 
 }
+
+
+
+
+
+
+
+
+
 
 img {
   max-width: 20%;
@@ -301,6 +319,12 @@ font-size: small;
   border: 1px solid black;
 
 
+}
+
+.cambt{
+  visibility:visible;
+  display: flex;
+  flex-direction: row;
 }
   
 }
