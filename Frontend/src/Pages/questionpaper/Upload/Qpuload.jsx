@@ -74,7 +74,7 @@ const TextExtractionApp = () => {
       //const { data: { text } } = await Tesseract.recognize(images[0], 'eng');
   
 
-      console.log(text);
+      //console.log(text);
       // Check if the first three characters match specific prefixes
       const prefixes = ['swe', 'eee', 'mat', 'bit', 'cse','fre','ger','jap','esp'];
       const potentialPrefixes = [];
@@ -86,7 +86,7 @@ const TextExtractionApp = () => {
         }
       }
   
-      console.log("Potential Prefixes:", potentialPrefixes);
+      //console.log("Potential Prefixes:", potentialPrefixes);
   
       if (potentialPrefixes.length > 0) {
         // Process each potential prefix
@@ -98,7 +98,7 @@ const TextExtractionApp = () => {
               word.toLowerCase().startsWith(potentialPrefix.toLowerCase()) && word.toLowerCase() !== 'answer'
             );
   
-          console.log(`Words with ${potentialPrefix} Prefix:`, wordsWithPrefix);
+         // console.log(`Words with ${potentialPrefix} Prefix:`, wordsWithPrefix);
   
           // Join the words back into a single string
           const filteredText = wordsWithPrefix.join(' ');
@@ -107,7 +107,7 @@ const TextExtractionApp = () => {
           const regex = /\b[A-Za-z]{3}[A-Za-z\d]{4}\b/;
           const match = filteredText.match(regex);
   
-          console.log(`Regex Match for ${potentialPrefix}:`, match);
+          //console.log(`Regex Match for ${potentialPrefix}:`, match);
   
           if (match) {
             // Accumulate all matches
@@ -147,7 +147,7 @@ const TextExtractionApp = () => {
       setTextResults([allMatches,facultyLine, courseLine, ]);
 
 
-      console.log("facultyname",facultyLine,"courseName",courseLine);
+      //console.log("facultyname",facultyLine,"courseName",courseLine);
 
 
 

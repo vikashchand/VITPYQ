@@ -81,7 +81,7 @@ const LandingPage = () => {
               <div className="feature-details">
                 <h3>Search </h3>
                 <p>Search subject based on Subject code and Subject Name or Faculty Name </p>
-                <button >   <Link className='lin' to="/searchqp">Search </Link> </button>
+                <button >   <Link className='lin' to="/searchqps">Search </Link> </button>
               
                 </div>
             </li>
