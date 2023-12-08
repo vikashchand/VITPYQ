@@ -23,9 +23,11 @@ const Navbar = () => {
       <nav className="main-nav">
         {/* 1st logo part  */}
         <div className="logo">
-          <h2>
-           MIS_Archives
-          </h2>
+        
+          <NavLink to="/" >  <h2>
+          MIS_Archives
+         
+         </h2></NavLink>
         </div>
 
         {/* 2nd menu part  */}

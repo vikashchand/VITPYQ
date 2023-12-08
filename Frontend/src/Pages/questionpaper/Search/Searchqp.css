@@ -56,7 +56,9 @@ transition: .3s ease-in;
 
 
 
-
+.mobileinst{
+  visibility: hidden;
+}
 
 
 
@@ -643,6 +645,12 @@ text-align: center;
   
   }  
 
+
+  .mobileinst{
+    visibility: visible;
+  }
+  
+  
 
 
 }

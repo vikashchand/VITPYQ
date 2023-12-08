@@ -214,7 +214,12 @@ const shouldDisplayCourseCodeButtons = searchText === '';
 
     <h1>Available Question Papers</h1>
 
-    {isLoading && <div className="lds-facebook"> Loading<div></div><div></div><div></div></div>}
+    <p className='mobileinst'>Scroll down after searching</p>
+
+    {isLoading && <div className="lds-facebook"> Loading<div></div><div></div><div></div></div>
+
+  
+  }
 
     {shouldDisplayCourseCodeButtons && (
       <div className='coursecodess'>

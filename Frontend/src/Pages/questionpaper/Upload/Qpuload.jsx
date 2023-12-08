@@ -212,7 +212,7 @@ const takeback= async () =>{
 
     const compressImage = async (image) => {
       const options = {
-        maxSizeMB: 25, // Set the maximum size in megabytes
+        maxSizeMB: 3, // Set the maximum size in megabytes
         maxWidthOrHeight: 1200, // Set the maximum width or height
       };
     
@@ -292,6 +292,7 @@ const takeback= async () =>{
       setButtonsVisible(false);
     } catch (error) {
       console.error('Error saving changes:', error);
+      
   
       // Display error toast
       toast.error(error, {
@@ -354,16 +355,14 @@ const takeback= async () =>{
       <ul>
       <h3>Steps</h3>
      
+      <li>1.Click clear picture without folds on question paper with orientation in potrait mode</li>
+      <li>2.Use whatsapp compressed images as more than 3mb of image will not get uploaded.</li>
+     <li>3.Select the compressed images and rearrange ,keep First page of question paper on top</li>
+     <li>4.After this click on extract Button</li>
+     <li>5.Incase if text extractor couldn't find course code then type manually</li>
+     <li>6.Review and edit the first text box if needed.</li>
+     <li>7.Click 'Save' to preserve changes to images.</li>
     
-      <li>1.For Multiple images select images, rearrange images by dragging them.</li>
-    
-     <li>2.After rearranging images, click 'Extract Text'.</li>
-     <li>3.Keep focus on first image only coz that will be used for extracting text</li>
-     <li>Only first 100 words will be extracted from first image to maintain efficiency and storage</li>
-   
-     <li>4.Review and edit the first text box if needed.</li>
-     <li>5.Click 'Save' to preserve changes to images.</li>
-     <li></li>
       
       
       </ul>
