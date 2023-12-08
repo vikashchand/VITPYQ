@@ -240,7 +240,8 @@ app.get('/totalqp', async (req, res) => {
     const result = await ImageModel.find();
 
     // Get the total number of entries
-    const totalEntries = result.length;
+    const totalEntries = await ImageModel.countDocuments();
+
 
     // Only send necessary data to the frontend, e.g., image URLs
    
