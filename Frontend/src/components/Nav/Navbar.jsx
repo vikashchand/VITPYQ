@@ -40,7 +40,7 @@ const Navbar = () => {
               <NavLink to="/" onClick={handleNavLinkClick}>Home</NavLink>
             </li>
             <li>
-              <NavLink to="/searchqp" onClick={handleNavLinkClick}>Search</NavLink>
+              <NavLink to="/searchqps" onClick={handleNavLinkClick}>Search</NavLink>
             </li>
             <li>
               <NavLink to="/qpupload" onClick={handleNavLinkClick}>Upload</NavLink>

@@ -27,7 +27,7 @@ function App() {
     
 
       <Route path="/qpupload" element={ <Qpupload/> } />
-      <Route path="/searchqp" element={ <Searchqp />} />
+      <Route path="/searchqps" element={ <Searchqp />} />
       <Route path="/faculty" element={ <FacultyList/> } />
       <Route path="/facultydata" element={<FacultyData/> } />
       <Route path="*" element={<NotFound />} /> {/* Add a catch-all route */}
