@@ -29,7 +29,6 @@ app.use(bodyParser.json({ limit: '50mb' }));
 app.use(bodyParser.urlencoded({ extended: true }));
 
 
-const l="noe";
 
 
 
@@ -362,28 +361,6 @@ app.get('/searchqp', async (req, res) => {
 
 
 
-app.get('/data', async (req, res) => {
-  try {
-    const facultyName = req.query.facultyName;
-
-    let query = {};
-    if (facultyName) {
-      query = { 'images.facultyName': { $regex: new RegExp(facultyName, 'i') } };
-    }
-
-    const result = await ImageModel.find(query).select('images');
-    
-    const imageData = result.map(item => ({
-      imageUrls: item.images.map(img => `data:image/jpeg;base64,${img.image.toString('base64')}`),
-    }));
-
-    res.json(imageData);
-  } catch (error) {
-    console.error('Error fetching data:', error);
-    res.status(500).json({ error: 'Internal Server Error' });
-  }
-});
-
 
 
 
@@ -416,6 +393,39 @@ app.get('/data', async (req, res) => {
 //     res.status(500).json({ error: 'Internal Server Error' });
 //   }
 // });
+
+app.get('/data', async (req, res) => {
+  try {
+    const facultyName = req.query.facultyName;
+
+    let query = {};
+    if (facultyName) {
+      query = { 'images.facultyName': { $regex: new RegExp(facultyName, 'i') } };
+    }
+
+    const result = await ImageModel.find(query).select('images');
+    
+    const imageData = result.map(item => ({
+      imageUrls: item.images.map(img => `data:image/jpeg;base64,${img.image.toString('base64')}`),
+    }));
+
+    res.json(imageData);
+  } catch (error) {
+    console.error('Error fetching data:', error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
+
+
+
+
+
+
+
+
+
+
+
 
 
 

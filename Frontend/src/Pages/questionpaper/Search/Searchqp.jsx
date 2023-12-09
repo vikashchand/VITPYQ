@@ -61,19 +61,53 @@ const shouldDisplayCourseCodeButtons = searchText === '';
 
 
 
+  // const handleCodeClick = async (code) => {
+  //   try {
+  //     setIsLoading(true);
+  //     const response = await axios.get(`${baseUrl}/searchqp?text=${code}`, {
+  //       timeout: 10000, // Set timeout in milliseconds (adjust as needed)
+  //     });
+      
+      
+      
+  //     setImageData(response.data.imageData);
+  //     setSelectedCode(code);
+  //     setSuggestions([]); // Clear suggestions after selecting a code
+  //   } catch (error) {
+  //     console.error('Error fetching images for course code:', error);
+  //   } finally {
+  //     setIsLoading(false);
+  //   }
+  // };
+
+
   const handleCodeClick = async (code) => {
     try {
       setIsLoading(true);
-      const response = await axios.get(`${baseUrl}/searchqp?text=${code}`);
+      const response = await axios.get(`${baseUrl}/searchqp?text=${code}`, {
+        timeout: 20000, // Set timeout in milliseconds (adjust as needed)
+      });
+  
       setImageData(response.data.imageData);
       setSelectedCode(code);
       setSuggestions([]); // Clear suggestions after selecting a code
     } catch (error) {
-      console.error('Error fetching images for course code:', error);
+      if (axios.isCancel(error)) {
+        console.log('Request canceled due to timeout');
+        // Handle the timeout gracefully, e.g., show a message to the user
+      } else {
+        console.error('Error fetching images for course code:', error);
+        // Handle other errors, e.g., show an error message to the user
+      }
     } finally {
       setIsLoading(false);
     }
   };
+  
+
+
+
+
 
 
 

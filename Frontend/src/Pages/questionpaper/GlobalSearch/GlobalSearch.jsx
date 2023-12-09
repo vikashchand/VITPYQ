@@ -46,7 +46,7 @@ const MainComponent = () => {
         type="text"
         value={query}
         onChange={(e) => setQuery(e.target.value)}
-        placeholder="Search by faculty name"
+        placeholder="Search by facultyafter name"
       />
       <ul>
         {suggestions.map((faculty) => (
