@@ -109,6 +109,7 @@ const imageSchema = new mongoose.Schema({
     courseCode: {
       type: String,
       required:true,
+      index:true,
     },
     facultyName: {
       type: String,
@@ -118,7 +119,7 @@ const imageSchema = new mongoose.Schema({
     },
   }],
 });
-imageSchema.index({ 'images.text': 'text' });
+
 
 const ImageModel = mongoose.model('Image', imageSchema);
 
@@ -289,6 +290,100 @@ app.get('/totalqp', async (req, res) => {
 
 
 
+// app.get('/searchqp', async (req, res) => {
+//   try {
+//     const searchText = req.query.text;
+//     const pageSize = parseInt(req.query.pageSize) || 10;
+//     const page = parseInt(req.query.page) || 1;
+
+//     let query = {};
+//     if (searchText) {
+//       query = { 'images.courseCode': { $regex: new RegExp(searchText, 'i') } };
+//     }
+
+//     const result = await ImageModel.find(query)
+//       .skip((page - 1) * pageSize)
+//       .limit(pageSize)
+//       .select('images.courseCode images.facultyName images.image');
+
+//     const uniqueCourseCodes = [...new Set(result.map(item => item.images.map(img => img.courseCode)).flat())];
+
+//     const imageData = result.map(item => ({
+//       imageUrls: item.images.map(img => `data:image/jpeg;base64,${img.image.toString('base64')}`),
+//       facultyName: item.images.facultyName,
+//     }));
+
+//     res.status(200).json({ uniqueCourseCodes, imageData });
+//   } catch (error) {
+//     console.error('Error fetching data:', error);
+//     res.status(500).json({ error: 'Internal Server Error' });
+//   }
+// });
+
+
+
+
+//////////this is cursor code
+
+
+// app.get('/searchqp', async (req, res) => {
+//   try {
+//     const searchText = req.query.text;
+//     const pageSize = parseInt(req.query.pageSize) || 10;
+//     const page = parseInt(req.query.page) || 1;
+
+//     let query = {};
+//     if (searchText) {
+//       query = { 'images.courseCode': { $regex: new RegExp(searchText, 'i') } };
+//     }
+
+//     const cursor = ImageModel.find(query)
+//       .select('images.courseCode images.facultyName images.image')
+//       .cursor();
+
+//     const uniqueCourseCodes = [];
+//     let firstItemProcessed = false;
+
+//     cursor.on('data', (item) => {
+//       if (!firstItemProcessed) {
+//         // Send the first value immediately
+//         const firstImageData = {
+//           imageUrls: item.images.map(img => `data:image/jpeg;base64,${img.image.toString('base64')}`),
+//           facultyName: item.images.facultyName,
+//         };
+//         res.write(JSON.stringify({ uniqueCourseCodes, imageData: [firstImageData] }));
+//         firstItemProcessed = true;
+//       } else {
+//         // Send subsequent values slowly
+//         setTimeout(() => {
+//           const imageData = {
+//             imageUrls: item.images.map(img => `data:image/jpeg;base64,${img.image.toString('base64')}`),
+//             facultyName: item.images.facultyName,
+//           };
+//           res.write(JSON.stringify({ imageData }));
+//         }, 1000); // Adjust the delay as needed
+//       }
+//     });
+
+//     cursor.on('end', () => {
+//       res.end();
+//     });
+
+//     cursor.on('error', (error) => {
+//       console.error('Error fetching data:', error);
+//       res.status(500).json({ error: 'Internal Server Error' });
+//     });
+//   } catch (error) {
+//     console.error('Error fetching data:', error);
+//     res.status(500).json({ error: 'Internal Server Error' });
+//   }
+// });
+
+
+
+
+
+/////
 app.get('/searchqp', async (req, res) => {
   try {
     const searchText = req.query.text;
@@ -312,26 +407,29 @@ app.get('/searchqp', async (req, res) => {
       facultyName: item.images.facultyName,
     }));
 
-    res.status(200).json({ uniqueCourseCodes, imageData });
+    // Send initial response after 7 seconds
+    setTimeout(() => {
+      res.write(JSON.stringify({ uniqueCourseCodes, imageData }));
+      res.end();
+    }, 5000);
+
+    // Continue sending the rest of the data
+    for (let i = 1; i < uniqueCourseCodes.length; i++) {
+      setTimeout(() => {
+        res.write(JSON.stringify({
+          uniqueCourseCodes: [uniqueCourseCodes[i]],
+          imageData: [imageData[i]],
+        }));
+        if (i === uniqueCourseCodes.length - 1) {
+          res.end();
+        }
+      }, 1000 * i); // Adjust the interval as needed
+    }
   } catch (error) {
     console.error('Error fetching data:', error);
     res.status(500).json({ error: 'Internal Server Error' });
   }
 });
-
-// Other routes can be similarly optimized with indexing, pagination, and projection.
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
