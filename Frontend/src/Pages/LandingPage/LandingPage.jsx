@@ -1,5 +1,5 @@
 import React,{useState, useEffect} from 'react';
-import {  FaSearchengin, FaSearch,FaUpload, FaUser, FaRegNewspaper, FaWpforms, FaMapMarkedAlt } from 'react-icons/fa';
+import {  FaSearchengin, FaSearch,FaUpload, FaUser, FaRegNewspaper, FaGithub, FaLinkedinIn } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 import './LandingPage.css';
 
@@ -113,21 +113,37 @@ const LandingPage = () => {
 
        
       </div>
-      <div className='dev'> Made by the Student of 4th Year (2020-2025) Of Integrated M.Tech in Software Engineering with Love 💖 (Anonymous)</div>
-     
+      
+      
       <div >
       <h3>Total  Uploads <FaRegNewspaper/> {totalEntries !== null ? totalEntries : 'Loading...'}</h3>
         <h3>Total Users <FaUser/> {totalVisitors !== null ? totalVisitors : 'Loading...'}  </h3>
     
 
 
-        <div className="features">
-      <h3>Contact Me </h3>
-     
-      <a href='https://forms.gle/DtanNBDASu7xEkcK7'> Form</a>
-    
-     </div>
   </div>
+
+
+
+  <div className='dev'>
+      
+      <h6>Made by VIKASH CHAND (2020-2025) with Love 💖  
+      
+      
+
+    
+<br></br>
+      Contact Me on <a href="https://www.linkedin.com/in/vikash-chand28/" >
+      <FaLinkedinIn/>
+      </a>  </h6>
+      
+     
+  
+     
+    
+     
+      
+    </div>
     
       </div>
   );
