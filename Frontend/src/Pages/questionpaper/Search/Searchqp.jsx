@@ -160,18 +160,7 @@ const shouldDisplayCourseCodeButtons = searchText === '';
     }
   };
   
-  // const fetchData = async (mode, value) => {
-  //   try {
-  //     setIsLoading(true);
-  //     const response = await axios.get(`${baseUrl}/globalapi?mode=${mode}&text=${value}`)
-      
-  //     setImageData(response.data.imageData);
-  //   } catch (error) {
-  //     console.error('Error fetching data:', error);
-  //   } finally {
-  //     setIsLoading(false);
-  //   }
-  // };
+ 
 
   const fetchData = async (mode, value) => {
     try {
