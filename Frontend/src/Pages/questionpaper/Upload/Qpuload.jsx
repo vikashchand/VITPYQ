@@ -417,7 +417,7 @@ const takeback= async () =>{
               onChange={(e) =>
                 setTextResults((prev) => {
                   const updatedResults = [...prev];
-                  updatedResults[index] = e.target.value.slice(0,7).toUpperCase();;
+                  updatedResults[index] = e.target.value.slice(0,7).toUpperCase();
                   return updatedResults;
                 })
               }

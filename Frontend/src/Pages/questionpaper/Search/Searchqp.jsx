@@ -51,7 +51,7 @@ const shouldDisplayCourseCodeButtons = searchText === '';
     try {
       setIsLoading(true);
       const response = await axios.get(`${baseUrl}/searchqp?text=${code}`, {
-        timeout: 20000, // Set timeout in milliseconds (adjust as needed)
+        timeout: 1800000, // Set timeout in milliseconds (adjust as needed)
       });
   
       setImageData(response.data.imageData);
@@ -166,7 +166,7 @@ const shouldDisplayCourseCodeButtons = searchText === '';
     try {
       setIsLoading(true);
       const response = await axios.get(`${baseUrl}/globalapi?mode=${mode}&text=${value}`, {
-        timeout: 20000, // Set timeout in milliseconds (adjust as needed)
+        timeout: 1800000, // Set timeout in milliseconds (adjust as needed)
       });
       
       setImageData(response.data.imageData);
