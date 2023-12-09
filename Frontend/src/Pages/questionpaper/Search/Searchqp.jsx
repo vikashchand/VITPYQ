@@ -6,6 +6,8 @@ import { FaSearch, FaDownload, FaTimes } from 'react-icons/fa';
 import axios from 'axios';
 import Modal from 'react-modal';
 
+
+
 import baseUrl from '../../../config';
 import './Searchqp.css';
 
@@ -44,42 +46,6 @@ const shouldDisplayCourseCodeButtons = searchText === '';
     fetchCourseCodes();
   }, []);
 
-  // const handleCodeClick = async (code) => {
-  //   try {
-  //     setIsLoading(true); // Set loading to true when making the request
-  //     const response = await axios.get(`${baseUrl}/searchqp?text=${code}`);
-  //     setImageData(response.data.imageData);
-  //     setSelectedCode(code);
-  //   } catch (error) {
-  //     console.error('Error fetching images for course code:', error);
-  //   } finally {
-  //     setIsLoading(false); // Set loading to false when the request is completed
-  //   }
-  // };
-
-
-
-
-
-  // const handleCodeClick = async (code) => {
-  //   try {
-  //     setIsLoading(true);
-  //     const response = await axios.get(`${baseUrl}/searchqp?text=${code}`, {
-  //       timeout: 10000, // Set timeout in milliseconds (adjust as needed)
-  //     });
-      
-      
-      
-  //     setImageData(response.data.imageData);
-  //     setSelectedCode(code);
-  //     setSuggestions([]); // Clear suggestions after selecting a code
-  //   } catch (error) {
-  //     console.error('Error fetching images for course code:', error);
-  //   } finally {
-  //     setIsLoading(false);
-  //   }
-  // };
-
 
   const handleCodeClick = async (code) => {
     try {
@@ -105,10 +71,7 @@ const shouldDisplayCourseCodeButtons = searchText === '';
   };
   
 
-
-
-
-
+  
 
 
 
@@ -126,10 +89,7 @@ const shouldDisplayCourseCodeButtons = searchText === '';
     });
   };
 
-  // const openModal = (index) => {
-  //   setIsModalOpen(true);
-  //   setCurrentImageIndex(index);
-  // };
+ 
 
   const closeModal = () => {
     setIsModalOpen(false);
@@ -173,6 +133,13 @@ const shouldDisplayCourseCodeButtons = searchText === '';
     // Call a function to fetch suggestions based on the current search mode and text
     fetchSuggestions(searchMode, e.target.value);
   };
+
+
+
+
+
+
+
   
   
   const handleSuggestionClick = (suggestion) => {
@@ -193,10 +160,26 @@ const shouldDisplayCourseCodeButtons = searchText === '';
     }
   };
   
+  // const fetchData = async (mode, value) => {
+  //   try {
+  //     setIsLoading(true);
+  //     const response = await axios.get(`${baseUrl}/globalapi?mode=${mode}&text=${value}`)
+      
+  //     setImageData(response.data.imageData);
+  //   } catch (error) {
+  //     console.error('Error fetching data:', error);
+  //   } finally {
+  //     setIsLoading(false);
+  //   }
+  // };
+
   const fetchData = async (mode, value) => {
     try {
       setIsLoading(true);
-      const response = await axios.get(`${baseUrl}/globalapi?mode=${mode}&text=${value}`);
+      const response = await axios.get(`${baseUrl}/globalapi?mode=${mode}&text=${value}`, {
+        timeout: 20000, // Set timeout in milliseconds (adjust as needed)
+      });
+      
       setImageData(response.data.imageData);
     } catch (error) {
       console.error('Error fetching data:', error);
@@ -204,6 +187,19 @@ const shouldDisplayCourseCodeButtons = searchText === '';
       setIsLoading(false);
     }
   };
+
+
+
+
+
+
+
+
+
+
+
+
+
 
   
  
@@ -248,26 +244,14 @@ const shouldDisplayCourseCodeButtons = searchText === '';
 
     <h1>Available Question Papers</h1>
 
-    <p className='mobileinst'>Scroll down after searching</p>
+  
 
     {isLoading && <div className="lds-facebook"> Loading<div></div><div></div><div></div></div>
 
   
   }
 
-    {shouldDisplayCourseCodeButtons && (
-      <div className='coursecodess'>
-        {courseCodes.map((code, index) => (
-          <button
-            key={index}
-            onClick={() => handleCodeClick(code)}
-            className={selectedCode === code ? 'selected' : ''}
-          >
-            {code}
-          </button>
-        ))}
-      </div>
-    )}
+   
      
    
       <div className="card-container">
@@ -338,6 +322,22 @@ const shouldDisplayCourseCodeButtons = searchText === '';
         )}
       </div>
     </Modal>
+
+
+
+    {shouldDisplayCourseCodeButtons && (
+      <div className='coursecodess'>
+        {courseCodes.map((code, index) => (
+          <button
+            key={index}
+            onClick={() => handleCodeClick(code)}
+            className={selectedCode === code ? 'selected' : ''}
+          >
+            {code}
+          </button>
+        ))}
+      </div>
+    )}
   </div>
 );
 };
