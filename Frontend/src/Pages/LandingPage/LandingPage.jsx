@@ -127,7 +127,7 @@ const LandingPage = () => {
 
   <div className='dev'>
       
-      <h6>Made by VIKASH CHAND (2020-2025) with Love 💖  
+      <h6>Made by Piyush Rana (2020-2025) with Love 💖  
       
       
 
