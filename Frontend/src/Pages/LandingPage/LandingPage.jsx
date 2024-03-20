@@ -133,7 +133,7 @@ const LandingPage = () => {
 
     
 <br></br>
-      Contact Me on <a href="https://www.linkedin.com/in/vikash-chand28/" >
+      Contact Me on <a href="https://www.linkedin.com/in/piyushtsx/" >
       <FaLinkedinIn/>
       </a>  </h6>
       
