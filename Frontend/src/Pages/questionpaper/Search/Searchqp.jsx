@@ -211,7 +211,7 @@ const shouldDisplayCourseCodeButtons = searchText === '';
       <option value="courseCode">Course Code</option>
     </select>
 
-    <input
+    <input className='searchinput'
       type="text"
       placeholder={`Search by ${searchMode === 'facultyName' ? 'Faculty' : (searchMode === 'courseName' ? 'Course' : 'Code')}`}
       value={searchText}

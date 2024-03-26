@@ -1,0 +1,75 @@
+/* PlacementData.css */
+
+.containerplace {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    font-family: 'Arial', sans-serif; /* Change the font to a professional-looking font */
+    align-items: center;
+  }
+  
+  h1 {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  form {
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-radius: 8px;
+  }
+  
+  .form-group {
+    margin-bottom: 20px;
+  }
+  
+  label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+  }
+  
+  .containerplace {
+    width: 50%;
+    padding: 7px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  textarea {
+    height: 100px; /* Set a fixed height for the textarea */
+  }
+  
+  button[type="submit"] {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  button[type="submit"]:hover {
+    background-color: #0056b3;
+  }
+  
+  /* Styling for the Editor component */
+  .public-DraftEditor-content {
+    min-height: 100px; /* Ensure minimum height for the editor content */
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+  }
+  
+  .toolbarClassName {
+    border: none; /* Remove border from the toolbar */
+  }
+  
+  .wrapperClassName {
+    margin-bottom: 10px; /* Add some margin below the editor */
+  }
+  
+  .editorClassName {
+    border: none; /* Remove border from the editor */
+  }
+  

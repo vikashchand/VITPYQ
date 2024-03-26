@@ -50,7 +50,7 @@ body {
    
  }
 
- input{
+.facultyname  .input{
    width: 30%;
    padding: 10px;
    margin-bottom: 15px;
@@ -233,7 +233,7 @@ body {
    
  }
 
- input{
+ .facultyname .input{
    width: 80%;
    padding: 10px;
    margin-bottom: 15px;

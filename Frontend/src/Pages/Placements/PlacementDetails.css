@@ -1,0 +1,72 @@
+/* PlacementDetails.css */
+
+.placement-details {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  
+  .company-name {
+    font-size: 24px;
+    color: #333;
+    margin-bottom: 10px;
+  }
+  
+  .image-container {
+    margin-bottom: 20px;
+  }
+  
+  .placement-image {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 8px;
+  }
+  
+  .summary {
+    font-size: 18px;
+    color: #666;
+    margin-bottom: 20px;
+  }
+  
+  .description {
+    text-align: start;
+    width: 100%;
+    padding: 0px 0px;
+    font-weight: 200; 
+    font-style: normal;
+    font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  }
+
+
+  .description .p{
+    padding: 0px 0px;
+    font-weight: 200; 
+    font-style: normal;
+    font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  }
+  .description a {
+    color: #007bff;
+    text-decoration: underline;
+  }
+  
+  .description a:hover {
+    color: #0056b3;
+    text-decoration: none;
+  }
+  
+  /* Responsive design */
+  @media (max-width: 768px) {
+    .company-name {
+      font-size: 20px;
+    }
+  
+    .summary {
+      font-size: 16px;
+    }
+  
+    .description {
+      font-size: 14px;
+    }
+  }
+  

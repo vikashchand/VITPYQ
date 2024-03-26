@@ -1,0 +1,56 @@
+.placement-card {
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  }
+  
+  .placement-card:hover {
+    transform: translateY(-5px);
+  }
+  
+  .placement-link {
+    text-decoration: none;
+    color: inherit;
+  }
+  
+  .placement-image-container {
+    height: 200px;
+    overflow: hidden;
+  }
+  
+  .placement-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+
+
+
+  .placement-image-container .placement-image {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+  }
+  
+  .placement-details {
+    padding: 20px;
+  }
+  
+  .placement-company {
+    margin-top: 0;
+    margin-bottom: 10px;
+    font-size: 1.5rem;
+    color: #333;
+  }
+  
+  .placement-username {
+   
+    color: #050000;
+  }
+  
+  .placement-summary {
+    margin-top: 10px;
+    color: #444;
+  }
+  

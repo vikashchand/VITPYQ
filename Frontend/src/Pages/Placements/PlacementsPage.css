@@ -1,0 +1,74 @@
+.placements-page {
+    padding: 15px 30px;
+  }
+  
+  .page-title {
+    font-size: 2rem;
+    color: #333;
+    margin-bottom: 20px;
+  }
+  
+  .placement-cards-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 20px;
+  }
+  
+  @media (max-width: 768px) {
+    .placement-cards-container {
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    }
+  }
+  
+  .placement-card {
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+    background-color: #fff;
+  }
+  
+  .placement-card:hover {
+    transform: translateY(-5px);
+  }
+  
+  .placement-link {
+    text-decoration: none;
+    color: inherit;
+  }
+  
+  .placement-image-container {
+    height: 200px;
+    overflow: hidden;
+  }
+  
+  .placement-card .placement-image {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+  }
+  
+  
+  .placement-details {
+    padding: 20px;
+  }
+  
+  .placement-company {
+    margin-top: 0;
+    margin-bottom: 10px;
+    font-size: 1.5rem;
+    color: #333;
+  }
+  
+  .placement-username {
+    margin: 0;
+    font-size: 1rem;
+    color: #666;
+  }
+  
+  .placement-summary {
+    margin-top: 10px;
+    color: #444;
+  }
+  

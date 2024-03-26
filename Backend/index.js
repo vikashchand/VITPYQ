@@ -570,5 +570,342 @@ app.put('/faculties/:id/dislike', async (req, res) => {
 
 
 
+
+
+
+// const PlacementSchema = new mongoose.Schema({
+//   companyName: {
+//     type: String,
+//     required: true,
+//   },
+//   username: {
+//     type: String,
+//     required: true,
+//   },
+//   image: {
+//     type: String, // Store the image as base64 string
+//     required: true,
+//   },
+//   summary: {
+//     type: String,
+//     required: true,
+//   },
+//   description: {
+//     type: String,
+//     required: true,
+//   },
+// });
+
+// const PlacementModel = mongoose.model('Placement', PlacementSchema);
+
+// // Route to handle placement data submission
+// app.post('/placement', async (req, res) => {
+//   try {
+//     const { companyName, username, image, summary, description } = req.body;
+
+//     // Create a new placement document
+//     const newPlacement = new PlacementModel({
+//       companyName,
+//       username,
+//       image,
+//       summary,
+//       description,
+//     });
+
+//     // Save the placement data to the database
+//     await newPlacement.save();
+// console.log("saved successfully");
+//     res.status(200).json({ message: 'Placement data saved successfully' });
+//   } catch (error) {
+//     console.error('Error saving placement data:', error);
+ 
+//     res.status(500).json({ error: 'Internal Server Error' });
+//   }
+// });
+
+
+
+
+
+// app.get('/placements', async (req, res) => {
+//   try {
+//     const placements = await PlacementModel.find();
+//     res.json(placements);
+//   } catch (error) {
+//     console.error('Error fetching placements:', error);
+//     res.status(500).json({ error: 'Internal Server Error' });
+//   }
+// });
+
+
+// app.get('/placements/:id', async (req, res) => {
+//   try {
+//     const placement = await PlacementModel.findById(req.params.id);
+//     if (!placement) {
+//       return res.status(404).json({ error: 'Placement not found' });
+//     }
+//     res.json(placement);
+//   } catch (error) {
+//     console.error('Error fetching placement details:', error);
+//     res.status(500).json({ error: 'Internal Server Error' });
+//   }
+// });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// const PlacementSchema = new mongoose.Schema({
+//   companyName: {
+//     type: String,
+//     required: true,
+//     index: true, // Add index on companyName
+//   },
+//   username: {
+//     type: String,
+//     required: true,
+//     index: true, // Add index on username
+//   },
+//   image: {
+//     type: String,
+//     required: true,
+//   },
+//   summary: {
+//     type: String,
+//     required: true,
+//   },
+//   description: {
+//     type: String,
+//     required: true,
+//   },
+// });
+
+
+// const PlacementModel = mongoose.model('Placement', PlacementSchema);
+
+
+
+
+// // Route to handle placement data submission
+// app.post('/placement', async (req, res) => {
+//   try {
+//     const { companyName, username, image, summary, description } = req.body;
+
+//     // Create a new placement document
+//     const newPlacement = new PlacementModel({
+//       companyName,
+//       username,
+//       image,
+//       summary,
+//       description,
+//     });
+
+//     // Save the placement data to the database
+//     await newPlacement.save();
+// console.log("saved successfully");
+//     res.status(200).json({ message: 'Placement data saved successfully' });
+//   } catch (error) {
+//     console.error('Error saving placement data:', error);
+ 
+//     res.status(500).json({ error: 'Internal Server Error' });
+//   }
+// });
+
+
+
+
+
+// app.get('/placements', async (req, res) => {
+//   try {
+//     const page = req.query.page || 1; // Get page from query params, default to 1
+//     const pageSize = 10; // Number of placements per page
+//     const placements = await PlacementModel.find()
+//       .skip((page - 1) * pageSize)
+//       .limit(pageSize);
+//     res.json(placements);
+//   } catch (error) {
+//     console.error('Error fetching placements:', error);
+//     res.status(500).json({ error: 'Internal Server Error' });
+//   }
+// });
+
+
+
+
+
+
+
+
+
+
+// // Caching (example using in-memory caching)
+// const cache = {};
+
+// app.get('/placements/:id', async (req, res) => {
+//   try {
+//     const { id } = req.params;
+//     if (cache[id]) {
+//       // If placement data is cached, return it directly
+//       return res.json(cache[id]);
+//     }
+
+//     const placement = await PlacementModel.findById(id);
+//     if (!placement) {
+//       return res.status(404).json({ error: 'Placement not found' });
+//     }
+
+//     // Cache the placement data for future requests
+//     cache[id] = placement;
+//     res.json(placement);
+//   } catch (error) {
+//     console.error('Error fetching placement details:', error);
+//     res.status(500).json({ error: 'Internal Server Error' });
+//   }
+// });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+const PlacementSchema = new mongoose.Schema({
+  companyName: {
+    type: String,
+    required: true,
+    index: true,
+  },
+  username: {
+    type: String,
+    required: true,
+    index: true,
+  },
+  image: {
+    type: String,
+    required: true,
+  },
+  summary: {
+    type: String,
+    required: true,
+  },
+  description: {
+    type: String,
+    required: true,
+  },
+});
+
+const PlacementModel = mongoose.model('Placement', PlacementSchema);
+
+app.post('/placement', async (req, res) => {
+  try {
+    const { companyName, username, image, summary, description } = req.body;
+
+    const newPlacement = new PlacementModel({
+      companyName,
+      username,
+      image,
+      summary,
+      description,
+    });
+
+    await newPlacement.save();
+    console.log("saved successfully");
+    res.status(200).json({ message: 'Placement data saved successfully' });
+  } catch (error) {
+    console.error('Error saving placement data:', error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
+
+
+app.get('/placements', async (req, res) => {
+  try {
+    const page = req.query.page || 1;
+    const pageSize = 10;
+    const placements = await PlacementModel.find()
+      .select('-description') // Exclude description from the query to improve performance
+      .skip((page - 1) * pageSize)
+      .limit(pageSize);
+
+    res.json(placements);
+  } catch (error) {
+    console.error('Error fetching placements:', error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
+
+
+
+// app.get('/placements/:id', async (req, res) => {
+//   try {
+//     const { id } = req.params;
+
+//     const placement = await PlacementModel.findById(id);
+//     if (!placement) {
+//       return res.status(404).json({ error: 'Placement not found' });
+//     }
+
+//     // Stream the image data to the client
+//     res.set('Content-Type', 'image/jpeg'); // Adjust content type based on your image format
+//     const stream = fs.createReadStream(placement.image);
+//     stream.pipe(res);
+//   } catch (error) {
+//     console.error('Error fetching placement details:', error);
+//     res.status(500).json({ error: 'Internal Server Error' });
+//   }
+// });
+
+
+
+
+
+
+app.get('/placements/:id', async (req, res) => {
+  try {
+    const placement = await PlacementModel.findById(req.params.id);
+    if (!placement) {
+      return res.status(404).json({ error: 'Placement not found' });
+    }
+    res.json(placement);
+  } catch (error) {
+    console.error('Error fetching placement details:', error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
+
+
+
+
+
+
+
+
+
 const PORT = process.env.PORT;
 app.listen(PORT, console.log(`server is listening on ${PORT}`));

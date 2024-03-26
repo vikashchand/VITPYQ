@@ -12,6 +12,9 @@ import Searchqp from './Pages/questionpaper/Search/Searchqp';
 import GlobalSearch from './Pages/questionpaper/GlobalSearch/GlobalSearch';
 import FacultyList from './Pages/Faculty/Faculty';
 import FacultyData from './Pages/Faculty/FacultyData';
+import PlacementsData from './Pages/Placements/PlacementsData';
+import PlacementsPage from './Pages/Placements/PlacementPage';
+import PlacementDetails from './Pages/Placements/PlacementDetails';
 
 
 
@@ -30,6 +33,9 @@ function App() {
       <Route path="/searchqps" element={ <Searchqp />} />
       <Route path="/faculty" element={ <FacultyList/> } />
       <Route path="/facultydata" element={<FacultyData/> } />
+      <Route path="/placementdata" element={<PlacementsData/> } />
+      <Route path="/placementblogs" element={<PlacementsPage/> } />
+      <Route path="/placement/:id" element={<PlacementDetails/>} />
       <Route path="*" element={<NotFound />} /> {/* Add a catch-all route */}
     </Routes>
     
