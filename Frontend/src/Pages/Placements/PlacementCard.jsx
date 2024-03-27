@@ -11,7 +11,9 @@ const PlacementCard = ({ placement }) => {
     </div>
         <div className="placement-details">
           <h3 className="placement-company"> {placement.companyName}</h3>
-          <h4 className="placement-username">{placement.username} got  {placement.summary}</h4>
+          <h4 className="placement-username">{placement.username}  </h4>
+       
+          <h4> {placement.summary}</h4>
         
         
         </div>

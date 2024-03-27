@@ -11,17 +11,17 @@ const app = express();
 const fs = require('fs');
 const path = require('path');
 
-const corsOptions = {
-  origin: 'https://20mis.vercel.app',
-  credentials: true,
-  optionSuccessStatus: 200,
-};
-
 // const corsOptions = {
-//   origin: 'http://localhost:3000',
+//   origin: 'https://20mis.vercel.app',
 //   credentials: true,
 //   optionSuccessStatus: 200,
 // };
+
+const corsOptions = {
+  origin: 'http://localhost:3000',
+  credentials: true,
+  optionSuccessStatus: 200,
+};
 
 app.use(cors(corsOptions));
 
@@ -847,7 +847,7 @@ app.post('/placement', async (req, res) => {
 app.get('/placements', async (req, res) => {
   try {
     const page = req.query.page || 1;
-    const pageSize = 10;
+    const pageSize = 50;
     const placements = await PlacementModel.find()
       .select('-description') // Exclude description from the query to improve performance
       .skip((page - 1) * pageSize)

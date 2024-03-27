@@ -35,7 +35,7 @@ const PlacementDetails = () => {
   return (
     <div className="placement-details">
       <h2 className="company-name">{placement.companyName}</h2>
-      <div className="image-container">
+      <div className="pimage-container">
         <img src={placement.image} alt={placement.companyName} className="placement-image" />
       </div>
       <p className="summary">{placement.summary}</p>
