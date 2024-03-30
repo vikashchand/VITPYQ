@@ -1,5 +1,5 @@
 import './App.css';
-
+import { Analytics } from '@vercel/analytics/react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 import Login from './Pages/Login/Login';
@@ -38,7 +38,7 @@ function App() {
       <Route path="/placement/:id" element={<PlacementDetails/>} />
       <Route path="*" element={<NotFound />} /> {/* Add a catch-all route */}
     </Routes>
-    
+    <Analytics />
       </div>
     </Router>
   );
