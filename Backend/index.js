@@ -387,7 +387,7 @@ app.get('/totalqp', async (req, res) => {
 app.get('/searchqp', async (req, res) => {
   try {
     const searchText = req.query.text;
-    const pageSize = parseInt(req.query.pageSize) || 10;
+    const pageSize = parseInt(req.query.pageSize) || 50;
     const page = parseInt(req.query.page) || 1;
 
     let query = {};
