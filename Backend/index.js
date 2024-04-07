@@ -25,7 +25,7 @@ const corsOptions = {
 
 app.use(cors(corsOptions));
 
-app.use(bodyParser.json({ limit: '50mb' }));
+app.use(bodyParser.json({ limit: '100mb' }));
 app.use(bodyParser.urlencoded({ extended: true }));
 
 
@@ -133,7 +133,7 @@ const ImageModel = mongoose.model('Image', imageSchema);
 
 
 
-app.post('/saveqp', express.json({ limit: '50mb' }), async (req, res) => {
+app.post('/saveqp', express.json({ limit: '100mb' }), async (req, res) => {
   try {
     const imagesData = req.body.map(item => ({
       image: Buffer.from(item.image, 'base64'), // Convert base64 image to Buffer
@@ -231,6 +231,7 @@ app.get('/globalapi', async (req, res) => {
     res.status(200).json({ uniqueCourseCodes, imageData });
   } catch (error) {
     console.error('Error fetching data:', error);
+    console.log(error);
     res.status(500).send('Internal Server Error');
   }
 });
@@ -427,6 +428,7 @@ app.get('/searchqp', async (req, res) => {
     }
   } catch (error) {
     console.error('Error fetching data:', error);
+    console.log(error);
     res.status(500).json({ error: 'Internal Server Error' });
   }
 });
