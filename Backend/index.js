@@ -434,61 +434,6 @@ app.get('/totalqp', async (req, res) => {
 // });
 
 
-app.get('/searchqp', async (req, res) => {
-  try {
-    const searchText = req.query.text;
-    const pageSize = parseInt(req.query.pageSize) || 50;
-    const page = parseInt(req.query.page) || 1;
-
-    let query = {};
-    if (searchText) {
-      query = { 'images.courseCode': { $regex: new RegExp(searchText, 'i') } };
-    }
-
-    const result = await ImageModel.find(query)
-      .skip((page - 1) * pageSize)
-      .limit(pageSize)
-      .select('images.courseCode images.facultyName images.image');
-
-    const uniqueCourseCodes = [...new Set(result.map(item => item.images.map(img => img.courseCode)).flat())];
-
-    const imageData = result.map(item => ({
-      imageUrls: item.images.map(img => `data:image/jpeg;base64,${img.image.toString('base64')}`),
-      facultyName: item.images.facultyName,
-    }));
-
-    // Calculate the payload size
-    const payloadSize = Buffer.byteLength(JSON.stringify({ uniqueCourseCodes, imageData }), 'utf8');
-    console.log('Payload Size:', payloadSize, 'bytes');
-
-    // Send initial response after 7 seconds
-    setTimeout(() => {
-      res.write(JSON.stringify({ uniqueCourseCodes, imageData }));
-      res.end();
-    }, 5000);
-
-    // Continue sending the rest of the data
-    for (let i = 1; i < uniqueCourseCodes.length; i++) {
-      setTimeout(() => {
-        res.write(JSON.stringify({
-          uniqueCourseCodes: [uniqueCourseCodes[i]],
-          imageData: [imageData[i]],
-        }));
-        if (i === uniqueCourseCodes.length - 1) {
-          res.end();
-        }
-      }, 1000 * i); // Adjust the interval as needed
-    }
-  } catch (error) {
-    console.error('Error fetching data:', error);
-    console.log(error);
-    res.status(500).json({ error: 'Internal Server Error' });
-  }
-});
-
-
-
-
 // app.get('/searchqp', async (req, res) => {
 //   try {
 //     const searchText = req.query.text;
@@ -512,25 +457,80 @@ app.get('/searchqp', async (req, res) => {
 //       facultyName: item.images.facultyName,
 //     }));
 
-//     // Calculate the size of the uncompressed payload
-//     const uncompressedSize = Buffer.byteLength(JSON.stringify({ uniqueCourseCodes, imageData }), 'utf8');
-//     console.log('Uncompressed Payload Size:', uncompressedSize, 'bytes');
+//     // Calculate the payload size
+//     const payloadSize = Buffer.byteLength(JSON.stringify({ uniqueCourseCodes, imageData }), 'utf8');
+//     console.log('Payload Size:', payloadSize, 'bytes');
 
-//     // Compress the payload
-//     const compressedData = zlib.gzipSync(JSON.stringify({ uniqueCourseCodes, imageData }));
+//     // Send initial response after 7 seconds
+//     setTimeout(() => {
+//       res.write(JSON.stringify({ uniqueCourseCodes, imageData }));
+//       res.end();
+//     }, 5000);
 
-//     // Calculate the size of the compressed payload
-//     const compressedSize = compressedData.length;
-//     console.log('Compressed Payload Size:', compressedSize, 'bytes');
-
-//     // Send the compressed data
-//     res.set('Content-Encoding', 'gzip');
-//     res.status(200).send(compressedData);
+//     // Continue sending the rest of the data
+//     for (let i = 1; i < uniqueCourseCodes.length; i++) {
+//       setTimeout(() => {
+//         res.write(JSON.stringify({
+//           uniqueCourseCodes: [uniqueCourseCodes[i]],
+//           imageData: [imageData[i]],
+//         }));
+//         if (i === uniqueCourseCodes.length - 1) {
+//           res.end();
+//         }
+//       }, 1000 * i); // Adjust the interval as needed
+//     }
 //   } catch (error) {
 //     console.error('Error fetching data:', error);
+//     console.log(error);
 //     res.status(500).json({ error: 'Internal Server Error' });
 //   }
 // });
+
+
+
+
+app.get('/searchqp', async (req, res) => {
+  try {
+    const searchText = req.query.text;
+    const pageSize = parseInt(req.query.pageSize) || 50;
+    const page = parseInt(req.query.page) || 1;
+
+    let query = {};
+    if (searchText) {
+      query = { 'images.courseCode': { $regex: new RegExp(searchText, 'i') } };
+    }
+
+    const result = await ImageModel.find(query)
+      .skip((page - 1) * pageSize)
+      .limit(pageSize)
+      .select('images.courseCode images.facultyName images.image');
+
+    const uniqueCourseCodes = [...new Set(result.map(item => item.images.map(img => img.courseCode)).flat())];
+
+    const imageData = result.map(item => ({
+      imageUrls: item.images.map(img => `data:image/jpeg;base64,${img.image.toString('base64')}`),
+      facultyName: item.images.facultyName,
+    }));
+
+    // Calculate the size of the uncompressed payload
+    const uncompressedSize = Buffer.byteLength(JSON.stringify({ uniqueCourseCodes, imageData }), 'utf8');
+    console.log('Uncompressed Payload Size:', uncompressedSize, 'bytes');
+
+    // Compress the payload
+    const compressedData = zlib.gzipSync(JSON.stringify({ uniqueCourseCodes, imageData }));
+
+    // Calculate the size of the compressed payload
+    const compressedSize = compressedData.length;
+    console.log('Compressed Payload Size:', compressedSize, 'bytes');
+
+    // Send the compressed data
+    res.set('Content-Encoding', 'gzip');
+    res.status(200).send(compressedData);
+  } catch (error) {
+    console.error('Error fetching data:', error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
 
 
 
