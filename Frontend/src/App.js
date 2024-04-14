@@ -15,6 +15,7 @@ import FacultyData from './Pages/Faculty/FacultyData';
 import PlacementsData from './Pages/Placements/PlacementsData';
 import PlacementsPage from './Pages/Placements/PlacementPage';
 import PlacementDetails from './Pages/Placements/PlacementDetails';
+import Accessories from './Pages/accessories/Accessories';
 
 
 
@@ -33,6 +34,7 @@ function App() {
       <Route path="/searchqps" element={ <Searchqp />} />
       <Route path="/faculty" element={ <FacultyList/> } />
       <Route path="/facultydata" element={<FacultyData/> } />
+      <Route path="/accessories" element={<Accessories/> } />
       <Route path="/placementdata" element={<PlacementsData/> } />
       <Route path="/placementblogs" element={<PlacementsPage/> } />
       <Route path="/placement/:id" element={<PlacementDetails/>} />

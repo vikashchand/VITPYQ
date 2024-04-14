@@ -85,7 +85,20 @@ const LandingPage = () => {
               
                 </div>
             </li>
-
+            <li className="feature-card">
+            <div className="feature-icon">
+            <FaSearch />
+          </div>
+            <div className="feature-details">
+              <h3>Placements </h3>
+      
+              <p>Past year Placements</p>
+              <p>List of companies that came last year and their packages</p>
+                         
+  <button >   <Link className='lin' to="https://docs.google.com/spreadsheets/d/1bCY-6fq7ek990C860bN1QADkXukd5PCEMat1eVcYAoM/edit?usp=sharing">Google sheets  </Link> </button>
+                
+              </div>
+          </li>
            
            
           <li className="feature-card">
