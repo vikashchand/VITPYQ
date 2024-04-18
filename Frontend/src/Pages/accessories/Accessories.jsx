@@ -19,6 +19,24 @@ const Accessories = () => {
 <p>don't take hard nptel courses like coding related it would be very difficult to score even B grade </p>
 
               <button >   <Link className='lin' to="https://nptelquiz.vercel.app">NPTEL  </Link> </button>
+
+
+              
+Made by 
+<a href="https://www.linkedin.com/in/vikash-chand-9878471b8/" >
+Vikash Chand
+</a> 
+
+
+
+<button >   <Link className='lin' to="https://quizme-rho.vercel.app/">NPTEL  </Link> </button>
+
+
+Made by 
+<a href="https://www.linkedin.com/in/yuvraj-singh-deora-06aug2001/">
+Yuvraj singh deora
+</a> 
+
             
               </div>
             </li>
@@ -34,13 +52,19 @@ const Accessories = () => {
 <p>
                
 <button >   <Link className='lin' to="https://quiz-me-zeta.vercel.app/">Pdf  </Link> </button>
+
+
+
+Made by 
+<a href="https://www.linkedin.com/in/yuvraj-singh-deora-06aug2001/" >
+Yuvraj singh deora
+</a> 
+
 </p>
 
 
 
-Made by <a href="https://www.linkedin.com/in/yuvraj-singh-deora-06aug2001/" >
-Yuvraj singh deora
-</a>  
+
            
             </li>
 
@@ -71,6 +95,18 @@ Yuvraj singh deora
                        
 <button >   <Link className='lin' to="https://mis-notes.notion.site/Student-Dashboard-MIS-Branch-VIT-Vellore-325fa0bf8fe341cd82cfb9bd9dd15260">NOTION  </Link> </button>
               
+
+
+Made by <a href="https://www.linkedin.com/in/pranitmodi/" >
+Pranit Modi
+</a> 
+
+
+
+
+
+
+
             </div>
         </li>
 
