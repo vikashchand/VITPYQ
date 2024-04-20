@@ -40,7 +40,7 @@ function App() {
       <Route path="/placement/:id" element={<PlacementDetails/>} />
       <Route path="*" element={<NotFound />} /> {/* Add a catch-all route */}
     </Routes>
-    <Analytics />
+   
       </div>
     </Router>
   );

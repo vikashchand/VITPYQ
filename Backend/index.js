@@ -954,13 +954,37 @@ app.post('/placement', async (req, res) => {
 });
 
 
+// app.get('/placements', async (req, res) => {
+//   try {
+//     const page = req.query.page || 1;
+//     const pageSize = 50;
+//     const placements = await PlacementModel.find()
+//       .select('-description') // Exclude description from the query to improve performance
+//       .skip((page - 1) * pageSize)
+//       .limit(pageSize);
+
+//     res.json(placements);
+//   } catch (error) {
+//     console.error('Error fetching placements:', error);
+//     res.status(500).json({ error: 'Internal Server Error' });
+//   }
+// }); vikkkkku
+
+
+
+
+
+
+
+
 app.get('/placements', async (req, res) => {
   try {
     const page = req.query.page || 1;
-    const pageSize = 50;
+    const pageSize = req.query.pageSize || 5;
+    const skip = (page - 1) * pageSize;
     const placements = await PlacementModel.find()
-      .select('-description') // Exclude description from the query to improve performance
-      .skip((page - 1) * pageSize)
+      .select('-description')
+      .skip(skip)
       .limit(pageSize);
 
     res.json(placements);
@@ -969,6 +993,18 @@ app.get('/placements', async (req, res) => {
     res.status(500).json({ error: 'Internal Server Error' });
   }
 });
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
