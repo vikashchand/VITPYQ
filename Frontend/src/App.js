@@ -22,8 +22,9 @@ import Accessories from './Pages/accessories/Accessories';
 function App() {
   return (
     <Router>
-      <div className="App">
+      <div className="App ">
       <Navbar/>
+      
       <Routes>
  
       <Route path="/" element={<LandingPage />} />

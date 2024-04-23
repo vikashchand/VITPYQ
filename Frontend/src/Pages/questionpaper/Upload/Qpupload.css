@@ -2,7 +2,6 @@
   max-width: 100%;
   margin: 0 auto;
   padding: 20px;
-  font-family: Arial, sans-serif;
 
  
   
@@ -167,9 +166,9 @@ margin-right: 10%;
 
 
 .instructions {
-  font-size: 16px;
-font-family: 'Times New Roman', Times, serif;
-font-style: italic;
+  font-size: 18px;
+
+
   /* Add other styling as needed */
 }
 

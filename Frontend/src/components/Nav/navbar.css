@@ -44,15 +44,15 @@
 .logo h2 {
   
   
-  margin: 8px;
-  padding: 8px 20px;
+  margin: 5px;
+  padding: 8px 8px;
   text-align: center;
   text-transform: uppercase;
   transition: 0.5s;
-  background-size: 200% auto;
+  background-size: 100% auto;
   color: white;            
   box-shadow: 0 0 20px #eee;
-  border-radius: 10px;
+  border-radius: 3px;
   display: block;
 }
 
@@ -62,7 +62,7 @@
 
   
   
-  background-color: rgb(226, 237, 245);
+  background-color: rgb(222, 241, 255);
   
   margin: 8px;
   padding: 5px 10px;
@@ -72,7 +72,7 @@
   background-size: 200% auto;
   color: white;            
   box-shadow: 0 0 20px #eee;
-  border-radius: 10px;
+  border-radius: 2px;
   display: block;
 }
 
@@ -94,6 +94,7 @@
   color: rgb(194, 194, 228);
   text-decoration: underline;
   transition: 0.5s;
+ 
 }
 
 .social-media ul li {
@@ -106,7 +107,7 @@
 
 .ham{
     font-size: 18px;
-  background-color: rgb(231, 121, 121);
+  background-color: rgb(240, 219, 219);
   margin: 10px;
   border-radius: 2px;
   padding: 3px;
@@ -172,7 +173,7 @@
   }
 
   .mobile-menu-link {
-    background-color: rgb(144, 138, 138);
+    background-color: #091312;
 
     
   

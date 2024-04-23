@@ -1,8 +1,7 @@
 /* src/styles.css */
 
 body {
-  font-family: 'Times New Roman', Times, serif;
-  
+ 
    background-color: #ffffff;
    list-style: none;
  }
@@ -21,8 +20,7 @@ body {
    align-items: center;
    justify-content: center;
    height: 100vh;
-   font-family: 'Times New Roman', Times, serif;
-   
+  
  }
  
  label {
@@ -97,7 +95,7 @@ body {
    margin-top: 20px;
    border-radius: 8px;
    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-   font-family: 'Times New Roman', Times, serif;
+  
  }
  
  .review {
@@ -135,7 +133,7 @@ body {
  .faculty-search-container {
    max-width: 100vh;
    margin: 0 auto;
-   font-family: 'Times New Roman', Times, serif;
+  
    
  }
  

@@ -1,7 +1,10 @@
 import React,{useState, useEffect} from 'react';
-import {  FaSearchengin, FaSearch,FaUpload, FaUser, FaRegNewspaper, FaGithub, FaLinkedinIn } from 'react-icons/fa';
+import {  FaSearchengin, FaSearch,FaUpload, FaUser, FaRegNewspaper, FaMoneyCheckAlt, FaLinkedinIn } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
+import { GiTeacher } from "react-icons/gi";
 import './LandingPage.css';
+
+import boy from '../../assets/boy18.png'
 
 import baseUrl from '../../config';
 const LandingPage = () => {
@@ -52,10 +55,15 @@ const LandingPage = () => {
   return (
     <div className="landing-page">
     
-      <h1>Welcome to the MIS Previous Year Question and Faculty Review Portal</h1>
-      <p>Exclusively For Mtech in Software Enginnering students </p>
+      <h1 className='colourchangetext'>Welcome to the MIS Previous Year Question and Faculty Review Portal</h1>
+      
+      
+      <h2 >Exclusively For Mtech in Software Enginnering students </h2>
 
       <div className="feature-container">
+
+
+
         <div className="feature-description">
         
           <ul className="feature-cards">
@@ -87,7 +95,7 @@ const LandingPage = () => {
             </li>
             <li className="feature-card">
             <div className="feature-icon">
-            <FaSearch />
+            <FaMoneyCheckAlt />
           </div>
             <div className="feature-details">
               <h3>Placements </h3>
@@ -103,7 +111,7 @@ const LandingPage = () => {
            
           <li className="feature-card">
           <div className="feature-icon">
-            <FaSearch />
+            <GiTeacher />
           </div>
           <div className="feature-details">
             <h3>Faculty Review</h3>

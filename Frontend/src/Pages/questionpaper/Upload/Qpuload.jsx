@@ -349,7 +349,7 @@ const takeback= async () =>{
 
   return (
     <div className="text-extraction-app">
-      <h1>"Masterful Document Handling: Rearrange, Extract, Edit, Save – Simply."</h1>
+      <h1 className='colourchangetext'>"Masterful Document Handling: Rearrange, Extract, Edit, Save – Simply."</h1>
       <div className='instructions'>
       
       <ul>

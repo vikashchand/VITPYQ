@@ -4,9 +4,17 @@
   text-align: center;
   padding: 20px;
   
-  
+ 
 
 }
+
+
+
+
+
+
+
+
 
 
 .landing-page h1{
@@ -33,25 +41,40 @@
 
 .feature-cards {
   list-style: none;
-  padding: 0;
+
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
 }
 
 .feature-card {
-  background-color: rgb(226, 237, 245);
+  background-color: rgb(0, 0, 0);
   box-shadow: 5px 4px 8px rgba(5, 2, 2, 0.2);
   border-radius: 5px;
   margin: 10px;
   padding: 10px;
   width: calc(33.33% - 50px);
-  
+  color: #fff;
+  transition: transform 0.3s ease-in-out; /* Adding transition for smooth effect */
 }
+
+/* Adding hover effect */
+.feature-card:hover {
+  transform: scale(1.05); /* You can adjust the scale factor for your desired effect */
+}
+
+
+
+
+
+
+
+
 
 .feature-icon {
   font-size: 2em;
   margin-bottom: 10px;
+  animation: bounce 3s ease infinite;
 }
 
 .feature-details {
@@ -70,8 +93,51 @@
 .feature-card p {
   font-size: 1em;
   text-align: justify;
-
+  
 }
+
+
+
+
+
+.colourchangetext {
+font-size: 20px;
+font-weight: 800;
+  background-image: linear-gradient(to right, black, rgb(25, 25, 112), rgb(72, 61, 139), rgb(46, 23, 95), indigo, rgb(114, 55, 114), rgb(25, 25, 112)); /* Define gradient */
+  -webkit-background-clip: text; /* Clip text to gradient */
+  -webkit-text-fill-color: transparent; /* Make text transparent */
+  animation: gradientChange 2s ease; /* Change gradient every 10 seconds */
+}
+
+@keyframes gradientChange {
+  0% { background-position: 0% 50%; }
+  100% { background-position: 70% 50%; }
+}
+
+
+
+@keyframes bounce {
+  0%, 20%, 50%, 80%, 100% {
+    transform: translateY(0);
+  }
+  40% {
+    transform: translateY(-20px);
+  }
+  60% {
+    transform: translateY(-10px);
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -110,7 +176,7 @@
 
 .lin{
  font-style: italic;
- font-family: 'Times New Roman', Times, serif;
+
  color: #fff;
 }
 
@@ -183,13 +249,14 @@ margin: 3% 2%;
 }
 
 .feature-card {
-  background-color: #fff;
+ 
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   border-radius: 5px;
   margin: 2px;
   padding: 5px;
   width: 44%;
   text-align: justify;
+
  
 }
 
@@ -210,7 +277,7 @@ margin: 3% 2%;
 }
 
 .feature-card p {
-  font-size: 10px;
+  font-size: 12px;
   text-align: justify;
 }
 
@@ -266,8 +333,7 @@ button  {
 
 .dev{
   font-size: small;
-  font-family: 'Times New Roman', Times, serif;
-  
+ 
 }
 
 

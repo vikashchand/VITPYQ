@@ -203,7 +203,7 @@ const shouldDisplayCourseCodeButtons = searchText === '';
   return (
     <div className="searchqp-container">
 
-    <h1>Search Question paper based on Subject Name, Code, or Faculty</h1>
+    <h1 className='colourchangetext'>Search Question paper based on Subject Name, Code, or Faculty</h1>
 <div  className='search-bar'>
     <select className='opti' value={searchMode} onChange={(e) => setSearchMode(e.target.value)}>
       <option value="facultyName">Faculty Name</option>
