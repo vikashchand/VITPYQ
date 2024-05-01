@@ -148,13 +148,13 @@ const LandingPage = () => {
 
   <div className='dev'>
       
-      <h6>Made by Vikash Chand (2020-2025) with Love 💖  
+      <h6>Made by Piyush Rana (2020-2025) with Love 💖  
       
       
 
     
 <br></br>
-      Contact Me on <a href="https://www.linkedin.com/in/vikash-chand-9878471b8/" >
+      Contact Me on <a href="https://www.linkedin.com/in/piyushtsx/" >
       <FaLinkedinIn/>
       </a>  </h6>
       

@@ -4,6 +4,9 @@ import PlacementCard from './PlacementCard';
 import baseUrl from '../../config';
 import './PlacementsPage.css';
 
+
+
+
 const PlacementsPage = () => {
   const [placements, setPlacements] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -11,6 +14,10 @@ const PlacementsPage = () => {
   const [allPlacementsLoaded, setAllPlacementsLoaded] = useState(false);
 
   useEffect(() => {
+
+
+{     // Special Thanks to <a href="https://www.linkedin.com/in/soundarya-lahari-kasturi/">Soundarya Lahari K</a> and <a href="https://www.linkedin.com/in/ishubham99/">Shubham Choudhary</a>}
+
     const fetchPlacements = async () => {
       try {
         const response = await axios.get(`${baseUrl}/placements?page=${page}&pageSize=5`);
@@ -55,7 +62,7 @@ const PlacementsPage = () => {
         <h6>Made by Vikash Chand (2020-2025) with Love 💖</h6>
         <br></br>
         <br></br>
-        Special Thanks to <a href="https://www.linkedin.com/in/soundarya-lahari-kasturi/">Soundarya Lahari K</a> and <a href="https://www.linkedin.com/in/ishubham99/">Shubham Choudhary</a>
+  
       </div>
     </div>
   );
