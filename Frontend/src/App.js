@@ -16,7 +16,7 @@ import PlacementsData from './Pages/Placements/PlacementsData';
 import PlacementsPage from './Pages/Placements/PlacementPage';
 import PlacementDetails from './Pages/Placements/PlacementDetails';
 import Accessories from './Pages/accessories/Accessories';
-
+import AdSenseAd from './Pages/AdSenseAd';
 
 
 function App() {
@@ -41,6 +41,8 @@ function App() {
       <Route path="/placement/:id" element={<PlacementDetails/>} />
       <Route path="*" element={<NotFound />} /> {/* Add a catch-all route */}
     </Routes>
+
+ <AdSenseAd/>
    
       </div>
     </Router>

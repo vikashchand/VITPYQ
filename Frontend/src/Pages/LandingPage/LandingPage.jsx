@@ -7,6 +7,7 @@ import './LandingPage.css';
 import boy from '../../assets/boy18.png'
 
 import baseUrl from '../../config';
+import AdSenseAd from '../AdSenseAd';
 const LandingPage = () => {
 
   const [totalEntries, setTotalEntries] = useState(null);
@@ -56,7 +57,7 @@ const LandingPage = () => {
     <div className="landing-page">
     
       <h1 className='colourchangetext'>Welcome to the MIS Previous Year Question and Faculty Review Portal</h1>
-      
+      <AdSenseAd/>
       
       <h2 >Exclusively For Mtech in Software Enginnering students </h2>
 
@@ -150,8 +151,7 @@ const LandingPage = () => {
       
       <h6>Made by Piyush Rana (2020-2025) with Love 💖  
       
-      
-
+    
     
 <br></br>
       Contact Me on <a href="https://www.linkedin.com/in/piyushtsx/" >
@@ -165,8 +165,11 @@ const LandingPage = () => {
      
       
     </div>
-    
+
+
       </div>
+
+
   );
 }
 
