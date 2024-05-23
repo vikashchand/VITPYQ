@@ -8,7 +8,10 @@
 
 }
 
-
+.video{
+  height: 200px;
+  width: 400px;
+}
 
 
 
@@ -231,6 +234,15 @@ margin: 3% 2%;
 
 
 }
+
+
+
+
+.video{
+  height: 100px;
+  width: 150px;
+}
+
 
 .feature-description {
   flex: 1;
