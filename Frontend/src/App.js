@@ -1,6 +1,9 @@
 import './App.css';
 import { Analytics } from '@vercel/analytics/react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import ReactGA from "react-ga4";
+
+
 
 import Login from './Pages/Login/Login';
 
@@ -17,10 +20,20 @@ import PlacementsPage from './Pages/Placements/PlacementPage';
 import PlacementDetails from './Pages/Placements/PlacementDetails';
 import Accessories from './Pages/accessories/Accessories';
 import AdSenseAd from './Pages/AdSenseAd';
+import React, { useEffect } from 'react';
 
 
 function App() {
+  ReactGA.initialize("G-YG5RWFXRK3");
+
+
+  useEffect(()=>{
+    ReactGA.send({ hitType: "pageview", page: window.location.pathname + window.location.search, title: "Home Page" });
+ 
+  })
+ 
   return (
+   
     <Router>
       <div className="App ">
       <Navbar/>
