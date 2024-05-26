@@ -57,8 +57,7 @@ const LandingPage = () => {
     <div className="landing-page">
     
       <h1 className='colourchangetext'>Welcome to the MIS Previous Year Question and Faculty Review Portal</h1>
-      <AdSenseAd/>
-      
+    
       <h2 >Exclusively For Mtech in Software Enginnering students </h2>
 
       <div className="feature-container">
