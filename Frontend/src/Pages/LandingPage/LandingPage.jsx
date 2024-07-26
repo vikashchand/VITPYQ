@@ -182,14 +182,7 @@ const LandingPage = () => {
 
   <div className='dev'>
       
-      <h6>Made by Piyush Rana (2020-2025) with Love 💖  
       
-    
-    
-<br></br>
-      Contact Me on <a href="https://www.linkedin.com/in/piyushtsx/" >
-      <FaLinkedinIn/>
-      </a>  </h6>
       
      
   
