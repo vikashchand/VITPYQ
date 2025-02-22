@@ -1,5 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom';
+import pdf from '../../assets/mis.xlsx'
 const Accessories = () => {
   return (
     <div className="feature-container">
@@ -78,8 +79,8 @@ Yuvraj singh deora
               <p>Past year Placements</p>
               <p>List of companies that came last year and their packages</p>
                          
-  <button >   <Link className='lin' to="https://docs.google.com/spreadsheets/d/1bCY-6fq7ek990C860bN1QADkXukd5PCEMat1eVcYAoM/edit?usp=sharing">Google sheets  </Link> </button>
-                
+              <button > <a href={pdf} download> download sheet</a>  </button>
+ 
               </div>
           </li>
   

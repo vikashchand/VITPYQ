@@ -3,7 +3,7 @@ import {  FaSearchengin, FaSearch,FaUpload, FaUser, FaRegNewspaper,FaVideo,FaHan
 import { Link } from 'react-router-dom';
 import { GiTeacher } from "react-icons/gi";
 import './LandingPage.css';
-
+import pdf from '../../assets/mis.xlsx'
 import boy from '../../assets/boy18.png'
 
 import baseUrl from '../../config';
@@ -113,8 +113,10 @@ const LandingPage = () => {
               <p>Past year Placements</p>
               <p>List of companies that came last year and their packages</p>
                          
-  <button >   <Link className='lin' to="https://docs.google.com/spreadsheets/d/1bCY-6fq7ek990C860bN1QADkXukd5PCEMat1eVcYAoM/edit?usp=sharing">Google sheets  </Link> </button>
-                
+  <button > <a href={pdf} download> download sheet</a>  </button>
+
+
+
               </div>
           </li>
            
