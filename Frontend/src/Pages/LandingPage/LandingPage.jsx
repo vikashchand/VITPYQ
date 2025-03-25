@@ -213,6 +213,20 @@ const LandingPage = () => {
       </div>
 
       <div>
+        <div className="dev">
+          <p>
+            Developed by{" "}
+            <a
+              href="https://vikashchand.vercel.app/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="developer-link"
+            >
+              Vikash Chand
+            </a>
+          </p>
+        </div>
+
         <h3>
           Total Uploads <FaRegNewspaper />{" "}
           {totalEntries !== null ? totalEntries : "Loading..."}

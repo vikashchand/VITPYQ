@@ -391,3 +391,15 @@ button  {
   margin-top: 10px;
   align-self: flex-end;
 }
+
+
+
+.developer-link {
+  color: #0077b5; /* Instagram-like color */
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.developer-link:hover {
+  text-decoration: underline;
+}
