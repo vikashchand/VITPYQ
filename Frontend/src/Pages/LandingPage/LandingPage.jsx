@@ -57,13 +57,8 @@ const LandingPage = () => {
 
     fetchTotalVisitors();
   }, []);
-
   useEffect(() => {
-    const popupShown = localStorage.getItem("popupShown");
-    if (!popupShown) {
-      setShowPopup(true);
-      localStorage.setItem("popupShown", "true");
-    }
+    setShowPopup(true);
   }, []);
 
   const handleClosePopup = () => {
