@@ -78,11 +78,9 @@ const LandingPage = () => {
             <button className="close" onClick={handleClosePopup}>
               Close
             </button>
-            <h5>Update for 21 MIS students</h5>
-            <p>The placement companies excel has been updated.</p>
-            <a href={pdf} download>
-              Download the updated Excel file
-            </a>
+            <h5>New Interview added check the placement page</h5>
+            <h5>Get some tips from Your batchmates.</h5>
+            <a>To submit your interview experience msg me on linkedin</a>
           </div>
         </div>
       )}

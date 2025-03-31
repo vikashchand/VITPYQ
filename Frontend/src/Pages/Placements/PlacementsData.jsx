@@ -1,19 +1,20 @@
-import React, { useState } from 'react';
-import axios from 'axios';
-import ReactQuill from 'react-quill';
-import 'react-quill/dist/quill.snow.css'; // Import Quill styles
-import './PlacementData.css'; // Assuming you have a CSS file for styling
-import baseUrl from '../../config';
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import React, { useState } from "react";
+import axios from "axios";
+import ReactQuill from "react-quill";
+import "react-quill/dist/quill.snow.css"; // Import Quill styles
+import "./PlacementData.css"; // Assuming you have a CSS file for styling
+import baseUrl from "../../config";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const App = () => {
   const [formData, setFormData] = useState({
-    companyName: '',
-    username: '',
+    companyName: "",
+    username: "",
     image: null,
-    summary: '',
-    description: '',
+    placementyear: "",
+    summary: "",
+    description: "",
   });
 
   const handleChange = (e) => {
@@ -40,23 +41,25 @@ const App = () => {
         companyName: formData.companyName,
         username: formData.username,
         image: formData.image,
+        placementyear: formData.placementyear,
         summary: formData.summary,
         description: formData.description,
       };
 
       const res = await axios.post(`${baseUrl}/placement`, formDataToSend);
       console.log(res.data); // Assuming you want to log the response
-      toast.success('Placement data saved successfully');
+      toast.success("Placement data saved successfully");
       setFormData({
-        companyName: '',
-        username: '',
+        companyName: "",
+        username: "",
         image: null,
-        summary: '',
-        description: '',
+        placementyear: "",
+        summary: "",
+        description: "",
       });
     } catch (err) {
       console.error(err);
-      toast.error('Error saving placement data');
+      toast.error("Error saving placement data");
     }
   };
 
@@ -67,19 +70,53 @@ const App = () => {
       <form onSubmit={handleSubmit}>
         <div className="form-group">
           <label>Company Name:</label>
-          <input className='containerplace' type="text" name="companyName" value={formData.companyName} onChange={handleChange} />
+          <input
+            className="containerplace"
+            type="text"
+            name="companyName"
+            value={formData.companyName}
+            onChange={handleChange}
+          />
         </div>
         <div className="form-group">
           <label>Username:</label>
-          <input className='containerplace' type="text" name="username" value={formData.username} onChange={handleChange} />
+          <input
+            className="containerplace"
+            type="text"
+            name="username"
+            value={formData.username}
+            onChange={handleChange}
+          />
         </div>
         <div className="form-group">
           <label>Upload Image:</label>
-          <input className='containerplace' type="file" accept="image/*" onChange={handleImageChange} />
+          <input
+            className="containerplace"
+            type="file"
+            accept="image/*"
+            onChange={handleImageChange}
+          />
         </div>
         <div className="form-group">
+          <label>placementyear:</label>
+          <input
+            className="containerplace"
+            type="text"
+            name="placementyear"
+            value={formData.placementyear}
+            onChange={handleChange}
+          />
+        </div>
+
+        <div className="form-group">
           <label>Summary:</label>
-          <input className='containerplace' type='text' name="summary" value={formData.summary} onChange={handleChange} />
+          <input
+            className="containerplace"
+            type="text"
+            name="summary"
+            value={formData.summary}
+            onChange={handleChange}
+          />
         </div>
         <div className="form-group">
           <label>Detailed Description:</label>
