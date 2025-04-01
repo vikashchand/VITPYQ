@@ -1,34 +1,32 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import { FaThumbsUp, FaThumbsDown } from 'react-icons/fa';
-
-import baseUrl from '../../config';
-import './Faculty.css';
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import { FaThumbsUp, FaThumbsDown } from "react-icons/fa";
+import facultyReview from "../../assets/FacultyReviews.pdf";
+import baseUrl from "../../config";
+import "./Faculty.css";
 
 const FacultySearch = () => {
-  const [searchTerm, setSearchTerm] = useState('');
+  const [searchTerm, setSearchTerm] = useState("");
   const [suggestions, setSuggestions] = useState([]);
   const [selectedFaculty, setSelectedFaculty] = useState(null);
 
-  
   const [likeCount, setLikeCount] = useState(0);
   const [dislikeCount, setDislikeCount] = useState(0);
   const [hasVoted, setHasVoted] = useState(false);
 
-  
-
   useEffect(() => {
     const fetchSuggestions = async () => {
       try {
-        if (searchTerm.trim() !== '') {
-          const response = await axios.get(`${baseUrl}/faculties?search=${searchTerm}`);
+        if (searchTerm.trim() !== "") {
+          const response = await axios.get(
+            `${baseUrl}/faculties?search=${searchTerm}`
+          );
           setSuggestions(response.data);
         } else {
           setSuggestions([]);
-          
         }
       } catch (error) {
-        console.error('Error fetching suggestions:', error);
+        console.error("Error fetching suggestions:", error);
       }
     };
 
@@ -41,16 +39,15 @@ const FacultySearch = () => {
       const facultyData = response.data;
       setSelectedFaculty(facultyData);
       setLikeCount(facultyData.like);
-    setDislikeCount(facultyData.dislike);
-    setHasVoted(false); 
-      setSearchTerm(''); // Clear the search term when a faculty is selected
+      setDislikeCount(facultyData.dislike);
+      setHasVoted(false);
+      setSearchTerm(""); // Clear the search term when a faculty is selected
     } catch (error) {
-      console.error('Error fetching faculty data:', error);
+      console.error("Error fetching faculty data:", error);
     }
   };
   const clearSelectedFaculty = () => {
     setSelectedFaculty(null);
-   
   };
 
   useEffect(() => {
@@ -60,8 +57,6 @@ const FacultySearch = () => {
     }
   }, [selectedFaculty, hasVoted]);
 
-
-
   const handleLike = async () => {
     if (!hasVoted) {
       try {
@@ -70,10 +65,10 @@ const FacultySearch = () => {
         // Update the like count locally
         setLikeCount(likeCount + 1);
         // Set local storage to remember the vote
-        localStorage.setItem(`vote-${selectedFaculty._id}`, 'like');
+        localStorage.setItem(`vote-${selectedFaculty._id}`, "like");
         setHasVoted(true);
       } catch (error) {
-        console.error('Error liking faculty:', error);
+        console.error("Error liking faculty:", error);
       }
     }
   };
@@ -86,23 +81,26 @@ const FacultySearch = () => {
         // Update the dislike count locally
         setDislikeCount(dislikeCount + 1);
         // Set local storage to remember the vote
-        localStorage.setItem(`vote-${selectedFaculty._id}`, 'dislike');
+        localStorage.setItem(`vote-${selectedFaculty._id}`, "dislike");
         setHasVoted(true);
       } catch (error) {
-        console.error('Error disliking faculty:', error);
+        console.error("Error disliking faculty:", error);
       }
     }
   };
 
-
-
-
   return (
     <div className="faculty-search-container">
-
       <h2>Search by Name</h2>
+      <div className="download-container">
+      
+        <a href={facultyReview} download className="download-button">
+          Directly Download Faculty Review PDF
+        </a>
+      </div>
       <h3>Give Rating for the feedback provided on teachers</h3>
-      <input className='facultyname'
+      <input
+        className="facultyname"
         type="text"
         value={searchTerm}
         onChange={(e) => setSearchTerm(e.target.value)}
@@ -111,7 +109,10 @@ const FacultySearch = () => {
       {suggestions.length > 0 && (
         <ul className="suggestions-list">
           {suggestions.map((faculty) => (
-            <li key={faculty._id} onClick={() => handleSelectFaculty(faculty._id)}>
+            <li
+              key={faculty._id}
+              onClick={() => handleSelectFaculty(faculty._id)}
+            >
               {faculty.name}
             </li>
           ))}
@@ -129,25 +130,25 @@ const FacultySearch = () => {
               ))}
             </ol>
           </div>
-         
 
           <div className="like-dislike-container">
-          <div className="like" onClick={handleLike}>
-            <FaThumbsUp /> {likeCount}
+            <div className="like" onClick={handleLike}>
+              <FaThumbsUp /> {likeCount}
+            </div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div className="dislike" onClick={handleDislike}>
+              <FaThumbsDown /> {dislikeCount}
+            </div>
           </div>
-          <div></div><div></div><div></div><div></div>
-          <div className="dislike" onClick={handleDislike}>
-            <FaThumbsDown /> {dislikeCount}
-          </div>
-        </div>
-
 
           <button className="clear-button" onClick={clearSelectedFaculty}>
             Close
           </button>
         </div>
       )}
-      
     </div>
   );
 };
