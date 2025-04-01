@@ -11,6 +11,7 @@ const app = express();
 const fs = require("fs");
 const path = require("path");
 const zlib = require("zlib");
+const { type } = require("os");
 const corsOptions = {
   origin: "https://20mis.vercel.app",
   credentials: true,
@@ -409,6 +410,10 @@ const PlacementSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  placementyear: {
+    type: String,
+    required: true,
+  },
   summary: {
     type: String,
     required: true,
@@ -423,7 +428,14 @@ const PlacementModel = mongoose.model("Placement", PlacementSchema);
 
 app.post("/placement", async (req, res) => {
   try {
-    const { companyName, username, image, summary, description } = req.body;
+    const {
+      companyName,
+      username,
+      image,
+      placementyear,
+      summary,
+      description,
+    } = req.body;
 
     const newPlacement = new PlacementModel({
       companyName,
@@ -482,7 +494,7 @@ app.post("/placement", async (req, res) => {
 app.get("/placements", async (req, res) => {
   try {
     const page = parseInt(req.query.page) || 1;
-    const pageSize = parseInt(req.query.pageSize) || 5;
+    const pageSize = parseInt(req.query.pageSize) || 4;
     const placementYear = req.query.placementYear; // Get placementYear from query
     const skip = (page - 1) * pageSize;
 
