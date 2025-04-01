@@ -3,7 +3,7 @@ import axios from "axios";
 import PlacementCard from "./PlacementCard";
 import baseUrl from "../../config";
 import "./PlacementsPage.css";
-
+import interview from "../../assets/2024placement.pdf";
 const PlacementsPage = () => {
   const [placements, setPlacements] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -13,23 +13,29 @@ const PlacementsPage = () => {
 
   useEffect(() => {
     const fetchPlacements = async () => {
+      setLoading(true); // Show loading spinner while fetching
       try {
-        const response = await axios.get(
-          `${baseUrl}/placements?page=${page}&pageSize=5${
-            placementYear ? `&placementYear=${placementYear}` : ""
-          }`
-        );
-        const newPlacements = response.data;
-        if (newPlacements.length === 0) {
-          setAllPlacementsLoaded(true);
-        } else {
-          setPlacements((prevPlacements) =>
-            page === 1 ? newPlacements : [...prevPlacements, ...newPlacements]
+        if (placementYear === 2025) {
+          const response = await axios.get(
+            `${baseUrl}/placements?page=${page}&pageSize=5&placementYear=2025`
           );
+          const newPlacements = response.data;
+          if (newPlacements.length === 0) {
+            setAllPlacementsLoaded(true);
+          } else {
+            setPlacements((prevPlacements) =>
+              page === 1 ? newPlacements : [...prevPlacements, ...newPlacements]
+            );
+          }
+        } else {
+          // Clear placements if the year is not 2025
+          setPlacements([]);
+          setAllPlacementsLoaded(true);
         }
-        setLoading(false);
       } catch (error) {
         console.error("Error fetching placements:", error);
+      } finally {
+        setLoading(false); // Hide loading spinner after fetching
       }
     };
 
@@ -38,7 +44,6 @@ const PlacementsPage = () => {
 
   const loadMorePlacements = () => {
     if (!allPlacementsLoaded) {
-      setLoading(true);
       setPage((prevPage) => prevPage + 1);
     }
   };
@@ -65,11 +70,18 @@ const PlacementsPage = () => {
           <option value={2025}>2025</option>
         </select>
       </div>
-      <div className="placement-cards-container">
-        {placements.map((placement, index) => (
-          <PlacementCard key={`placement_${index}`} placement={placement} />
-        ))}
-      </div>
+
+      {/* Conditionally render the PDF link for 2024 */}
+      {placementYear === 2024 && (
+        <div className="pdf-link">
+          <a href={interview} download>
+            {" "}
+            download interview pdf
+          </a>
+        </div>
+      )}
+
+      {/* Show loading spinner */}
       {loading && (
         <div className="lds-facebook">
           {" "}
@@ -78,10 +90,26 @@ const PlacementsPage = () => {
           <div></div>
         </div>
       )}
-      {!loading && !allPlacementsLoaded && (
+
+      {/* Render placement cards only for 2025 */}
+      {!loading && placementYear === 2025 && (
+        <div className="placement-cards-container">
+          {placements.map((placement, index) => (
+            <PlacementCard key={`placement_${index}`} placement={placement} />
+          ))}
+        </div>
+      )}
+
+      {/* Show "Next" button only for 2025 */}
+      {!loading && placementYear === 2025 && !allPlacementsLoaded && (
         <button onClick={loadMorePlacements}>Next</button>
       )}
-      {allPlacementsLoaded && <h2>No more data available</h2>}
+
+      {/* Show "No more data" message only for 2025 */}
+      {!loading && placementYear === 2025 && allPlacementsLoaded && (
+        <h2>No more data available</h2>
+      )}
+
       <div className="dev">
         <h6>Made by Vikash Chand (2020-2025) with Love 💖</h6>
         <br></br>

@@ -1,23 +1,18 @@
 import React, { useState, useEffect } from "react";
 import {
-  FaSearchengin,
   FaSearch,
   FaUpload,
   FaUser,
   FaRegNewspaper,
-  FaVideo,
-  FaHandsHelping,
   FaMoneyCheckAlt,
-  FaLinkedinIn,
+  FaHandsHelping,
+  FaVideo,
 } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { GiTeacher } from "react-icons/gi";
 import "./LandingPage.css";
-import pdf from "../../assets/mis.xlsx";
-import boy from "../../assets/boy18.png";
-
+import interview from "../../assets/2024placement.pdf";
 import baseUrl from "../../config";
-import AdSenseAd from "../AdSenseAd";
 
 const LandingPage = () => {
   const [totalEntries, setTotalEntries] = useState(null);
@@ -29,12 +24,9 @@ const LandingPage = () => {
       try {
         const response = await fetch(`${baseUrl}/totalqp`);
         const data = await response.json();
-
-        // Assuming the response structure is { totalEntries: number }
         setTotalEntries(data.totalEntries);
       } catch (error) {
         console.error("Error fetching data:", error);
-        // Handle error, e.g., display an error message to the user
       }
     };
 
@@ -44,21 +36,25 @@ const LandingPage = () => {
   useEffect(() => {
     const fetchTotalVisitors = async () => {
       try {
-        const response = await fetch(`${baseUrl}/totalvisitor`); // Assuming this is the endpoint that provides totalVisitors
+        const response = await fetch(`${baseUrl}/totalvisitor`);
         const data = await response.json();
-
-        // Assuming the response structure is { totalVisitors: number }
         setTotalVisitors(data.totalVisitors);
       } catch (error) {
         console.error("Error fetching total visitors:", error);
-        // Handle error, e.g., display an error message to the user
       }
     };
 
     fetchTotalVisitors();
   }, []);
+
   useEffect(() => {
-    setShowPopup(true);
+    // Check popup counter in local storage
+    const popupCounter = localStorage.getItem("popupCounter") || 0;
+
+    if (popupCounter < 8) {
+      setShowPopup(true);
+      localStorage.setItem("popupCounter", parseInt(popupCounter) + 1);
+    }
   }, []);
 
   const handleClosePopup = () => {
@@ -73,17 +69,33 @@ const LandingPage = () => {
             <button className="close" onClick={handleClosePopup}>
               Close
             </button>
-            <h5>New Interview added check the placement page</h5>
-            <h5>Get some tips from Your batchmates.</h5>
-            <a>To submit your interview experience msg me on linkedin</a>
+            <h5>New Interview added! Check the placement page</h5>
+            <h5>Get some tips from your batchmates.</h5>
+            <a>
+              The placement interview experiences of the Batch of 2024 have been
+            </a>
+            <a>compressed into a PDF to optimize MongoDB storage capacity.</a>
+            <a href={interview} download>
+              Download Interview PDF
+            </a>
+            <a>
+              To share your placement journey, reach me on{" "}
+              <a
+                href="https://www.linkedin.com/in/vikash-chand-9878471b8/"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                LinkedIn
+              </a>
+            </a>
           </div>
         </div>
       )}
+
       <h1 className="colourchangetext">
         Welcome to the MIS Previous Year Question and Faculty Review Portal
       </h1>
-
-      <h2>Exclusively For Mtech in Software Enginnering students </h2>
+      <h2>Exclusively For MTech in Software Engineering students</h2>
 
       <div className="feature-container">
         <div className="feature-description">
@@ -93,19 +105,16 @@ const LandingPage = () => {
                 <FaUpload />
               </div>
               <div className="feature-details">
-                <h3> Upload</h3>
-
+                <h3>Upload</h3>
                 <p>
-                  automatically extracts the text from image hence ,user wont
-                  need to type subject name ,code faculty name, just You need to
-                  be a good at taking snaps
+                  Automatically extracts text from images, so you don't need to
+                  type subject names, codes, or faculty names. Just take good
+                  snaps!
                 </p>
-
                 <button>
-                  {" "}
                   <Link className="lin" to="/qpupload">
-                    Upload{" "}
-                  </Link>{" "}
+                    Upload
+                  </Link>
                 </button>
               </div>
             </li>
@@ -115,35 +124,30 @@ const LandingPage = () => {
                 <FaSearch />
               </div>
               <div className="feature-details">
-                <h3>Search </h3>
+                <h3>Search</h3>
                 <p>
-                  Search subject based on Subject code and Subject Name or
-                  Faculty Name{" "}
+                  Search subjects based on subject code, subject name, or
+                  faculty name.
                 </p>
                 <button>
-                  {" "}
                   <Link className="lin" to="/searchqps">
-                    Search{" "}
-                  </Link>{" "}
+                    Search
+                  </Link>
                 </button>
               </div>
             </li>
+
             <li className="feature-card">
               <div className="feature-icon">
                 <FaMoneyCheckAlt />
               </div>
               <div className="feature-details">
-                <h3>Placements </h3>
-
-                <p>Past year Placements</p>
-                <p>List of companies that came last year and their packages</p>
-
+                <h3>Placements</h3>
+                <p>Past year placements and company packages.</p>
                 <button>
-                  {" "}
-                  <a href={pdf} download>
-                    {" "}
-                    download sheet
-                  </a>{" "}
+                  <a href={interview} download>
+                    Download Sheet
+                  </a>
                 </button>
               </div>
             </li>
@@ -154,15 +158,13 @@ const LandingPage = () => {
               </div>
               <div className="feature-details">
                 <h3>Faculty Review</h3>
-
                 <p>
-                  Faculty serach module will only be active during ffcs Phases{" "}
+                  Faculty search module will only be active during FFCS phases.
                 </p>
                 <button>
-                  {" "}
                   <Link className="lin" to="/facultydata">
-                    Review{" "}
-                  </Link>{" "}
+                    Review
+                  </Link>
                 </button>
               </div>
             </li>
@@ -173,13 +175,11 @@ const LandingPage = () => {
               </div>
               <div className="feature-details">
                 <h3>Seniors Advice</h3>
-
-                <p>Tips for placements by Placed seniors</p>
+                <p>Tips for placements by placed seniors.</p>
                 <button>
-                  {" "}
                   <Link className="lin" to="/placementBlogs">
-                    Review{" "}
-                  </Link>{" "}
+                    Review
+                  </Link>
                 </button>
               </div>
             </li>
@@ -192,12 +192,11 @@ const LandingPage = () => {
                 <h3>Demo</h3>
                 <iframe
                   className="video"
-                  src="https://www.youtube.com/embed/f41Y-V1nIlk?si=5AIHI2_Xrknep6Pv&amp;controls=0&amp;start=5"
+                  src="https://www.youtube.com/embed/f41Y-V1nIlk?controls=0&start=5"
                   title="YouTube video player"
-                  frameborder="0"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                  referrerpolicy="strict-origin-when-cross-origin"
-                  allowfullscreen
+                  frameBorder="0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowFullScreen
                 ></iframe>
               </div>
             </li>
@@ -226,11 +225,9 @@ const LandingPage = () => {
         </h3>
         <h3>
           Total Users <FaUser />{" "}
-          {totalVisitors !== null ? totalVisitors : "Loading..."}{" "}
+          {totalVisitors !== null ? totalVisitors : "Loading..."}
         </h3>
       </div>
-
-      <div className="dev"></div>
     </div>
   );
 };
