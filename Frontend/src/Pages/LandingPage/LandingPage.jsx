@@ -78,16 +78,7 @@ const LandingPage = () => {
             <a href={interview} download>
               Download Interview PDF
             </a>
-            <a>
-              To share your placement journey, reach me on{" "}
-              <a
-                href="https://www.linkedin.com/in/vikash-chand-9878471b8/"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                LinkedIn
-              </a>
-            </a>
+          
           </div>
         </div>
       )}
@@ -206,17 +197,7 @@ const LandingPage = () => {
 
       <div>
         <div className="dev">
-          <p>
-            Developed by{" "}
-            <a
-              href="https://vikashchand.vercel.app/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="developer-link"
-            >
-              Vikash Chand
-            </a>
-          </p>
+          
         </div>
 
         <h3>

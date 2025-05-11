@@ -23,10 +23,6 @@ const Accessories = () => {
 
 
               
-Made by 
-<a href="https://www.linkedin.com/in/vikash-chand-9878471b8/" >
-Vikash Chand
-</a> 
 
 
 

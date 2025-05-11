@@ -109,18 +109,6 @@ const PlacementsPage = () => {
       {!loading && placementYear === 2025 && allPlacementsLoaded && (
         <h2>No more data available</h2>
       )}
-
-      <div className="dev">
-        <h6>Made by Vikash Chand (2020-2025) with Love 💖</h6>
-        <br></br>
-        <br></br>
-        Special Thanks to{" "}
-        <a href="https://www.linkedin.com/in/soundarya-lahari-kasturi/">
-          Soundarya Lahari K
-        </a>{" "}
-        and{" "}
-        <a href="https://www.linkedin.com/in/ishubham99/">Shubham Choudhary</a>
-      </div>
     </div>
   );
 };
