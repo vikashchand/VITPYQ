@@ -12,17 +12,17 @@ const fs = require("fs");
 const path = require("path");
 const zlib = require("zlib");
 const { type } = require("os");
-// const corsOptions = {
-//   origin: "https://20mis.vercel.app",
-//   credentials: true,
-//   optionSuccessStatus: 200,
-// };
-
 const corsOptions = {
-  origin: "http://localhost:3000",
+  origin: "https://20mis.vercel.app",
   credentials: true,
   optionSuccessStatus: 200,
 };
+
+// const corsOptions = {
+//   origin: "http://localhost:3000",
+//   credentials: true,
+//   optionSuccessStatus: 200,
+// };
 
 app.use(cors(corsOptions));
 
