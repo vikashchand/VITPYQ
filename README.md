@@ -31,24 +31,15 @@
 
 
 ## Images
+<img width="1893" height="878" alt="image" src="https://github.com/user-attachments/assets/7893909b-8687-42de-8550-634eae16bd56" />
+<img width="1894" height="787" alt="image" src="https://github.com/user-attachments/assets/e19abaef-dd34-454b-823d-99a2637176a8" />
+<img width="1900" height="879" alt="image" src="https://github.com/user-attachments/assets/db04722d-eeff-42c1-ac8a-12fce3531a08" />
+<img width="1875" height="862" alt="image" src="https://github.com/user-attachments/assets/b1c1da27-0908-45a2-8f9f-61ad4851fb3f" />
+<img width="1890" height="859" alt="image" src="https://github.com/user-attachments/assets/4aa456b1-6870-4cb9-8967-d80ab893e335" />
+<img width="1893" height="873" alt="image" src="https://github.com/user-attachments/assets/8b1923b3-0b6c-456a-a6e2-e3d33a906509" />
 
-![image](https://github.com/vikashchand/VITPYQ/assets/72156896/6c0c223b-51eb-4130-91a3-feff4cabf4f3)
 
-![image](https://github.com/vikashchand/VITPYQ/assets/72156896/95694b00-2051-4545-9c31-f19c7bd1cc7e)
 
-![image](https://github.com/vikashchand/VITPYQ/assets/72156896/a0ecd90e-1610-4357-9df7-251fbda8da25)
-
-![image](https://github.com/vikashchand/VITPYQ/assets/72156896/8f6b68a0-d55c-4fca-8352-d28d8ce05cf2)
-
-![image](https://github.com/vikashchand/VITPYQ/assets/72156896/1ed8edc3-f1da-473b-ad93-1a485af63605)
-
-![image](https://github.com/vikashchand/VITPYQ/assets/72156896/7f37a758-0eac-4838-8a83-5015c1a2ef92)
-
-![image](https://github.com/vikashchand/VITPYQ/assets/72156896/173fbccc-7cbb-4a4c-96df-dbf3cf3e219d)
-
-![image](https://github.com/vikashchand/VITPYQ/assets/72156896/2a457bb4-0e50-4f8d-bad5-b66364d0858f)
-
-![image](https://github.com/vikashchand/VITPYQ/assets/72156896/ac16300a-7bad-44c6-8990-b5d3c56b67dd)
 
 
 
