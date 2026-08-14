@@ -22,29 +22,8 @@ const PlacementDetails = () => {
     fetchPlacement();
   }, [id]);
 
-  if (!placement) {
-    return <div className="loading">Loading...</div>;
-  }
 
-  // Function to convert HTML to plain text
-  const stripHtmlTags = (html) => {
-    const doc = new DOMParser().parseFromString(html, 'text/html');
-    return doc.body.textContent || '';
-  };
-
-  return (
-    <div className="placement-details">
-      <h2 className="company-name">{placement.companyName}</h2>
-      <div className="pimage-container">
-        <img src={placement.image} alt={placement.companyName} className="placement-image" />
-      </div>
-      <p className="summary">{placement.summary}</p>
-      
-      <div className='description' dangerouslySetInnerHTML={{ __html: marked(placement.description) }}></div>
-
-    <Link to={`/placementBlogs`} className="placement-link">  Back</Link>
-    </div>
-  );
+  if (!placement) return <main className="page-shell"><div className="qp-loading"><span className="loader-ring"/><strong>Opening story…</strong></div></main>;
+  return <main className="page-shell story-page"><Link className="story-back" to="/placementBlogs">← Back to Career Hub</Link><header className="story-header"><span className="eyebrow">PLACEMENT STORY</span><h1>{placement.companyName}</h1><p>{placement.summary}</p><div className="story-meta"><span>Shared by <strong>{placement.username}</strong></span><span>Real student experience</span></div></header><div className="story-hero"><img src={placement.image} alt={placement.companyName}/></div><article className="story-body" dangerouslySetInnerHTML={{__html:marked(placement.description)}}/><Link className="story-end" to="/placementBlogs">Explore more career stories →</Link></main>;
 };
-
 export default PlacementDetails;

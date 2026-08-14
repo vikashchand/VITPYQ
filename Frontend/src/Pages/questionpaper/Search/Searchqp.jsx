@@ -2,7 +2,7 @@
 
 
 import React, { useEffect, useState } from 'react';
-import { FaSearch, FaDownload, FaTimes } from 'react-icons/fa';
+import { FaSearch, FaDownload, FaTimes,FaArrowRight } from 'react-icons/fa';
 import axios from 'axios';
 import Modal from 'react-modal';
 
@@ -21,16 +21,16 @@ const SearchQp = () => {
   const [noResults, setNoResults] = useState(false);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [searchMode, setSearchMode] = useState('courseCode');
-const [suggestions, setSuggestions] = useState([]);
+  const [suggestions, setSuggestions] = useState([]);
 
 
-const shouldDisplayCourseCodeButtons = searchText === '';
+  const shouldDisplayCourseCodeButtons = searchText === '';
 
 
-  
+
 
   useEffect(() => {
-    
+
     const fetchCourseCodes = async () => {
       try {
         setIsLoading(true);
@@ -38,11 +38,11 @@ const shouldDisplayCourseCodeButtons = searchText === '';
         setCourseCodes(response.data.uniqueCourseCodes);
       } catch (error) {
         console.error('Error fetching course codes:', error);
-      } finally{
-        setIsLoading(false); 
+      } finally {
+        setIsLoading(false);
       }
     };
-  
+
     fetchCourseCodes();
   }, []);
 
@@ -53,7 +53,7 @@ const shouldDisplayCourseCodeButtons = searchText === '';
       const response = await axios.get(`${baseUrl}/searchqp?text=${code}`, {
         timeout: 1800000, // Set timeout in milliseconds (adjust as needed)
       });
-  
+
       setImageData(response.data.imageData);
       setSelectedCode(code);
       setSuggestions([]); // Clear suggestions after selecting a code
@@ -69,14 +69,14 @@ const shouldDisplayCourseCodeButtons = searchText === '';
       setIsLoading(false);
     }
   };
-  
-
-  
 
 
 
 
-  
+
+
+
+
 
   const handleDownload = (imageUrls) => {
     imageUrls.forEach((imageUrl, index) => {
@@ -89,7 +89,7 @@ const shouldDisplayCourseCodeButtons = searchText === '';
     });
   };
 
- 
+
 
   const closeModal = () => {
     setIsModalOpen(false);
@@ -126,8 +126,8 @@ const shouldDisplayCourseCodeButtons = searchText === '';
   const handleSearchTextChange = (e) => {
     if (e.target.value === '') {
       setSuggestions([]);
-     
-       // Clear suggestions when the search text is empty
+
+      // Clear suggestions when the search text is empty
     }
     setSearchText(e.target.value);
     // Call a function to fetch suggestions based on the current search mode and text
@@ -140,8 +140,8 @@ const shouldDisplayCourseCodeButtons = searchText === '';
 
 
 
-  
-  
+
+
   const handleSuggestionClick = (suggestion) => {
     setSearchText(suggestion);
     // Fetch data based on the selected suggestion
@@ -149,8 +149,8 @@ const shouldDisplayCourseCodeButtons = searchText === '';
     // Clear suggestions
     setSuggestions([]);
   };
-  
-  
+
+
   const fetchSuggestions = async (mode, text) => {
     try {
       const response = await axios.get(`${baseUrl}/globalapi/suggestions?mode=${mode}&text=${text}`);
@@ -159,8 +159,8 @@ const shouldDisplayCourseCodeButtons = searchText === '';
       console.error('Error fetching suggestions:', error);
     }
   };
-  
- 
+
+
 
   const fetchData = async (mode, value) => {
     try {
@@ -168,7 +168,7 @@ const shouldDisplayCourseCodeButtons = searchText === '';
       const response = await axios.get(`${baseUrl}/globalapi?mode=${mode}&text=${value}`, {
         timeout: 1800000, // Set timeout in milliseconds (adjust as needed)
       });
-      
+
       setImageData(response.data.imageData);
     } catch (error) {
       console.error('Error fetching data:', error);
@@ -190,8 +190,8 @@ const shouldDisplayCourseCodeButtons = searchText === '';
 
 
 
-  
- 
+
+
   const handleBackButtonClick = () => {
     setImageData([]);
     setSearchText('');
@@ -200,135 +200,36 @@ const shouldDisplayCourseCodeButtons = searchText === '';
   };
 
 
+
   return (
-    <div className="searchqp-container">
-
-    <h1 className='colourchangetext'>Search Question paper based on Subject Name, Code, or Faculty</h1>
-<div  className='search-bar'>
-    <select className='opti' value={searchMode} onChange={(e) => setSearchMode(e.target.value)}>
-      <option value="facultyName">Faculty Name</option>
-      <option value="courseName">Course Name</option>
-      <option value="courseCode">Course Code</option>
-    </select>
-
-    <input className='searchinput'
-      type="text"
-      placeholder={`Search by ${searchMode === 'facultyName' ? 'Faculty' : (searchMode === 'courseName' ? 'Course' : 'Code')}`}
-      value={searchText}
-      onChange={handleSearchTextChange}
-    />
-    </div>
-    <div className="suggestions-lists">
-   
-  {searchText !== '' && suggestions.slice(0, 3).map((suggestion, index) => (
-  
-   
-    <div className='suggestions-listli' key={index} onClick={() => handleSuggestionClick(suggestion)}>
-      {suggestion}
-    
-    </div>
-  ))}
-</div>
-
-
-    <h1>Available Question Papers</h1>
-
-  
-
-    {isLoading && <div className="lds-facebook"> Loading<div></div><div></div><div></div></div>
-
-  
-  }
-
-   
-     
-   
-      <div className="card-container">
-
-     
-      {imageData.map((result, questionIndex) => (
-        <div key={questionIndex} className="card">
-          <h3>Click on the image to view it</h3>
-          {result.imageUrls && result.imageUrls.map((imageUrl, imageIndex) => (
-            <img
-              key={imageIndex}
-              src={imageUrl}
-              alt={`Image ${questionIndex + 1}-${imageIndex + 1}`}
-              onClick={() => openModal(questionIndex, imageIndex)}
-            />
-            
-          ))}
-          <div className="card-actions">
-            <FaDownload onClick={() => handleDownload(result.imageUrls)} />
-          </div>
-          {/* If you want to display other information related to the image, add it here */}
+    <main className="page-shell qp-page">
+      <header className="qp-header">
+        <div>
+          <span className="eyebrow">QUESTION BANK</span>
+          <h1 className="page-heading">Find the paper. <span className="colourchangetext">Skip the digging.</span></h1>
+          <p className="page-subtitle">Search the shared MIS archive by course code, subject or faculty. Open a paper, inspect every page, and download it when you're ready.</p>
         </div>
-      ))}
-
-
-      {imageData.length > 0 && (
-        <button className="back-button" onClick={handleBackButtonClick}>
-          Close
-        </button>
-      )}
-    </div>
-    
-
-    <Modal
-      isOpen={isModalOpen}
-      onRequestClose={closeModal}
-      contentLabel="Image Preview"
-      className="modal"
-      overlayClassName="overlay"
-    >
-
-      <div className="modal-content">
-       
-        {imageData.length > 0 && (
-          <>
-
-            {imageData[currentImageIndex.questionIndex]?.imageUrls && (
-              <img
-                src={imageData[currentImageIndex.questionIndex].imageUrls[currentImageIndex.imageIndex]}
-                alt={`Image ${currentImageIndex.questionIndex + 1}-${currentImageIndex.imageIndex + 1}`}
-              />
-            )}
-            <div className="modal-actions">
-              {imageData[currentImageIndex.questionIndex]?.imageUrls && (
-                <p>{currentImageIndex.imageIndex + 1} of {imageData[currentImageIndex.questionIndex].imageUrls.length}</p>
-              )}
-              {imageData[currentImageIndex.questionIndex]?.imageUrls && (
-                <div className='modelbt'>
-                 
-                  <button onClick={handleNextImage}>Next</button>
-                  
-    <button  onClick={closeModal} > close </button>
-                
-</div>
-              )}
-            </div>
-          </>
-        )}
-      </div>
-    </Modal>
-
-
-
-    {shouldDisplayCourseCodeButtons && (
-      <div className='coursecodess'>
-        {courseCodes.map((code, index) => (
-          <button
-            key={index}
-            onClick={() => handleCodeClick(code)}
-            className={selectedCode === code ? 'selected' : ''}
-          >
-            {code}
-          </button>
-        ))}
-      </div>
-    )}
-  </div>
-);
+        <div className="qp-stat"><strong>{courseCodes.length || "—"}</strong><span>indexed course codes</span></div>
+      </header>
+      <section className="search-console glass">
+        <div className="search-console-top"><div><small>SEARCH THE ARCHIVE</small><h2>What are you looking for?</h2></div><span className="search-status">● Archive online</span></div>
+        <div className="search-controls">
+          <select value={searchMode} onChange={e => { setSearchMode(e.target.value); setSuggestions([]) }} aria-label="Search type">
+            <option value="courseCode">Course code</option><option value="courseName">Course name</option><option value="facultyName">Faculty name</option>
+          </select>
+          <div className="search-input-wrap"><FaSearch /><input value={searchText} onChange={handleSearchTextChange} placeholder={`Try ${searchMode === "courseCode" ? "CSE4001" : searchMode === "courseName" ? "Data Structures" : "faculty name"}...`} /><button className="search-clear" onClick={() => { setSearchText(""); setSuggestions([]) }} disabled={!searchText}><FaTimes /></button></div>
+        </div>
+        {searchText && suggestions.length > 0 && <div className="suggestion-panel">{suggestions.slice(0, 5).map((s, i) => <button className="suggestion-row" key={i} onClick={() => handleSuggestionClick(s)}><span>{s}</span><FaArrowRight /></button>)}</div>}
+      </section>
+      {!searchText && !selectedCode && <section className="quick-section"><div className="section-label"><span>QUICK ACCESS</span><p>Browse by course code</p></div><div className="code-cloud">{courseCodes.map((code, i) => <button className="code-chip" key={i} onClick={() => handleCodeClick(code)}>{code}</button>)}</div></section>}
+      {isLoading && <div className="qp-loading"><span className="loader-ring" /><div><strong>Searching the vault…</strong><p>Matching your query against the indexed archive.</p></div></div>}
+      {!isLoading && imageData.length === 0 && (searchText || selectedCode) && <div className="qp-empty glass"><div>⌕</div><h3>No papers found yet</h3><p>Try a different course code, subject name or faculty. You can also clear the search and browse the course index.</p><button onClick={handleBackButtonClick}>Browse the archive</button></div>}
+      {imageData.length > 0 && <section className="results-section"><div className="results-head"><div><span className="eyebrow">RESULTS</span><h2>{selectedCode || searchText}</h2><p>{imageData.length} paper set{imageData.length === 1 ? "" : "s"} found</p></div><button className="ghost-button" onClick={handleBackButtonClick}>New search</button></div><div className="paper-grid">{imageData.map((result, qi) => <article className="paper-card" key={qi}><div className="paper-preview" onClick={() => openModal(qi, 0)}>{result.imageUrls?.[0] && <img src={result.imageUrls[0]} alt={`Question paper ${qi + 1}`} />}<span>Open preview</span></div><div className="paper-meta"><div><small>PAPER SET {String(qi + 1).padStart(2, "0")}</small><h3>{selectedCode || "Question paper"}</h3></div><button className="icon-button" onClick={() => handleDownload(result.imageUrls)} title="Download paper"><FaDownload /></button></div><p>{result.imageUrls?.length || 0} page{result.imageUrls?.length === 1 ? "" : "s"} · Click preview to read</p></article>)}</div></section>}
+      <Modal isOpen={isModalOpen} onRequestClose={closeModal} contentLabel="Question paper preview" className="qp-modal" overlayClassName="qp-overlay">
+        <div className="modal-toolbar"><div><small>QUESTION PAPER PREVIEW</small><strong>{selectedCode || searchText}</strong></div><button onClick={closeModal}>×</button></div>
+        {imageData.length > 0 && <><div className="modal-image-wrap"><img src={imageData[currentImageIndex.questionIndex]?.imageUrls?.[currentImageIndex.imageIndex]} alt="Question paper page" /></div><div className="modal-footer"><span>Page {currentImageIndex.imageIndex + 1} of {imageData[currentImageIndex.questionIndex]?.imageUrls?.length || 0}</span><div><button onClick={handlePrevImage}>Previous</button><button onClick={handleNextImage}>Next</button></div></div></>}
+      </Modal>
+    </main>
+  );
 };
-
 export default SearchQp;

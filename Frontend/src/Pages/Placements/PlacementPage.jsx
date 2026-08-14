@@ -56,61 +56,16 @@ const PlacementsPage = () => {
     setAllPlacementsLoaded(false); // Reset the "all loaded" state
   };
 
+
   return (
-    <div className="placements-page">
-      <h1 className="page-title">Placements Insights</h1>
-      <div className="filter-dropdown">
-        <label htmlFor="yearFilter">Filter by Year: </label>
-        <select
-          id="yearFilter"
-          value={placementYear}
-          onChange={handleYearFilter}
-        >
-          <option value={2024}>2024</option>
-          <option value={2025}>2025</option>
-        </select>
-      </div>
-
-      {/* Conditionally render the PDF link for 2024 */}
-      {placementYear === 2024 && (
-        <div className="pdf-link">
-          <a href={interview} download>
-            {" "}
-            download interview pdf
-          </a>
-        </div>
-      )}
-
-      {/* Show loading spinner */}
-      {loading && (
-        <div className="lds-facebook">
-          {" "}
-          Loading<div></div>
-          <div></div>
-          <div></div>
-        </div>
-      )}
-
-      {/* Render placement cards only for 2025 */}
-      {!loading && placementYear === 2025 && (
-        <div className="placement-cards-container">
-          {placements.map((placement, index) => (
-            <PlacementCard key={`placement_${index}`} placement={placement} />
-          ))}
-        </div>
-      )}
-
-      {/* Show "Next" button only for 2025 */}
-      {!loading && placementYear === 2025 && !allPlacementsLoaded && (
-        <button onClick={loadMorePlacements}>Next</button>
-      )}
-
-      {/* Show "No more data" message only for 2025 */}
-      {!loading && placementYear === 2025 && allPlacementsLoaded && (
-        <h2>No more data available</h2>
-      )}
-    </div>
+    <main className="page-shell career-page">
+      <header className="career-head"><div><span className="eyebrow">CAREER HUB</span><h1 className="page-heading">Learn from the <span className="colourchangetext">batch ahead.</span></h1><p className="page-subtitle">Real placement stories, interview experiences and practical lessons — captured while they're still useful.</p></div><a className="download-button" href={interview} download>2024 interview pack ↓</a></header>
+      <div className="year-tabs"><span>EXPLORE YEAR</span><button className={placementYear===2025?"selected":""} value="2025" onClick={handleYearFilter}>2025</button><button className={placementYear===2024?"selected":""} value="2024" onClick={handleYearFilter}>2024 archive</button></div>
+      {placementYear===2024&&<div className="career-callout glass"><div><span className="eyebrow">ARCHIVED INTERVIEWS</span><h3>2024 placement experiences</h3><p>Download the interview compilation and learn from the questions, approaches and lessons shared by your seniors.</p></div><a href={interview} download>Download PDF →</a></div>}
+      {loading&&<div className="qp-loading"><span className="loader-ring"/><div><strong>Loading stories…</strong><p>Fetching the latest experiences.</p></div></div>}
+      {!loading&&placementYear===2025&&<><div className="story-count">{placements.length} stories loaded</div><div className="placement-cards-container">{placements.map((placement,index)=><PlacementCard key={`placement_${index}`} placement={placement}/>)}</div>{!allPlacementsLoaded&&<div className="load-more-wrap"><button onClick={loadMorePlacements}>Load more stories</button></div>}{allPlacementsLoaded&&placements.length>0&&<p className="archive-end">You've reached the end of the 2025 stories.</p>}</>}
+      {!loading&&placementYear===2025&&placements.length===0&&<div className="faculty-empty"><div>◌</div><h3>No stories yet</h3><p>There aren't any published experiences for this year yet.</p></div>}
+    </main>
   );
 };
-
 export default PlacementsPage;

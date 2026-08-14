@@ -1,71 +1,8 @@
 
-import React, { useState } from 'react';
-import axios from 'axios';
-import './Faculty.css'
-import baseUrl from '../../config';
-import { ToastContainer, toast } from 'react-toastify';
-
-  
-const FacultyReviewForm = () => {
-    const [name, setName] = useState('');
-    const [review, setReview] = useState('');
-  
-    const handleSubmit = async (e) => {
-      e.preventDefault();
-  
-      // Validate input fields
-      if (!name.trim() || !review.trim()) {
-        toast.error('Name and Review cannot be empty');
-        return;
-      }
-  
-      try {
-        const response = await axios.post(`${baseUrl}/reviews`, {
-          name,
-          reviews: [{ review }],
-        });
-  
-        console.log(response.data);
-        // Display a success message based on your response structure
-        toast.success('Review submitted successfully');
-        // Reset the form fields after successful submission
-        setName('');
-        setReview('');
-      } catch (error) {
-        console.error('Error submitting review:', error);
-        toast.error('Error submitting review');
-      }
-    };
-  
-    return (
-      <div className='faculty-search-container'>
-        <h1>Faculty Review Form</h1>
-        <br />
-        <ToastContainer />
-        <form onSubmit={handleSubmit} className="facultyform">
-          <label>
-            Faculty Name:
-            <input
-              type="text"
-              value={name}
-              onChange={(e) => setName(e.target.value.toUpperCase())}
-              className="facultyname"
-            />
-          </label>
-          <br />
-          <label>
-            Review:
-            <textarea
-              value={review}
-              onChange={(e) => setReview(e.target.value)}
-            />
-          </label>
-          <br />
-          <button className='formbt' type="submit">Submit Review</button>
-        </form>
-      </div>
-    );
-  };
-  
-  export default FacultyReviewForm;
-  
+import React,{useState} from "react"; import axios from "axios"; import "./Faculty.css"; import baseUrl from "../../config"; import {ToastContainer,toast} from "react-toastify";
+const FacultyReviewForm=()=>{const[name,setName]=useState(""),[review,setReview]=useState("");
+const handleSubmit=async e=>{e.preventDefault();if(!name.trim()||!review.trim()){toast.error("Please add a faculty name and a review.");return}try{await axios.post(`${baseUrl}/reviews`,{name,reviews:[{review}]});toast.success("Review added to Faculty Voices.");setName("");setReview("")}catch(error){console.error(error);toast.error("Could not submit the review.")}};
+return <main className="page-shell faculty-page"><header><span className="eyebrow">FACULTY VOICES</span><h1 className="page-heading">Share context.<br/><span className="colourchangetext">Help someone choose better.</span></h1><p className="page-subtitle">Leave a thoughtful, experience-based review for your faculty. Keep it specific, fair and useful to the students who come after you.</p></header>
+<section className="faculty-form-layout"><div className="faculty-aside glass"><span className="feature-icon">✦</span><h2>A useful review answers one question.</h2><p>“What would I want to know before choosing this faculty?”</p><ul><li>Teaching pace and clarity</li><li>Assessment style and workload</li><li>Attendance or participation expectations</li><li>Anything genuinely helpful for preparation</li></ul></div>
+<form onSubmit={handleSubmit} className="facultyform professional-form glass"><div className="form-heading"><small>NEW REVIEW</small><h2>Add your experience</h2></div><label>Faculty name<input value={name} onChange={e=>setName(e.target.value.toUpperCase())} placeholder="e.g. DR. A. SHARMA"/></label><label>Your review<textarea value={review} onChange={e=>setReview(e.target.value)} placeholder="Share what you wish you knew before taking the course…" rows="7"/></label><div className="form-footer"><span>Be honest, respectful and specific.</span><button type="submit">Publish review</button></div></form></section><ToastContainer/></main>};
+export default FacultyReviewForm;

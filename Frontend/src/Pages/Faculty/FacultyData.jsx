@@ -89,68 +89,14 @@ const FacultySearch = () => {
     }
   };
 
+
   return (
-    <div className="faculty-search-container">
-      <h2>Search by Name</h2>
-      <div className="download-container">
-      
-        <a href={facultyReview} download className="download-button">
-          Directly Download Faculty Review PDF
-        </a>
-      </div>
-      <h3>Give Rating for the feedback provided on teachers</h3>
-      <input
-        className="facultyname"
-        type="text"
-        value={searchTerm}
-        onChange={(e) => setSearchTerm(e.target.value)}
-        placeholder="Search for faculty"
-      />
-      {suggestions.length > 0 && (
-        <ul className="suggestions-list">
-          {suggestions.map((faculty) => (
-            <li
-              key={faculty._id}
-              onClick={() => handleSelectFaculty(faculty._id)}
-            >
-              {faculty.name}
-            </li>
-          ))}
-        </ul>
-      )}
-
-      {selectedFaculty && (
-        <div className="selected-faculty-details">
-          <h2>{selectedFaculty.name}</h2>
-          <div>
-            <h3>Reviews:</h3>
-            <ol>
-              {selectedFaculty.reviews.map((review, index) => (
-                <li key={index}>{review.review}</li>
-              ))}
-            </ol>
-          </div>
-
-          <div className="like-dislike-container">
-            <div className="like" onClick={handleLike}>
-              <FaThumbsUp /> {likeCount}
-            </div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div className="dislike" onClick={handleDislike}>
-              <FaThumbsDown /> {dislikeCount}
-            </div>
-          </div>
-
-          <button className="clear-button" onClick={clearSelectedFaculty}>
-            Close
-          </button>
-        </div>
-      )}
-    </div>
+    <main className="page-shell faculty-page">
+      <header className="faculty-directory-head"><div><span className="eyebrow">FACULTY DIRECTORY</span><h1 className="page-heading">Choose with <span className="colourchangetext">context.</span></h1><p className="page-subtitle">Search faculty names to read student perspectives and see the community sentiment at a glance.</p></div><a className="download-button" href={facultyReview} download>Download review archive</a></header>
+      <section className="faculty-search-box glass"><label>SEARCH FACULTY<input className="facultyname" type="text" value={searchTerm} onChange={e=>setSearchTerm(e.target.value)} placeholder="Start typing a faculty name…"/></label>{suggestions.length>0&&<ul className="suggestions-list">{suggestions.map(f=><li key={f._id} onClick={()=>handleSelectFaculty(f._id)}><span>{f.name}</span><small>View profile →</small></li>)}</ul>}</section>
+      {!selectedFaculty&&<div className="faculty-empty"><div>◎</div><h3>Search for a faculty member</h3><p>Results and reviews will appear here once you select a name.</p></div>}
+      {selectedFaculty&&<section className="selected-faculty-details glass"><div className="faculty-profile-head"><div className="avatar">{selectedFaculty.name?.slice(0,1)}</div><div><span className="eyebrow">FACULTY PROFILE</span><h2>{selectedFaculty.name}</h2><p>{selectedFaculty.reviews?.length||0} student perspective{selectedFaculty.reviews?.length===1?"":"s"}</p></div><button className="clear-button" onClick={clearSelectedFaculty}>Close</button></div><div className="review-list">{selectedFaculty.reviews.map((review,index)=><article key={index}><span>“</span><p>{review.review}</p></article>)}</div><div className="vote-bar"><div><strong>Was this useful?</strong><small>Your vote helps future students.</small></div><div className="vote-buttons"><button disabled={hasVoted} onClick={handleLike}><FaThumbsUp/> {likeCount}</button><button disabled={hasVoted} onClick={handleDislike}><FaThumbsDown/> {dislikeCount}</button></div></div></section>}
+    </main>
   );
 };
-
 export default FacultySearch;

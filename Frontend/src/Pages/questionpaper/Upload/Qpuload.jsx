@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { useDropzone } from 'react-dropzone';
-import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import { css } from '@emotion/react';
 import { BeatLoader } from 'react-spinners';
 import imageCompression from 'browser-image-compression'; 
@@ -20,23 +19,59 @@ const TextExtractionApp = () => {
   const [images, setImages] = useState([]);
   const [textResults, setTextResults] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [buttonsVisible, setButtonsVisible] = useState(false); // New state for button visibility
+  const [buttonsVisible, setButtonsVisible] = useState(false);
+  const [draggedIndex, setDraggedIndex] = useState(null);
+  const [dragOverIndex, setDragOverIndex] = useState(null);
+
+  // All pages can be reordered. Metadata remains associated with the first page after reordering.
+  const handlePageDragStart = (event, index) => {
+    setDraggedIndex(index);
+    event.dataTransfer.effectAllowed = 'move';
+    event.dataTransfer.setData('text/plain', String(index));
+  };
+
+  const handlePageDragOver = (event, index) => {
+    event.preventDefault();
+    if (draggedIndex === null || draggedIndex === index) return;
+    event.dataTransfer.dropEffect = 'move';
+    setDragOverIndex(index);
+  };
+
+  const handlePageDrop = (event, targetIndex) => {
+    event.preventDefault();
+    const sourceIndex = Number(event.dataTransfer.getData('text/plain'));
+
+    if (
+      !Number.isInteger(sourceIndex) ||
+      sourceIndex < 0 ||
+      targetIndex < 0 ||
+      sourceIndex === targetIndex
+    ) {
+      setDraggedIndex(null);
+      setDragOverIndex(null);
+      return;
+    }
+
+    setImages(prev => {
+      const next = [...prev];
+      const [moved] = next.splice(sourceIndex, 1);
+      next.splice(targetIndex, 0, moved);
+      return next;
+    });
+
+    setDraggedIndex(null);
+    setDragOverIndex(null);
+  };
+
+  const handlePageDragEnd = () => {
+    setDraggedIndex(null);
+    setDragOverIndex(null);
+  };
 
   const onDrop = (acceptedFiles) => {
     setImages(acceptedFiles);
     setButtonsVisible(true); // Show buttons when images are uploaded
   };
-
-  
-
-
-
-
-
-
-
-
-  const droppableId = `droppable-${new Date().getTime()}`;
 
 
 
@@ -302,33 +337,6 @@ const takeback= async () =>{
     }
   };
   
-
-
-
-
-
-
-
-
-
-
-
-
-  const onDragEnd = (result) => {
-    if (!result.destination) return;
-  
-    const reorderedImages = Array.from(images);
-    const [reorderedItem] = reorderedImages.splice(result.source.index, 1);
-    reorderedImages.splice(result.destination.index, 0, reorderedItem);
-  
-    const reorderedTextResults = Array.from(textResults);
-    const [reorderedText] = reorderedTextResults.splice(result.source.index, 1);
-    reorderedTextResults.splice(result.destination.index, 0, reorderedText);
-  
-    setImages(reorderedImages);
-    setTextResults(reorderedTextResults);
-  };
-  
   // const { getRootProps, getInputProps } = useDropzone({
   //   accept: 'image/*',
   //   onDrop,
@@ -347,161 +355,49 @@ const takeback= async () =>{
   });
   
 
+
   return (
-    <div className="text-extraction-app">
-      <h1 className='colourchangetext'>"Masterful Document Handling: Rearrange, Extract, Edit, Save – Simply."</h1>
-      <div className='instructions'>
-      
-      <ul>
-      <h3>Steps</h3>
-     
-      <li>1.Click clear picture without folds on question paper with orientation in potrait mode</li>
-      <li>2.Use whatsapp compressed images as more than 3mb of image will not get uploaded.</li>
-     <li>3.Select the compressed images and rearrange ,keep First page of question paper on top</li>
-     <li>4.After this click on extract Button</li>
-     <li>5.Incase if text extractor couldn't find course code then type manually</li>
-     <li>6.Review and edit the first text box if needed.</li>
-     <li>7.Click 'Save' to preserve changes to images.</li>
-    
-      
-      
-      </ul>
-      
-      
-      </div>
-
-    
-    
-
-      <div {...getRootProps()} className="dropzone inpdrop">
-        <input {...getInputProps()} />
-        <p>Drag ➡️ rearrange ➡️ extract ➡️ save </p>
-       
-      </div>
-
-
-        
-      
-     
-
-      {loading && <BeatLoader css={override} size={15} color={'black'} loading={loading} />}
-
-      <DragDropContext onDragEnd={onDragEnd} >
-    
-
-    
-      <Droppable droppableId={droppableId} >
-        {(provided) => (
-          
-          <div {...provided.droppableProps} ref={provided.innerRef} className="image-list ">
-          
-         
-{images.map((image, index) => (
-  <Draggable key={index} draggableId={`image-${index}`} index={index}>
-    {(provided) => (
-      <div className='reorder' {...provided.draggableProps} {...provided.dragHandleProps} ref={provided.innerRef}>
-        <div className="image-container">
-          <p>{index+1}</p>
-          <img src={URL.createObjectURL(image)} alt={`Image ${index}`} />
-          {index === 0 && (
-            <div className="text-container">
-
-            
-
-          
-            <div className="text-contain">
-            <label htmlFor="subjectCode">Subject Code:</label>
-            <input
-              className='in'
-              value={textResults[index]}
-              onChange={(e) =>
-                setTextResults((prev) => {
-                  const updatedResults = [...prev];
-                  updatedResults[index] = e.target.value.slice(0,7).toUpperCase();
-                  return updatedResults;
-                })
-              }
-              placeholder="Enter text..."
-            />
-          </div>
-          
-          <div className="text-contain">
-            <label htmlFor="facultyName">Faculty Name:</label>
-            <input
-              className='in'
-              value={textResults[index + 1]}
-              onChange={(e) =>
-                setTextResults((prev) => {
-                  const updatedResults = [...prev];
-                  updatedResults[index + 1] = e.target.value;
-                  return updatedResults;
-                })
-              }
-              placeholder="Enter faculty name..."
-              id="facultyName"
-            />
-          </div>
-          
-          <div className="text-contain">
-            <label htmlFor="courseName">Course Name:</label>
-            <input
-              className='in'
-              value={textResults[index + 2]}
-              onChange={(e) =>
-                setTextResults((prev) => {
-                  const updatedResults = [...prev];
-                  updatedResults[index + 2] = e.target.value;
-                  return updatedResults;
-                })
-              }
-              placeholder="Enter course name..."
-              id="courseName"
-            />
-          </div>
-          
-
-              
-
-             
-            </div>
-          )}
-          
-        </div>
-      </div>
-    )}
-  </Draggable>
-))}
-                  {provided.placeholder}
+    <main className="page-shell upload-page">
+      <header className="upload-header">
+        <div><span className="eyebrow">CONTRIBUTE TO THE VAULT</span><h1 className="page-heading">Preserve a paper.<br/><span className="colourchangetext">Help the next batch.</span></h1><p className="page-subtitle">Upload clear page images, arrange them in order, let OCR detect the metadata, then review everything before it enters the archive.</p></div>
+        <div className="workflow"><span className="active">01 Upload</span><i/><span className={images.length?"active":""}>02 Arrange</span><i/><span className={textResults.length?"active":""}>03 Review</span><i/><span>04 Save</span></div>
+      </header>
+      <section className="upload-workspace">
+        <div className="upload-guide glass"><div className="guide-title"><span className="feature-icon">✓</span><div><small>BEFORE YOU UPLOAD</small><h2>Make OCR's job easy.</h2></div></div><div className="guide-grid"><div><strong>01</strong><p>Use portrait, well-lit images with the complete page visible.</p></div><div><strong>02</strong><p>Drag any page into the correct reading order.</p></div><div><strong>03</strong><p>Compressed images are fine. Avoid extremely large files.</p></div></div></div>
+        <div {...getRootProps()} className="dropzone premium-dropzone"><input {...getInputProps()}/><div className="drop-icon">↑</div><h2>Drop your question paper here</h2><p>or click to choose multiple images from your device</p><span>JPG · PNG · Clear scans recommended</span></div>
+      </section>
+      {loading&&<div className="ocr-progress glass"><span className="loader-ring"/><div><strong>Reading your first page…</strong><p>OCR is extracting course metadata. This can take a moment.</p></div></div>}
+      {images.length>0&&<section className="upload-review">
+        <div className="review-header"><div><span className="eyebrow">DOCUMENT REVIEW</span><h2>{images.length} page{images.length===1?"":"s"} ready</h2><p>Drag any page to reorder the paper. All pages can move freely; the paper metadata stays with the document.</p></div><div className="review-actions">{buttonsVisible&&<><button onClick={handleImageChange} disabled={loading}>Extract metadata</button><button onClick={saveChanges} disabled={loading}>Save to vault</button><button className="ghost-button" onClick={takeback} disabled={loading}>Discard</button></>}</div></div>
+        <div className="document-list">
+          {images.map((image,index) => (
+            <article
+              key={`${image.name}-${image.lastModified}-${index}`}
+              className={`document-page ${index===0?"primary-page":""} ${draggedIndex===index?"is-dragging":""} ${dragOverIndex===index?"is-drag-over":""}`}
+              draggable={true}
+              onDragStart={(event) => handlePageDragStart(event, index)}
+              onDragOver={(event) => handlePageDragOver(event, index)}
+              onDrop={(event) => handlePageDrop(event, index)}
+              onDragEnd={handlePageDragEnd}
+            >
+              <div className="page-number">{String(index+1).padStart(2,"0")}</div>
+              <div className="drag-handle" aria-label={`Drag page ${index+1} to reorder`}>⠿</div>
+              <img src={URL.createObjectURL(image)} alt={`Question paper page ${index+1}`}/>
+              {index===0 && (
+                <div className="metadata-panel">
+                  <div className="metadata-title"><span>OCR METADATA</span><small>Attached to first page</small></div>
+                  <label>Course code<input value={Array.isArray(textResults[0]) ? textResults[0].join(', ') : (textResults[0]||"")} onChange={e=>setTextResults(prev=>{const next=[...prev];next[0]=e.target.value.slice(0,80).toUpperCase();return next})} placeholder="e.g. CSE4001"/></label>
+                  <label>Faculty name<input value={textResults[1]||""} onChange={e=>setTextResults(prev=>{const next=[...prev];next[1]=e.target.value;return next})} placeholder="Faculty name"/></label>
+                  <label>Course name<input value={textResults[2]||""} onChange={e=>setTextResults(prev=>{const next=[...prev];next[2]=e.target.value;return next})} placeholder="Course / subject name"/></label>
                 </div>
               )}
-            </Droppable>
-          </DragDropContext>
-    
-          <div className="button-container">
-          {buttonsVisible && ( // Conditionally render the buttons based on visibility state
-            <>
-              <button onClick={handleImageChange} disabled={loading || images.length === 0}>
-                Extract 
-              </button>
-  
-              <button onClick={saveChanges} disabled={loading || images.length === 0}>
-                Save
-              </button>
-              <button onClick={takeback} disabled={loading || images.length === 0}>
-                Back
-              </button>
-            </>
-          )}
+            </article>
+          ))}
         </div>
-        
-      
-
-      {/* Toast container */}
-      <ToastContainer />
-    </div>
+      </section>}
+      {!images.length&&<div className="upload-empty"><span>Nothing uploaded yet</span><p>Your document preview and editable OCR fields will appear here.</p></div>}
+      <ToastContainer/>
+    </main>
   );
 };
-
 export default TextExtractionApp;
-
-

@@ -19,10 +19,17 @@ import Accessories from './Pages/accessories/Accessories';
 import AdSenseAd from './Pages/AdSenseAd';
 
 function App() {
+  const [theme, setTheme] = React.useState(() => localStorage.getItem("mis-theme") || "light");
+
+  React.useEffect(() => {
+    document.documentElement.setAttribute("data-theme", theme);
+    localStorage.setItem("mis-theme", theme);
+  }, [theme]);
+
   return (
     <Router>
       <div className="App">
-        <Navbar />
+        <Navbar theme={theme} onToggleTheme={() => setTheme(theme === "light" ? "dark" : "light")} />
         <PageViewTracker />
         <Routes>
           <Route path="/" element={<LandingPage />} />

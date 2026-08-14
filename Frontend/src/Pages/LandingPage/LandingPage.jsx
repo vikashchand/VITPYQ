@@ -1,216 +1,32 @@
-import React, { useState, useEffect } from "react";
-import {
-  FaSearch,
-  FaUpload,
-  FaUser,
-  FaRegNewspaper,
-  FaMoneyCheckAlt,
-  FaHandsHelping,
-  FaVideo,
-} from "react-icons/fa";
-import { Link } from "react-router-dom";
-import { GiTeacher } from "react-icons/gi";
-import "./LandingPage.css";
-import interview from "../../assets/2024placement.pdf";
-import baseUrl from "../../config";
 
-const LandingPage = () => {
-  const [totalEntries, setTotalEntries] = useState(null);
-  const [totalVisitors, setTotalVisitors] = useState(null);
-  const [showPopup, setShowPopup] = useState(false);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch(`${baseUrl}/totalqp`);
-        const data = await response.json();
-        setTotalEntries(data.totalEntries);
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
-    };
-
-    fetchData();
-  }, []);
-
-  useEffect(() => {
-    const fetchTotalVisitors = async () => {
-      try {
-        const response = await fetch(`${baseUrl}/totalvisitor`);
-        const data = await response.json();
-        setTotalVisitors(data.totalVisitors);
-      } catch (error) {
-        console.error("Error fetching total visitors:", error);
-      }
-    };
-
-    fetchTotalVisitors();
-  }, []);
-
-  useEffect(() => {
-    // Check popup counter in local storage
-    const popupCounter = localStorage.getItem("popupCounter") || 0;
-
-    if (popupCounter < 8) {
-      setShowPopup(true);
-      localStorage.setItem("popupCounter", parseInt(popupCounter) + 1);
-    }
-  }, []);
-
-  const handleClosePopup = () => {
-    setShowPopup(false);
-  };
-
-  return (
-    <div className="landing-page">
-      {showPopup && (
-        <div className="popup">
-          <div className="popup-content">
-            <button className="close" onClick={handleClosePopup}>
-              Close
-            </button>
-            <h5>New Interview added! Check the placement page</h5>
-            <h5>Get some tips from your batchmates.</h5>
-            <a>
-              The placement interview experiences of the Batch of 2024 have been
-            </a>
-            <a>compressed into a PDF to optimize MongoDB storage capacity.</a>
-            <a href={interview} download>
-              Download Interview PDF
-            </a>
-          
-          </div>
-        </div>
-      )}
-
-      <h1 className="colourchangetext">
-        Welcome to the MIS Previous Year Question and Faculty Review Portal
-      </h1>
-      <h2>Exclusively For MTech in Software Engineering students</h2>
-
-      <div className="feature-container">
-        <div className="feature-description">
-          <ul className="feature-cards">
-            <li className="feature-card">
-              <div className="feature-icon">
-                <FaUpload />
-              </div>
-              <div className="feature-details">
-                <h3>Upload</h3>
-                <p>
-                  Automatically extracts text from images, so you don't need to
-                  type subject names, codes, or faculty names. Just take good
-                  snaps!
-                </p>
-                <button>
-                  <Link className="lin" to="/qpupload">
-                    Upload
-                  </Link>
-                </button>
-              </div>
-            </li>
-
-            <li className="feature-card">
-              <div className="feature-icon">
-                <FaSearch />
-              </div>
-              <div className="feature-details">
-                <h3>Search</h3>
-                <p>
-                  Search subjects based on subject code, subject name, or
-                  faculty name.
-                </p>
-                <button>
-                  <Link className="lin" to="/searchqps">
-                    Search
-                  </Link>
-                </button>
-              </div>
-            </li>
-
-            <li className="feature-card">
-              <div className="feature-icon">
-                <FaMoneyCheckAlt />
-              </div>
-              <div className="feature-details">
-                <h3>Placements</h3>
-                <p>Past year placements and company packages.</p>
-                <button>
-                  <a href={interview} download>
-                    Download Sheet
-                  </a>
-                </button>
-              </div>
-            </li>
-
-            <li className="feature-card">
-              <div className="feature-icon">
-                <GiTeacher />
-              </div>
-              <div className="feature-details">
-                <h3>Faculty Review</h3>
-                <p>
-                  Faculty search module will only be active during FFCS phases.
-                </p>
-                <button>
-                  <Link className="lin" to="/facultydata">
-                    Review
-                  </Link>
-                </button>
-              </div>
-            </li>
-
-            <li className="feature-card">
-              <div className="feature-icon">
-                <FaHandsHelping />
-              </div>
-              <div className="feature-details">
-                <h3>Seniors Advice</h3>
-                <p>Tips for placements by placed seniors.</p>
-                <button>
-                  <Link className="lin" to="/placementBlogs">
-                    Review
-                  </Link>
-                </button>
-              </div>
-            </li>
-
-            <li className="feature-card">
-              <div className="feature-icon">
-                <FaVideo />
-              </div>
-              <div className="feature-details">
-                <h3>Demo</h3>
-                <iframe
-                  className="video"
-                  src="https://www.youtube.com/embed/f41Y-V1nIlk?controls=0&start=5"
-                  title="YouTube video player"
-                  frameBorder="0"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                  allowFullScreen
-                ></iframe>
-              </div>
-            </li>
-          </ul>
-        </div>
-      </div>
-
-      <div>
-        <div className="dev">
-          
-        </div>
-
-        <h3>
-          Total Uploads <FaRegNewspaper />{" "}
-          {totalEntries !== null ? totalEntries : "Loading..."}
-        </h3>
-        <h3>
-          Total Users <FaUser />{" "}
-          {totalVisitors !== null ? totalVisitors : "Loading..."}
-        </h3>
-      </div>
-    </div>
-  );
+import React,{useState,useEffect} from "react";
+import {FaSearch,FaUpload,FaUser,FaRegNewspaper,FaMoneyCheckAlt,FaHandsHelping,FaVideo ,FaArrowRight} from "react-icons/fa";
+import {Link} from "react-router-dom"; import {GiTeacher} from "react-icons/gi";
+import "./LandingPage.css"; import interview from "../../assets/2024placement.pdf"; import baseUrl from "../../config";
+const LandingPage=()=>{
+ const [totalEntries,setTotalEntries]=useState(null),[totalVisitors,setTotalVisitors]=useState(null),[showPopup,setShowPopup]=useState(false);
+ useEffect(()=>{fetch(`${baseUrl}/totalqp`).then(r=>r.json()).then(d=>setTotalEntries(d.totalEntries)).catch(console.error);},[]);
+ useEffect(()=>{fetch(`${baseUrl}/totalvisitor`).then(r=>r.json()).then(d=>setTotalVisitors(d.totalVisitors)).catch(console.error);},[]);
+ useEffect(()=>{const c=Number(localStorage.getItem("popupCounter")||0);if(c<8){setShowPopup(true);localStorage.setItem("popupCounter",c+1)}},[]);
+ const features=[
+  {icon:<FaSearch/>,tag:"QUESTION BANK",title:"Find the exact paper.",text:"Search by course code, subject or faculty and jump straight to the papers you need.",to:"/searchqps",cta:"Open question bank"},
+  {icon:<FaUpload/>,tag:"CONTRIBUTE",title:"Turn your paper into history.",text:"Upload clear scans and let OCR capture the course details. Review once, then save it for the next batch.",to:"/qpupload",cta:"Add a paper"},
+  {icon:<GiTeacher/>,tag:"FACULTY VOICES",title:"Choose with context.",text:"Explore student feedback before FFCS decisions, with reviews gathered in one focused place.",to:"/facultydata",cta:"Explore faculty"},
+  {icon:<FaMoneyCheckAlt/>,tag:"CAREER HUB",title:"Learn from the batch ahead.",text:"Read placement stories, interview experiences and practical lessons from students who already made the leap.",to:"/placementBlogs",cta:"Explore careers"},
+  {icon:<FaHandsHelping/>,tag:"RESOURCES",title:"Keep the useful stuff close.",text:"A curated shelf of academic tools, notes and exam resources shared by the MIS community.",to:"/Accessories",cta:"Browse resources"}
+ ];
+ return <main className="landing-page">
+ {showPopup&&<div className="popup"><div className="popup-content glass"><button className="popup-close" onClick={()=>setShowPopup(false)}>×</button><span className="eyebrow">NEW IN THE ARCHIVE</span><h3>2024 interview experiences are live.</h3><p>See how seniors approached placements, what they were asked and what they wish they had known earlier.</p><a className="primary-link" href={interview} download>Download the interview pack <FaArrowRight/></a></div></div>}
+ <section className="landing-hero page-shell">
+  <div className="hero-copy"><span className="eyebrow">20MIS KNOWLEDGE VAULT ✦</span><h1 className="colourchangetext">Your semester,<br/>remembered.</h1><p className="hero-lead">A student-built archive for the things you need at exactly the right time — past papers, faculty perspectives, senior stories and useful resources.</p>
+   <div className="hero-actions"><Link className="hero-primary" to="/searchqps">Find a question paper <FaArrowRight/></Link><Link className="hero-secondary" to="/qpupload">Contribute a paper</Link></div>
+   <div className="trust-line"><span>Built for MIS students</span><i/> <span>Searchable archive</span><i/> <span>OCR-assisted uploads</span></div>
+  </div>
+  <div className="hero-visual"><div className="vault-card"><div className="vault-top"><span>THE VAULT</span><span className="live-dot">● LIVE</span></div><div className="vault-number">{totalEntries??"—"}</div><p>question papers indexed</p><div className="vault-bars"><b/><b/><b/><b/><b/></div><div className="vault-mini"><span>Students reached</span><strong>{totalVisitors??"—"}</strong></div></div></div>
+ </section>
+ <section className="feature-section page-shell"><div className="section-head"><div><span className="eyebrow">ONE PLACE. LESS FRICTION.</span><h2>Everything students actually need.</h2></div><p>Designed around the moments that matter — finding, contributing, choosing and preparing.</p></div>
+ <div className="feature-grid">{features.map((f,i)=><article className={`feature-card pro-card f-${i}`} key={f.title}><div className="feature-icon">{f.icon}</div><small>{f.tag}</small><h3>{f.title}</h3><p>{f.text}</p><Link to={f.to}>{f.cta}<FaArrowRight/></Link></article>)}<article className="feature-card video-card"><div className="video-heading"><span className="feature-icon"><FaVideo/></span><div><small>QUICK TOUR</small><h3>See the archive in action.</h3></div></div><iframe className="video" src="https://www.youtube.com/embed/f41Y-V1nIlk?controls=0&start=5" title="20MIS archive walkthrough" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen/></article></div></section>
+ <section className="closing-strip page-shell"><div><span className="eyebrow">THE IDEA</span><h2>Make the next batch's life a little easier.</h2></div><p>Every paper you upload, review you leave and story you share becomes useful context for someone who comes after you.</p><Link to="/qpupload" className="hero-primary">Contribute to the vault <FaArrowRight/></Link></section>
+ </main>
 };
-
 export default LandingPage;

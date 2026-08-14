@@ -12,17 +12,17 @@ const fs = require("fs");
 const path = require("path");
 const zlib = require("zlib");
 const { type } = require("os");
-const corsOptions = {
-  origin: "https://20mis.vercel.app",
-  credentials: true,
-  optionSuccessStatus: 200,
-};
-
 // const corsOptions = {
-//   origin: "http://localhost:3000",
+//   origin: "https://20mis.vercel.app",
 //   credentials: true,
 //   optionSuccessStatus: 200,
 // };
+
+const corsOptions = {
+  origin: "http://localhost:3000",
+  credentials: true,
+  optionSuccessStatus: 200,
+};
 
 app.use(cors(corsOptions));
 
@@ -216,10 +216,7 @@ app.get("/globalapi", async (req, res) => {
   }
 });
 
-// Express route to search and retrieve all images and text
-// ...
 
-// Express route to search and retrieve images based on text
 
 app.get("/totalqp", async (req, res) => {
   try {
@@ -455,41 +452,7 @@ app.post("/placement", async (req, res) => {
   }
 });
 
-// app.get("/placements", async (req, res) => {
-//   try {
-//     const page = req.query.page || 1;
-//     const pageSize = req.query.pageSize || 5;
-//     const skip = (page - 1) * pageSize;
-//     const placements = await PlacementModel.find()
-//       .select("-description")
-//       .skip(skip)
-//       .limit(pageSize);
 
-//     res.json(placements);
-//   } catch (error) {
-//     console.error("Error fetching placements:", error);
-//     res.status(500).json({ error: "Internal Server Error" });
-//   }
-// });
-
-// app.get('/placements/:id', async (req, res) => {
-//   try {
-//     const { id } = req.params;
-
-//     const placement = await PlacementModel.findById(id);
-//     if (!placement) {
-//       return res.status(404).json({ error: 'Placement not found' });
-//     }
-
-//     // Stream the image data to the client
-//     res.set('Content-Type', 'image/jpeg'); // Adjust content type based on your image format
-//     const stream = fs.createReadStream(placement.image);
-//     stream.pipe(res);
-//   } catch (error) {
-//     console.error('Error fetching placement details:', error);
-//     res.status(500).json({ error: 'Internal Server Error' });
-//   }
-// });
 
 app.get("/placements", async (req, res) => {
   try {
@@ -522,9 +485,13 @@ app.get("/placements/:id", async (req, res) => {
     res.json(placement);
   } catch (error) {
     console.error("Error fetching placement details:", error);
-    res.status(500).json({ error: "Internal Server Error" });
+    res.status(500).json({ error: "Internal Server Error 500" });
   }
 });
 
+app.get( "/placements/id:{}" )
+
 const PORT = process.env.PORT;
 app.listen(PORT, console.log(`server is listening on ${PORT}`));
+
+
